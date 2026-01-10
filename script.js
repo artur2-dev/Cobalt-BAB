@@ -606,14 +606,6 @@ if (copyNotification) {
             });
         }
         
-        // Превью 3D вида
-        document.querySelectorAll('.base-preview-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const baseId = this.getAttribute('data-base');
-                // Здесь можно добавить модальное окно с 3D превью
-                alert(`Превью базы #${baseId}. В будущем здесь будет 3D модель базы!`);
-            });
-        });
     }
     
     // ========== ОБНОВЛЕНИЕ ГОДА В ФУТЕРЕ ==========
