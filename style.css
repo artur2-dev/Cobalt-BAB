@@ -3054,6 +3054,133 @@ html {
 .expert-tip {
     display: flex;
     gap: 1rem;
+
+/* ========== Стили для карточек монументов (Лут) ========== */
+.monument-section {
+    margin-top: 1.6rem;
+}
+.muted-note {
+    color: var(--gray-color);
+    font-size: 0.95rem;
+    margin-bottom: 0.8rem;
+}
+.monument-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.6rem;
+}
+.monument-card {
+    padding: 1.4rem;
+}
+.monument-image {
+    width: 100%;
+    height: 160px;
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.04);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray-color);
+    font-size: 0.95rem;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    min-height: 160px;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.monument-image:focus {
+    outline: none;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), 0 0 0 4px rgba(52,152,219,0.06);
+}
+.monument-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.monument-image .placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: var(--gray-color);
+}
+.monument-image .placeholder .icon {
+    font-size: 28px;
+}
+
+/* Hover overlay text */
+.monument-image::after {
+    content: 'Вставить (Ctrl+V)';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10px;
+    background: rgba(10,25,47,0.7);
+    color: var(--light-color);
+    font-size: 0.85rem;
+    padding: 6px 10px;
+    border-radius: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.monument-image:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-2px);
+}
+.monument-meta {
+    display: flex;
+    gap: 1rem;
+    margin: 0.9rem 0;
+    color: var(--light-color);
+    font-size: 0.95rem;
+    flex-wrap: wrap;
+}
+.monument-loot {
+    margin: 0.6rem 0 0.8rem 1rem;
+    color: var(--gray-color);
+}
+.monument-tips {
+    color: var(--light-color);
+    font-size: 0.95rem;
+    margin-bottom: 0.8rem;
+}
+.monument-clear-btn {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: inline-grid;
+    place-items: center;
+    background: rgba(10,25,47,0.6);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: var(--accent-light);
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    transition: transform 0.12s ease, background 0.12s ease, opacity 0.12s ease;
+    opacity: 0.9;
+}
+.monument-clear-btn i {
+    font-size: 14px;
+}
+.monument-clear-btn:hover {
+    transform: translateY(-2px);
+    background: rgba(0,212,255,0.06);
+}
+
+/* hide clear button by default; JS will show when image present */
+.monument-clear-btn[hidden] {
+    display: none !important;
+}
+
+
     padding: 1.2rem;
     background: rgba(155, 89, 182, 0.1);
     border-radius: 12px;
@@ -4357,4 +4484,293 @@ html {
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+
+/* ========== СТИЛИ FAQ ========== */
+.faq-search-container {
+    margin: 3rem 0 2.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.faq-search {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+}
+
+.faq-search i {
+    position: absolute;
+    left: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent-color);
+    font-size: 1.1rem;
+    pointer-events: none;
+}
+
+.faq-search input {
+    width: 100%;
+    padding: 1rem 1.2rem 1rem 3.5rem;
+    background: rgba(16, 30, 51, 0.6);
+    border: 1.5px solid rgba(52, 152, 219, 0.3);
+    border-radius: 10px;
+    color: var(--light-color);
+    font-size: 1rem;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+}
+
+.faq-search input::placeholder {
+    color: rgba(150, 200, 255, 0.6);
+}
+
+.faq-search input:focus {
+    outline: none;
+    background: rgba(16, 30, 51, 0.8);
+    border-color: rgba(0, 212, 255, 0.5);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+}
+
+/* Фильтры категорий */
+.faq-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid rgba(52, 152, 219, 0.1);
+}
+
+.faq-filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    background: rgba(16, 30, 51, 0.6);
+    border: 1.3px solid rgba(52, 152, 219, 0.2);
+    color: var(--accent-light);
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+}
+
+.faq-filter-btn:hover {
+    background: rgba(52, 152, 219, 0.15);
+    border-color: rgba(0, 212, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.faq-filter-btn.active {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.3) 0%, rgba(52, 152, 219, 0.2) 100%);
+    border-color: rgba(0, 212, 255, 0.6);
+    color: var(--accent-color);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+}
+
+.faq-filter-btn i {
+    font-size: 1.1rem;
+}
+
+/* Аккордеон */
+.faq-accordion {
+    display: grid;
+    gap: 1.2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background: rgba(16, 30, 51, 0.7);
+    border: 1.2px solid rgba(52, 152, 219, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+}
+
+.faq-item:hover {
+    border-color: rgba(0, 212, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 20, 40, 0.3);
+}
+
+.faq-item.hidden {
+    display: none;
+}
+
+/* Заголовок аккордеона */
+.faq-header {
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.3s ease;
+    position: relative;
+}
+
+.faq-header:hover {
+    background: rgba(52, 152, 219, 0.08);
+}
+
+.faq-header h3 {
+    font-size: 1.15rem;
+    color: var(--light-color);
+    font-weight: 600;
+    margin: 0;
+    flex: 1;
+}
+
+.faq-header i {
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    margin-left: 1rem;
+}
+
+.faq-item.active .faq-header i {
+    transform: rotate(180deg);
+}
+
+/* Содержимое аккордеона */
+.faq-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+}
+
+.faq-item.active .faq-content {
+    max-height: 500px;
+}
+
+.faq-content p {
+    padding: 0 2rem 1.5rem;
+    color: var(--gray-color);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin: 0;
+}
+
+.faq-content code {
+    background: rgba(0, 0, 0, 0.3);
+    color: var(--accent-light);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+}
+
+.faq-content strong {
+    color: var(--accent-color);
+}
+
+/* Сообщение "не найдено" */
+.faq-no-results {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: rgba(16, 30, 51, 0.7);
+    border: 1.2px dashed rgba(52, 152, 219, 0.2);
+    border-radius: 12px;
+    max-width: 600px;
+    margin: 2rem auto;
+}
+
+.faq-no-results i {
+    font-size: 3rem;
+    color: var(--accent-color);
+    opacity: 0.5;
+    margin-bottom: 1rem;
+}
+
+.faq-no-results h3 {
+    color: var(--light-color);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.faq-no-results p {
+    color: var(--gray-color);
+    font-size: 1rem;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+    .faq-filters {
+        gap: 0.8rem;
+    }
+
+    .faq-filter-btn {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    .faq-header {
+        padding: 1.2rem 1.5rem;
+    }
+
+    .faq-header h3 {
+        font-size: 1rem;
+    }
+
+    .faq-content p {
+        padding: 0 1.5rem 1.2rem;
+        font-size: 0.95rem;
+    }
+
+    .faq-search input {
+        padding: 0.9rem 1rem 0.9rem 3.2rem;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .faq-search-container {
+        margin: 2rem 0 1.5rem;
+    }
+
+    .faq-filters {
+        gap: 0.6rem;
+        padding: 1.5rem 0;
+        margin-bottom: 2rem;
+    }
+
+    .faq-filter-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .faq-filter-btn i {
+        display: none;
+    }
+
+    .faq-header {
+        padding: 1rem 1.2rem;
+    }
+
+    .faq-header h3 {
+        font-size: 0.95rem;
+    }
+
+    .faq-header i {
+        font-size: 1rem;
+    }
+
+    .faq-content p {
+        padding: 0 1.2rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .faq-search input {
+        padding: 0.8rem 0.9rem 0.8rem 3rem;
+    }
+
+    .faq-search i {
+        left: 1rem;
+        font-size: 1rem;
+    }
 }

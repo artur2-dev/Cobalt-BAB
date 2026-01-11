@@ -865,6 +865,178 @@ function initializeSite() {
         }
     });
     
+    // ========== ЛОГИКА FAQ ==========
+    const faqItems = document.querySelectorAll('.faq-item');
+    const faqHeaders = document.querySelectorAll('.faq-header');
+    const faqFilterBtns = document.querySelectorAll('.faq-filter-btn');
+    const faqSearch = document.getElementById('faqSearch');
+    const faqNoResults = document.querySelector('.faq-no-results');
+    
+    // Открытие/закрытие вопроса
+    faqHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+            const faqItem = this.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // Закрываем все остальные вопросы
+            faqItems.forEach(item => {
+                if (item !== faqItem) {
+                    item.classList.remove('active');
+                }
+            });
+            
+            // Переключаем текущий
+            faqItem.classList.toggle('active');
+            
+            console.log(`📖 FAQ: ${isActive ? 'Закрыт' : 'Открыт'} вопрос`);
+        });
+    });
+    
+    // Фильтрация по категориям
+    faqFilterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const selectedCategory = this.getAttribute('data-category');
+            
+            // Обновляем активную кнопку
+            faqFilterBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Фильтруем вопросы
+            filterFAQItems(selectedCategory);
+            
+            console.log(`🔍 FAQ: Выбрана категория "${selectedCategory}"`);
+        });
+    });
+    
+    // Функция фильтрации
+    function filterFAQItems(category) {
+        let visibleCount = 0;
+        
+        faqItems.forEach(item => {
+            const itemCategory = item.getAttribute('data-category');
+            
+            if (category === 'all' || itemCategory === category) {
+                item.classList.remove('hidden');
+                visibleCount++;
+            } else {
+                item.classList.add('hidden');
+            }
+        });
+        
+        // Показываем/скрываем сообщение "не найдено"
+        if (visibleCount === 0) {
+            faqNoResults.style.display = 'block';
+        } else {
+            faqNoResults.style.display = 'none';
+        }
+    }
+    
+    // Поиск по вопросам
+    if (faqSearch) {
+        faqSearch.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            let visibleCount = 0;
+            
+            faqItems.forEach(item => {
+                const questionText = item.querySelector('h3').textContent.toLowerCase();
+                const answerText = item.querySelector('.faq-content p').textContent.toLowerCase();
+                
+                // Проверяем и активный фильтр
+                const activeFilter = document.querySelector('.faq-filter-btn.active');
+                const activeCategory = activeFilter.getAttribute('data-category');
+                const itemCategory = item.getAttribute('data-category');
+                
+                const matchesCategory = activeCategory === 'all' || itemCategory === activeCategory;
+                const matchesSearch = questionText.includes(searchTerm) || answerText.includes(searchTerm);
+                
+                if (matchesCategory && matchesSearch) {
+                    item.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+            
+            // Показываем/скрываем сообщение "не найдено"
+            if (visibleCount === 0) {
+                faqNoResults.style.display = 'block';
+            } else {
+                faqNoResults.style.display = 'none';
+            }
+            
+            console.log(`🔎 FAQ: Поиск по "${searchTerm}" - найдено ${visibleCount} результатов`);
+        });
+    }
+
+    // ========== ВСТАВКА ИЗОБРАЖЕНИЙ (CTRL+V) ДЛЯ КАРТОЧЕК МОНУМЕНТОВ ==========
+    // Логика: клик по .monument-image делает элемент активным, затем при paste вставляется первое изображение из буфера
+    (function enableMonumentPaste() {
+        let activeMonumentTarget = null;
+
+        document.querySelectorAll('.monument-image').forEach(el => {
+            // подсказка внутри если пусто
+            if (!el.innerHTML.trim()) {
+                el.textContent = 'Клик и вставьте изображение (Ctrl+V)';
+            }
+
+            el.addEventListener('click', () => {
+                // помечаем текущую целевую карточку
+                activeMonumentTarget = el;
+                document.querySelectorAll('.monument-image').forEach(x => x.classList.remove('active-paste'));
+                el.classList.add('active-paste');
+            });
+        });
+
+        // Убираем активность при клике вне карточки
+        document.addEventListener('click', (ev) => {
+            if (!ev.target.closest || !ev.target.closest('.monument-image')) {
+                document.querySelectorAll('.monument-image.active-paste').forEach(x => x.classList.remove('active-paste'));
+                activeMonumentTarget = null;
+            }
+        });
+
+        document.addEventListener('paste', (ev) => {
+            if (!activeMonumentTarget) return;
+            const clipboard = (ev.clipboardData || window.clipboardData);
+            if (!clipboard) return;
+
+            const items = clipboard.items || [];
+            for (let i = 0; i < items.length; i++) {
+                const item = items[i];
+                if (item.type && item.type.indexOf('image') !== -1) {
+                    const blob = item.getAsFile();
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        // Вставляем <img> внутрь контейнера
+                        activeMonumentTarget.innerHTML = '';
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        activeMonumentTarget.appendChild(img);
+                        activeMonumentTarget.classList.remove('active-paste');
+                        activeMonumentTarget = null;
+                    };
+                    reader.readAsDataURL(blob);
+                    ev.preventDefault();
+                    console.log('📎 Вставлено изображение в карточку монумента');
+                    break;
+                }
+            }
+        });
+
+        // Кнопки очистки изображения
+        document.addEventListener('click', (ev) => {
+            const btn = ev.target.closest && ev.target.closest('.monument-clear-btn');
+            if (btn) {
+                const card = btn.closest('.monument-card');
+                const holder = card && card.querySelector('.monument-image');
+                if (holder) {
+                    holder.innerHTML = '';
+                    holder.textContent = 'Клик и вставьте изображение (Ctrl+V)';
+                }
+            }
+        });
+    })();
+
     console.log('✅ Cobalt BAB инициализирован! Все системы готовы.');
 }
 

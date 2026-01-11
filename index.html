@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cobalt BAB - Лучшие бинды для Rust</title>
-    <link rel="stylesheet" href="style.css?v=4.3">
+    <link rel="stylesheet" href="style.css?v=4.4">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="https://cdn2.steamgriddb.com/icon/c291b01517f3e6797c774c306591cc32.png">
@@ -51,6 +51,7 @@
                 <a href="#home" class="nav-link active"><i class="fas fa-home"></i> Главная</a>
                 <a href="#binds" class="nav-link"><i class="fas fa-keyboard"></i> Бинды</a>
                 <a href="#guides" class="nav-link"><i class="fas fa-book"></i> Гайды</a>
+                <a href="#faq" class="nav-link"><i class="fas fa-question-circle"></i> FAQ</a>
                 <a href="#bases" class="nav-link"><i class="fas fa-envelope"></i>Базы</a>
                 <a href="#team" class="nav-link"><i class="fas fa-users"></i> Команда</a>
                 <a href="https://discord.gg/Q8ZfawakxS" class="nav-link discord-btn" target="_blank" rel="noopener noreferrer">
@@ -76,7 +77,7 @@
                     
                     <div class="hero-stats">
                         <div class="stat">
-                            <span class="stat-number">15+</span>
+                            <span class="stat-number">25+</span>
                             <span class="stat-label">Биндов</span>
                         </div>
                         <div class="stat">
@@ -191,6 +192,36 @@
             </div>
 
             <div class="bind-card">
+                <h3><i class="fas fa-exchange-alt"></i> Смена рук</h3>
+                <p class="bind-description">Позволяет менять руки местами</p>
+                <div class="bind-code">
+                    <code>bind клавиша +graphics.vm_horizontal_flip 0;graphics.vm_horizontal_flip 1</code>
+                    <button class="copy-btn" data-clipboard-text='bind клавиша +graphics.vm_horizontal_flip 0;graphics.vm_horizontal_flip 1'><i class="far fa-copy"></i> Копировать</button>
+                </div>
+                <div class="bind-key"><i class="fas fa-keyboard"></i> Клавиша: [укажи клавишу]</div>
+            </div>
+
+            <div class="bind-card">
+                <h3><i class="fas fa-terminal"></i> Авто-комбатлог</h3>
+                <p class="bind-description">Включает комбатлог как только открываешь консоль</p>
+                <div class="bind-code">
+                    <code>bind f1 "consoletoggle;combatlog"</code>
+                    <button class="copy-btn" data-clipboard-text='bind f1 "consoletoggle;combatlog"'><i class="far fa-copy"></i> Копировать</button>
+                </div>
+                <div class="bind-key"><i class="fas fa-keyboard"></i> Клавиша: F1</div>
+            </div>
+
+            <div class="bind-card">
+                <h3><i class="fas fa-eye"></i> Без инерции поворота головы</h3>
+                <p class="bind-description">Убирает замедление после поворачивания головы через Alt</p>
+                <div class="bind-code">
+                    <code>client.headlerp_inertia false</code>
+                    <button class="copy-btn" data-clipboard-text='client.headlerp_inertia false'><i class="far fa-copy"></i> Копировать</button>
+                </div>
+                <div class="bind-key"><i class="fas fa-keyboard"></i> Консоль (F1)</div>
+            </div>
+
+            <div class="bind-card">
                 <h3><i class="fas fa-user-secret"></i> Бинд на просвет воды</h3>
                 <p class="bind-description">Просмотр сквозь воду (обновлённый бинд)</p>
                 <div class="bind-code">
@@ -242,9 +273,19 @@
                 </div>
                 <div class="bind-key"><i class="fas fa-keyboard"></i> Клавиша: Q или Z</div>
             </div>
+
+            <div class="bind-card">
+                <h3><i class="fas fa-volume-mute"></i> Отключение звуков</h3>
+                <p class="bind-description">Убирает звук переработчика, коптера, дождя, ветра и прочих звуков окружения</p>
+                <div class="bind-code">
+                    <code>bind F6 ~meta.exec "audio.speakers 1";meta.exec "audio.speakers 2"</code>
+                    <button class="copy-btn" data-clipboard-text='bind F6 ~meta.exec "audio.speakers 1";meta.exec "audio.speakers 2"'><i class="far fa-copy"></i> Копировать</button>
+                </div>
+                <div class="bind-key"><i class="fas fa-keyboard"></i> Клавиша: F6</div>
+            </div>
             
             <div class="bind-card">
-                <h3><i class="fas fa-map"></i> Открытие карты</h3>
+                <h3><i class="fas fa-shield-alt"></i> Открытие карты</h3>
                 <p class="bind-description">Быстрый доступ к карте</p>
                 <div class="bind-code">
                     <code>bind m "map"</code>
@@ -252,9 +293,69 @@
                 </div>
                 <div class="bind-key"><i class="fas fa-keyboard"></i> Клавиша: M</div>
             </div>
+
+            <div class="bind-card">
+                <h3><i class="fas fa-syringe"></i> Шприцы</h3>
+                <p class="bind-description">Крафт 10 шприцев</p>
+                <div class="bind-code">
+                    <code>bind X craft.add 1079279582 10</code>
+                    <button class="copy-btn" data-clipboard-text='bind X craft.add 1079279582 10'><i class="far fa-copy"></i> Копировать</button>
+                </div>
+                <div class="bind-key"><i class="fas fa-keyboard"></i> Клавиша: X</div>
+            </div>
+
+            <div class="bind-card">
+                <h3><i class="fas fa-gas-pump"></i> Топливо низкого качества</h3>
+                <p class="bind-description">Крафт 100 топлива низкого качества</p>
+                <div class="bind-code">
+                    <code>bind X craft.add -946369541 100</code>
+                    <button class="copy-btn" data-clipboard-text='bind X craft.add -946369541 100'><i class="far fa-copy"></i> Копировать</button>
+                </div>
+                <div class="bind-key"><i class="fas fa-keyboard"></i> Клавиша: X</div>
+            </div>
+
+            <div class="bind-card">
+                <h3><i class="fas fa-undo-alt"></i> Авто-присед</h3>
+                <p class="bind-description">Приседает за вас при прыжке если над вами есть потолок</p>
+                <div class="bind-code">
+                    <code>input.autocrouch true</code>
+                    <button class="copy-btn" data-clipboard-text='input.autocrouch true'><i class="far fa-copy"></i> Копировать</button>
+                </div>
+                <div class="bind-key"><i class="fas fa-keyboard"></i> Клавиша: [в консоли]</div>
+            </div>
+
+            <div class="bind-card">
+                <h3><i class="fas fa-broom"></i> Уборка обломков</h3>
+                <p class="bind-description">Убирает обломки после разрушения построек (полностью)</p>
+                <div class="bind-code">
+                    <code>effects.maxgibs -1</code>
+                    <button class="copy-btn" data-clipboard-text='effects.maxgibs -1'><i class="far fa-copy"></i> Копировать</button>
+                </div>
+                <div class="bind-key"><i class="fas fa-keyboard"></i> Клавиша: [в консоли]</div>
+            </div>
+
+            <div class="bind-card">
+                <h3><i class="fas fa-archive"></i> 10 шкафов</h3>
+                <p class="bind-description">Крафт 10 шкафов для хранения</p>
+                <div class="bind-code">
+                    <code>bind X "craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382"</code>
+                    <button class="copy-btn" data-clipboard-text='bind X "craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382"'><i class="far fa-copy"></i> Копировать</button>
+                </div>
+                <div class="bind-key"><i class="fas fa-keyboard"></i> Клавиша: X</div>
+            </div>
+
+            <div class="bind-card">
+                <h3><i class="fas fa-volume-mute"></i> Тихие хиты</h3>
+                <p class="bind-description">Меньше звуков хитов (не регнутые попадания молчат)</p>
+                <div class="bind-code">
+                    <code>hitnotify.notification_level 2</code>
+                    <button class="copy-btn" data-clipboard-text='hitnotify.notification_level 2'><i class="far fa-copy"></i> Копировать</button>
+                </div>
+                <div class="bind-key"><i class="fas fa-keyboard"></i> Клавиша: [в консоли]</div>
+            </div>
             
             <div class="bind-card">
-                <h3><i class="fas fa-backpack"></i>Скрытые углы</h3>
+                <h3><i class="fas fa-eye-slash"></i>Скрытые углы</h3>
                 <p class="bind-description">Уменьшает детализацию, открывая новые позиции для стрельбы</p>
                 <div class="bind-code">
                     <code>mesh.quality 28</code>
@@ -307,6 +408,16 @@
                     <button class="copy-btn" data-clipboard-text='bind k "chat.say /kit"'><i class="far fa-copy"></i> Копировать</button>
                 </div>
                 <div class="bind-key"><i class="fas fa-keyboard"></i> Клавиша: K</div>
+            </div>
+
+            <div class="bind-card">
+                <h3><i class="fas fa-tools"></i> Калаш фулл обвес</h3>
+                <p class="bind-description">Крафт АК с полным обвесом (ствол, приклад, рукоятка, магазин)</p>
+                <div class="bind-code">
+                    <code>bind key "craft.add 1545779598;craft.add -132516482;craft.add 2005491391;craft.add 442289265"</code>
+                    <button class="copy-btn" data-clipboard-text='bind key "craft.add 1545779598;craft.add -132516482;craft.add 2005491391;craft.add 442289265"'><i class="far fa-copy"></i> Копировать</button>
+                </div>
+                <div class="bind-key"><i class="fas fa-keyboard"></i> Клавиша: [укажи клавишу]</div>
             </div>
             
             <div class="bind-card">
@@ -890,6 +1001,94 @@
                             </div>
                         </div>
                     </div>
+                        
+                            <!-- Лут монументов / Карточки -->
+                            <div class="monument-section">
+                                <h4 class="guide-subtitle">Лут монументов</h4>
+                                <p class="muted-note">Нажмите на область изображения и вставьте скриншот (Ctrl+V). Можно удалить изображение кнопкой "Очистить изображение".</p>
+                                <div class="guide-cards-grid monument-grid">
+                                    <!-- card templates -->
+                                    <div class="guide-card monument-card">
+                                        <div class="monument-image" tabindex="0" role="button" aria-label="Вставить изображение для монумента"></div>
+                                        <h5 class="guide-card-title">Древняя фабрика <span class="small-muted">— Монумент</span></h5>
+                                        <div class="monument-meta">
+                                            <div><strong>Сложность:</strong> Средняя</div>
+                                            <div><strong>Рейдовый лут:</strong> Боеприпасы, запчасти</div>
+                                        </div>
+                                        <ul class="monument-loot">
+                                            <li>Высокочастотный кондиционер (редкий)</li>
+                                            <li>Платы и детали</li>
+                                            <li>Ящики с боеприпасами</li>
+                                        </ul>
+                                        <div class="monument-tips"><strong>Совет:</strong> Возьмите с собой дымовую гранату и аптечки.</div>
+                                        <button class="monument-clear-btn" title="Очистить изображение" aria-label="Очистить изображение"><i class="fas fa-trash-alt" aria-hidden="true"></i></button>
+                                    </div>
+
+                                    <!-- repeat cards 4 more times (editable by user) -->
+                                    <div class="guide-card monument-card">
+                                        <div class="monument-image" tabindex="0" role="button" aria-label="Вставить изображение для монумента"></div>
+                                        <h5 class="guide-card-title">Заброшенный офис <span class="small-muted">— Монумент</span></h5>
+                                        <div class="monument-meta">
+                                            <div><strong>Сложность:</strong> Лёгкая</div>
+                                            <div><strong>Рейдовый лут:</strong> Наборы инструментов</div>
+                                        </div>
+                                        <ul class="monument-loot">
+                                            <li>Инструменты</li>
+                                            <li>Мастерские детали</li>
+                                        </ul>
+                                        <div class="monument-tips"><strong>Совет:</strong> Осмотрите верхние этажи на наличие металлических ящиков.</div>
+                                        <button class="monument-clear-btn" title="Очистить изображение" aria-label="Очистить изображение"><i class="fas fa-trash-alt" aria-hidden="true"></i></button>
+                                    </div>
+
+                                    <div class="guide-card monument-card">
+                                        <div class="monument-image" tabindex="0" role="button" aria-label="Вставить изображение для монумента"></div>
+                                        <h5 class="guide-card-title">Фермерский склад <span class="small-muted">— Монумент</span></h5>
+                                        <div class="monument-meta">
+                                            <div><strong>Сложность:</strong> Лёгкая</div>
+                                            <div><strong>Рейдовый лут:</strong> Еда, ткань</div>
+                                        </div>
+                                        <ul class="monument-loot">
+                                            <li>Консервы</li>
+                                            <li>Ткани</li>
+                                        </ul>
+                                        <div class="monument-tips"><strong>Совет:</strong> Идеально для первых стартовых лутов.</div>
+                                        <button class="monument-clear-btn" title="Очистить изображение" aria-label="Очистить изображение"><i class="fas fa-trash-alt" aria-hidden="true"></i></button>
+                                    </div>
+
+                                    <div class="guide-card monument-card">
+                                        <div class="monument-image" tabindex="0" role="button" aria-label="Вставить изображение для монумента"></div>
+                                        <h5 class="guide-card-title">Радио-маяк <span class="small-muted">— Монумент</span></h5>
+                                        <div class="monument-meta">
+                                            <div><strong>Сложность:</strong> Высокая</div>
+                                            <div><strong>Рейдовый лут:</strong> Электроника</div>
+                                        </div>
+                                        <ul class="monument-loot">
+                                            <li>Радиооборудование</li>
+                                            <li>Крупные платы</li>
+                                        </ul>
+                                        <div class="monument-tips"><strong>Совет:</strong> Берите броню и запас аптечек.</div>
+                                        <button class="monument-clear-btn" title="Очистить изображение" aria-label="Очистить изображение"><i class="fas fa-trash-alt" aria-hidden="true"></i></button>
+                                    </div>
+
+                                    <div class="guide-card monument-card">
+                                        <div class="monument-image" tabindex="0" role="button" aria-label="Вставить изображение для монумента"></div>
+                                        <h5 class="guide-card-title">Атомный реактор <span class="small-muted">— Монумент</span></h5>
+                                        <div class="monument-meta">
+                                            <div><strong>Сложность:</strong> Очень высокая</div>
+                                            <div><strong>Рейдовый лут:</strong> Редкий металл, электроника</div>
+                                        </div>
+                                        <ul class="monument-loot">
+                                            <li>Ящики с редкими материалами</li>
+                                            <li>Сборки электроники</li>
+                                        </ul>
+                                        <div class="monument-tips"><strong>Совет:</strong> Не идите в одиночку — готовьтесь к агрессивным NPC и игрокам.</div>
+                                        <button class="monument-clear-btn" title="Очистить изображение" aria-label="Очистить изображение"><i class="fas fa-trash-alt" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Гайд по строительству базы -->
@@ -1139,6 +1338,207 @@
                         <i class="fab fa-discord"></i>
                         <span>Получить помощь в Discord</span>
                     </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== СЕКЦИЯ FAQ ========== -->
+        <section id="faq" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title"><i class="fas fa-question-circle"></i> Часто задаваемые вопросы</h2>
+                    <p class="section-subtitle">Не нашёл ответ? Напиши нам в Discord!</p>
+                </div>
+
+                <!-- Поиск по вопросам -->
+                <div class="faq-search-container">
+                    <div class="faq-search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="faqSearch" placeholder="Поиск вопроса...">
+                    </div>
+                </div>
+
+                <!-- Фильтры по категориям -->
+                <div class="faq-filters">
+                    <button class="faq-filter-btn active" data-category="all">
+                        <i class="fas fa-list"></i> Все
+                    </button>
+                    <button class="faq-filter-btn" data-category="gameplay">
+                        <i class="fas fa-gamepad"></i> Геймплей
+                    </button>
+                    <button class="faq-filter-btn" data-category="technical">
+                        <i class="fas fa-cogs"></i> Технические
+                    </button>
+                    <button class="faq-filter-btn" data-category="trading">
+                        <i class="fas fa-exchange-alt"></i> Торговля
+                    </button>
+                    <button class="faq-filter-btn" data-category="binds">
+                        <i class="fas fa-keyboard"></i> Бинды
+                    </button>
+                </div>
+
+                <!-- Аккордеон вопросов -->
+                <div class="faq-accordion">
+                    <!-- ГЕЙМПЛЕЙ -->
+                    <div class="faq-item" data-category="gameplay">
+                        <div class="faq-header">
+                            <h3>Как начать играть на сервере?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-content">
+                            <p>Присоединись к нашему Discord серверу, получи подтверждение, затем подключись к игровому серверу Rust через консоль командой: <code>connect IP:порт</code>. После спауна соберёшь первые ресурсы и начнёшь строить базу.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" data-category="gameplay">
+                        <div class="faq-header">
+                            <h3>Как заработать первый скрап?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-content">
+                            <p>Собирай камень и дерево, крафти печь. После этого ищи радиоактивные зоны, там можно найти скрап и электро-компоненты. Или торгуй с игроками! Ранняя торговля - отличный способ заработать.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" data-category="gameplay">
+                        <div class="faq-header">
+                            <h3>Что такое монумент и зачем туда идти?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-content">
+                            <p>Монументы - это большие структуры на карте (маяки, радиостанции и т.д.). Там можно найти хороший лут: компоненты, оружие, ресурсы. Но осторожно - там радиация, враги или другие игроки!</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" data-category="gameplay">
+                        <div class="faq-header">
+                            <h3>Как защитить свою базу?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-content">
+                            <p>Строй стены из бетона/металла, ставь дверные кодовые замки, используй турели для защиты. Спрячь ценные вещи в подвале. Чем менее заметна база, тем лучше. Избегай высоких стен, которые сразу видны издалека.</p>
+                        </div>
+                    </div>
+
+                    <!-- ТЕХНИЧЕСКИЕ -->
+                    <div class="faq-item" data-category="technical">
+                        <div class="faq-header">
+                            <h3>Почему я лагую на сервере?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-content">
+                            <p>Возможные причины: слабый интернет, перегруженный ПК, высокий пинг, слишком много объектов на экране. Попробуй: снизить графику, закрыть фоновые программы, перезагрузить игру или сервер. Если проблема глобальная - напиши администратору.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" data-category="technical">
+                        <div class="faq-header">
+                            <h3>Как улучшить FPS в Rust?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-content">
+                            <p>Снизь графические параметры: качество текстур, дальность отрисовки, объём травы. Отключи в консоли: <code>gfx.ssao false</code>, <code>gfx.bloom false</code>. Закрой фоновые приложения (Discord, Chrome). Свежие драйверы видеокарты помогут!</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" data-category="technical">
+                        <div class="faq-header">
+                            <h3>Какие системные требования к игре?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-content">
+                            <p><strong>Минимум:</strong> Intel i7 или AMD Ryzen 5, 16GB RAM, GTX 1060. <strong>Рекомендуется:</strong> i9/Ryzen 9, 32GB RAM, RTX 3070+. Rust очень требователен к ресурсам! На серверах обычно нужен более мощный ПК.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" data-category="technical">
+                        <div class="faq-header">
+                            <h3>Как исправить ошибку подключения к серверу?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-content">
+                            <p>Проверь: 1) IP адрес сервера верный? 2) Порт открыт в брандмауэре? 3) Версия игры актуальная? 4) Сервер онлайн? Попробуй перезагрузить игру, консоль, маршрутизатор. Если не помогает - свяжись с администратором.</p>
+                        </div>
+                    </div>
+
+                    <!-- ТОРГОВЛЯ -->
+                    <div class="faq-item" data-category="trading">
+                        <div class="faq-header">
+                            <h3>Как начать торговать с другими игроками?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-content">
+                            <p>Напиши игроку в чат или Discord что продаёшь/покупаешь. Договоритесь о месте встречи в нейтральной зоне. Используй <code>trade</code> команду для безопасной торговли. Всегда проверяй что даёшь и что получаешь!</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" data-category="trading">
+                        <div class="faq-header">
+                            <h3>Какие цены справедливые за ресурсы?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-content">
+                            <p>Цены варьируются в зависимости от спроса: <strong>Скрап:</strong> 1-5 за вещь, <strong>Дерево:</strong> 1-2 дерева за 1 компонент, <strong>Камень:</strong> 5-10 за 1 компонент. Проверь текущий курс в Discord торговле перед покупкой!</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" data-category="trading">
+                        <div class="faq-header">
+                            <h3>Как не потерять вещи при торговле?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-content">
+                            <p>Встречайся только с проверенными игроками. Используй торговый интерфейс игры. Не кидай предметы на землю. Встречайся в безопасной зоне рядом с администратором или другими игроками. Если тебя обманули - напиши в Discord!</p>
+                        </div>
+                    </div>
+
+                    <!-- БИНДЫ -->
+                    <div class="faq-item" data-category="binds">
+                        <div class="faq-header">
+                            <h3>Какие бинды самые важные для начинающего?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-content">
+                            <p><strong>Топ 5:</strong> 1) Hover Loot (E) - быстрый лут, 2) Быстрое лечение (3) - скорая помощь, 3) Крупье сидя (Z) - точная стрельба, 4) Зум (Mouse3) - прицелы, 5) Просвет воды (X) - видишь сквозь воду. На нашем сайте найдёшь готовые сеты биндов!</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" data-category="binds">
+                        <div class="faq-header">
+                            <h3>Как отключить звуки в игре?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-content">
+                            <p>В консоли введи: <code>game.freecam_sensitivity_x 1.5</code> или используй звуковые параметры. Чтобы отключить звуки врагов: <code>master.volume 0</code>. Но лучше настрой звук нормально - это поможет услышать врагов и ловушки!</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" data-category="binds">
+                        <div class="faq-header">
+                            <h3>Как сбросить все бинды по умолчанию?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-content">
+                            <p>В консоли (нажми F1) введи: <code>input.deletekeybindings</code> - это сбросит все бинды. После этого сможешь заново их настроить или скопировать готовые сеты с нашего сайта. Будь осторожен - это действие необратимо!</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" data-category="binds">
+                        <div class="faq-header">
+                            <h3>Где скопировать готовые бинды для PvP?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-content">
+                            <p>На нашем сайте в секции "Бинды" есть готовые наборы для PvP, выживания и автоматизации. Просто нажми кнопку "Копировать", затем открой консоль Rust (F1) и вставь команды пастой (Ctrl+V). Готово!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Сообщение если ничего не найдено -->
+                <div class="faq-no-results" style="display: none;">
+                    <i class="fas fa-search"></i>
+                    <h3>Вопросы не найдены</h3>
+                    <p>Попробуй другой поиск или выбери другую категорию</p>
                 </div>
             </div>
         </section>
