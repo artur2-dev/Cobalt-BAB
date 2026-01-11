@@ -351,6 +351,41 @@ if (nav && nav.classList.contains('active')) {
     });
 
     
+    // ========== ОТСЛЕЖИВАНИЕ АКТИВНОГО РАЗДЕЛА ПРИ ПРОКРУТКЕ ==========
+    function updateActiveNavLink() {
+        const scrollPosition = window.scrollY;
+        const headerHeight = header.offsetHeight;
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - headerHeight - 100;
+            const sectionBottom = sectionTop + section.offsetHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                // Убираем активный класс у всех ссылок
+                navLinks.forEach(link => link.classList.remove('active'));
+                
+                // Добавляем активный класс к соответствующей ссылке
+                const activeLink = document.querySelector(`a[href="#${section.id}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                    console.log(`📍 Активная секция: #${section.id}`);
+                }
+            }
+        });
+    }
+    
+    // Слушаем событие прокрутки
+    window.addEventListener('scroll', updateActiveNavLink);
+    
+    // ========== STICKY HEADER - ЭФФЕКТ ПРИ ПРОКРУТКЕ ==========
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+    
     // ========== ФИКС ДЛЯ Discord КНОПОК В ДРУГИХ МЕСТАХ ==========
     // Кнопка "Присоединиться" в Hero секции
     const discordHeroBtn = document.querySelector('.hero-btn[href*="discord"]');

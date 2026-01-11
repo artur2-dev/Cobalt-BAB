@@ -4,6 +4,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* Оптимизация для touch устройств */
+    -webkit-tap-highlight-color: transparent;
 }
 
 :root {
@@ -25,6 +27,36 @@
     --gradient-primary: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
     --gradient-accent: linear-gradient(135deg, #00d4ff 0%, #0088cc 100%);
     --gradient-dark: linear-gradient(135deg, #0a192f 0%, #0c1a2d 100%);
+}
+
+/* ========== ОПТИМИЗАЦИЯ ДЛЯ МОБИЛЬНЫХ ========== */
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 13px;
+    }
+    
+    /* Увеличиваем минимальный размер элементов для удобства касания (44x44px) */
+    button,
+    a,
+    input,
+    select,
+    textarea {
+        min-height: 44px;
+        font-size: 16px;
+    }
+    
+    /* Отключаем zoom при клике на инпуты */
+    input,
+    textarea,
+    select {
+        font-size: 16px !important;
+    }
 }
 
 /* ========== ЗИМНИЙ ЭФФЕКТ СНЕГА ========== */
@@ -264,11 +296,39 @@ nav {
     background: var(--gradient-primary);
     color: white;
     box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+    border: 2px solid rgba(0, 212, 255, 0.5);
+    position: relative;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+    animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateX(-50%) scale(1.3);
+        opacity: 0.7;
+    }
 }
 
 .nav-link.active:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.6);
+    box-shadow: 0 6px 25px rgba(52, 152, 219, 0.6),
+                0 0 20px rgba(0, 212, 255, 0.4);
 }
 
 .discord-btn {
@@ -1467,7 +1527,18 @@ footer::before {
     
     .btn {
         width: 100%;
-        max-width: 320px;
+        max-width: 100%;
+        padding: 1.2rem 2rem;
+        font-size: 1rem;
+        min-height: 50px;
+    }
+    
+    .primary-btn,
+    .secondary-btn {
+        width: 100%;
+        padding: 1.3rem 2rem;
+        font-size: 1.05rem;
+        min-height: 52px;
     }
     
     .info-cards {
@@ -1488,6 +1559,9 @@ footer::before {
     .copy-btn {
         align-self: stretch;
         justify-content: center;
+        padding: 1rem 1.5rem;
+        min-height: 44px;
+        font-size: 0.95rem;
     }
     
     .team-container {
@@ -1574,6 +1648,28 @@ footer::before {
     
     .section-title i {
         font-size: 1.8rem;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 100%;
+        padding: 1.1rem 1.8rem;
+        font-size: 0.95rem;
+        min-height: 48px;
+    }
+    
+    .primary-btn,
+    .secondary-btn {
+        width: 100%;
+        padding: 1.1rem 1.8rem;
+        font-size: 0.95rem;
+        min-height: 48px;
+    }
+    
+    .copy-btn {
+        padding: 0.9rem 1.2rem;
+        min-height: 42px;
+        font-size: 0.9rem;
     }
     
     .bind-card {
@@ -2276,8 +2372,22 @@ html {
     }
     
     .hero-btn {
-        padding: 1rem 1.5rem;
+        padding: 1.1rem 1.8rem;
         font-size: 1rem;
+        min-height: 48px;
+    }
+    
+    .btn {
+        padding: 1rem 1.5rem;
+        min-height: 46px;
+        font-size: 0.95rem;
+    }
+    
+    .primary-btn,
+    .secondary-btn {
+        padding: 1rem 1.5rem;
+        min-height: 46px;
+        font-size: 0.95rem;
     }
     
     .cta-buttons {
@@ -2289,6 +2399,23 @@ html {
     .hero-btn {
         width: 100%;
         justify-content: center;
+    }
+    
+    .nav-link {
+        padding: 0.7rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .copy-btn {
+        padding: 0.85rem 1rem;
+        min-height: 40px;
+        font-size: 0.85rem;
+    }
+    
+    .tab-btn {
+        padding: 0.8rem 1.2rem;
+        min-height: 40px;
+        font-size: 0.85rem;
     }
 }
 
