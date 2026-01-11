@@ -104,55 +104,83 @@ function initializeSite() {
     const header = document.querySelector('header');
     
     // ========== ГАМБУРГЕР-МЕНЮ (ТОЛЬКО НА МОБИЛЬНЫХ) ==========
-    if (window.innerWidth <= 992) {
-        const hamburger = document.createElement('button');
-        hamburger.className = 'hamburger';
-        hamburger.innerHTML = '<span></span><span></span><span></span>';
-        hamburger.setAttribute('aria-label', 'Меню');
+if (window.innerWidth <= 992) {
+    const hamburger = document.createElement('button');
+    hamburger.className = 'hamburger';
+    hamburger.innerHTML = '<span></span><span></span><span></span>';
+    hamburger.setAttribute('aria-label', 'Меню');
+    hamburger.setAttribute('aria-expanded', 'false');
+
+    // Создаем оверлей для меню
+    const menuOverlay = document.createElement('div');
+    menuOverlay.className = 'menu-overlay';
+
+    // Вставляем кнопку в хедер
+    const headerContainer = document.querySelector('header .container');
+    const mobileControls = document.createElement('div');
+    mobileControls.className = 'mobile-header-controls';
+    mobileControls.appendChild(hamburger);
+    headerContainer.appendChild(mobileControls);
+    document.body.appendChild(menuOverlay);
+
+    const nav = document.querySelector('nav');
+
+    // Функция закрытия меню
+    function closeMenu() {
+        hamburger.classList.remove('active');
+        nav.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        document.body.classList.remove('menu-open');
         hamburger.setAttribute('aria-expanded', 'false');
-
-        // Создаем оверлей для меню
-        const menuOverlay = document.createElement('div');
-        menuOverlay.className = 'menu-overlay';
-
-        // Вставляем кнопку в хедер
-        const headerContainer = document.querySelector('header .container');
-        const mobileControls = document.createElement('div');
-        mobileControls.className = 'mobile-header-controls';
-        mobileControls.appendChild(hamburger);
-        headerContainer.appendChild(mobileControls);
-        document.body.appendChild(menuOverlay);
-
-        const nav = document.querySelector('nav');
-
-        // Функция переключения меню
-        function toggleMenu() {
-            const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
-            hamburger.classList.toggle('active');
-            nav.classList.toggle('active');
-            menuOverlay.classList.toggle('active');
-            document.body.classList.toggle('menu-open');
-            hamburger.setAttribute('aria-expanded', !isExpanded);
-        }
-
-        // Обработчики для гамбургера
-        hamburger.addEventListener('click', toggleMenu);
-        menuOverlay.addEventListener('click', toggleMenu);
-
-        // Закрытие меню при клике на ссылку
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                setTimeout(toggleMenu, 300);
-            });
-        });
-
-        // Закрытие меню клавишей ESC
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && nav.classList.contains('active')) {
-                toggleMenu();
-            }
-        });
     }
+
+    // Функция переключения меню
+    function toggleMenu() {
+        const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.classList.toggle('active');
+        nav.classList.toggle('active');
+        menuOverlay.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+        hamburger.setAttribute('aria-expanded', !isExpanded);
+    }
+
+    // Обработчики для гамбургера
+    hamburger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        toggleMenu();
+    });
+    
+    menuOverlay.addEventListener('click', closeMenu);
+
+    // Закрытие меню при клике на ссылку - ИЗМЕНЕНИЕ ЗДЕСЬ
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Для Discord ссылок - не закрываем меню сразу
+            if (this.href.includes('discord.gg') || 
+                this.classList.contains('discord-btn') ||
+                this.textContent.includes('Discord')) {
+                return; // Выходим без закрытия меню
+            }
+            
+            // Закрываем меню сразу, без задержки
+            closeMenu();
+        });
+    });
+
+    // Закрытие меню клавишей ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && nav.classList.contains('active')) {
+            closeMenu();
+        }
+    });
+
+    // Закрытие меню при изменении размера окна
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 992 && nav.classList.contains('active')) {
+            closeMenu();
+        }
+    });
+}
     
     // ========== ОБРАБОТКА КНОПКИ "СМОТРЕТЬ БИНДЫ" ==========
     const viewBindsButton = document.querySelector('.hero-btn[href="#binds"]');
@@ -290,7 +318,7 @@ function initializeSite() {
             
             // Обновляем URL без перезагрузки страницы
             history.pushState(null, null, `#${targetId}`);
-            
+            /*
             // Закрываем мобильное меню если оно открыто
             const nav = document.querySelector('nav');
             if (nav && nav.classList.contains('active')) {
@@ -302,8 +330,26 @@ function initializeSite() {
                 document.body.classList.remove('menu-open');
                 hamburger.setAttribute('aria-expanded', 'false');
             }
+            */
+           const nav = document.querySelector('nav');
+if (nav && nav.classList.contains('active')) {
+    // Используем функцию closeMenu, если она существует
+    if (typeof closeMenu === 'function') {
+        closeMenu();
+    } else {
+        // Fallback на случай, если функция не определена
+        const hamburger = document.querySelector('.hamburger');
+        const menuOverlay = document.querySelector('.menu-overlay');
+        hamburger.classList.remove('active');
+        nav.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        document.body.classList.remove('menu-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+    }
+}
         });
     });
+
     
     // ========== ФИКС ДЛЯ Discord КНОПОК В ДРУГИХ МЕСТАХ ==========
     // Кнопка "Присоединиться" в Hero секции
