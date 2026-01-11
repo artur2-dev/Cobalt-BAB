@@ -1106,18 +1106,48 @@ footer::before {
 
 @media (max-width: 768px) {
     header .container {
-        flex-direction: column;
+        flex-direction: row;
         gap: 1.5rem;
+        align-items: center;
     }
     
+    /* На 768px и меньше все еще показываем мобильное меню */
     nav {
-        flex-wrap: wrap;
-        justify-content: center;
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: var(--gradient-dark);
+        flex-direction: column;
+        padding: 100px 0;
+        z-index: 999;
+        overflow-y: auto;
+        gap: 0;
+        justify-content: flex-start;
+    }
+    
+    nav.active {
+        display: flex;
     }
     
     .nav-link {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
+        padding: 1.2rem 2rem;
+        font-size: 1.1rem;
+        width: 100%;
+        border-radius: 0;
+        justify-content: flex-start;
+        border-bottom: 1px solid rgba(52, 152, 219, 0.1);
+    }
+    
+    .nav-link:hover {
+        background: rgba(52, 152, 219, 0.1);
+    }
+    
+    .nav-link.active {
+        background: var(--gradient-primary);
+        border-left: 4px solid var(--accent-color);
     }
     
     .hero {
@@ -3842,6 +3872,46 @@ html {
     
     .hamburger.active span:nth-child(3) {
         transform: translateY(-10px) rotate(-45deg);
+    }
+    
+    /* МОБИЛЬНАЯ НАВИГАЦИЯ */
+    nav {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: var(--gradient-dark);
+        flex-direction: column;
+        padding: 100px 0;
+        z-index: 999;
+        overflow-y: auto;
+        gap: 0;
+        justify-content: flex-start;
+    }
+    
+    nav.active {
+        display: flex;
+    }
+    
+    nav.active .nav-link {
+        width: 100%;
+        padding: 1.2rem 2rem;
+        border-radius: 0;
+        justify-content: flex-start;
+        border-bottom: 1px solid rgba(52, 152, 219, 0.1);
+        font-size: 1.1rem;
+    }
+    
+    nav.active .nav-link:hover {
+        background: rgba(52, 152, 219, 0.1);
+    }
+    
+    nav.active .nav-link.active {
+        background: var(--gradient-primary);
+        border-left: 4px solid var(--accent-color);
+        padding-left: calc(2rem - 4px);
     }
     
     /* Показываем оверлей только когда меню открыто */
