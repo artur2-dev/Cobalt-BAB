@@ -18,7 +18,118 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // ========== ГАМБУРГЕР-МЕНЮ ==========
+const hamburger = document.createElement('button');
+hamburger.className = 'hamburger';
+hamburger.innerHTML = '<span></span><span></span><span></span>';
+hamburger.setAttribute('aria-label', 'Меню');
+hamburger.setAttribute('aria-expanded', 'false');
+
+// Создаем оверлей для меню
+const menuOverlay = document.createElement('div');
+menuOverlay.className = 'menu-overlay';
+
+// Вставляем кнопку в хедер
+const headerContainer = document.querySelector('header .container');
+const mobileControls = document.createElement('div');
+mobileControls.className = 'mobile-header-controls';
+mobileControls.appendChild(hamburger);
+headerContainer.appendChild(mobileControls);
+document.body.appendChild(menuOverlay);
+
+const nav = document.querySelector('nav');
+
+// Функция переключения меню
+function toggleMenu() {
+    const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+    hamburger.classList.toggle('active');
+    nav.classList.toggle('active');
+    menuOverlay.classList.toggle('active');
+    document.body.classList.toggle('menu-open');
+    hamburger.setAttribute('aria-expanded', !isExpanded);
+}
+
+// Обработчики для гамбургера
+hamburger.addEventListener('click', toggleMenu);
+menuOverlay.addEventListener('click', toggleMenu);
+
+// Закрытие меню при клике на ссылку
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 992) {
+            setTimeout(toggleMenu, 300); // Даем время для плавного перехода
+        }
+    });
+});
+
+// Закрытие меню при ресайзе окна (если перешли на десктоп)
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 992) {
+        hamburger.classList.remove('active');
+        nav.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        document.body.classList.remove('menu-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+    }
+});
+
+// Закрытие меню клавишей ESC
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav.classList.contains('active')) {
+        toggleMenu();
+    }
+});
+
+// ========== УЛУЧШЕНИЕ ДЛЯ МОБИЛЬНЫХ ==========
+// Увеличиваем тап-зоны для мобильных
+if ('ontouchstart' in window || navigator.maxTouchPoints) {
+    document.querySelectorAll('.copy-btn, .tab-btn, .filter-btn, .guide-tab-btn').forEach(btn => {
+        btn.style.minHeight = '44px';
+        btn.style.padding = '0.8rem 1.2rem';
+    });
+}
+
+// Оптимизация для медленных устройств
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    // Упрощаем анимации для мобильных
+    document.documentElement.style.setProperty('--transition', 'all 0.3s ease');
     
+    // Отключаем параллакс для экономии батареи
+    window.removeEventListener('scroll', () => {});
+}
+
+// ========== УЛУЧШЕНИЕ ПРОИЗВОДИТЕЛЬНОСТИ ==========
+// Ленивая загрузка изображений
+document.addEventListener('DOMContentLoaded', function() {
+    const lazyImages = document.querySelectorAll('img[data-src]');
+    
+    const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.getAttribute('data-src');
+                img.removeAttribute('data-src');
+                imageObserver.unobserve(img);
+            }
+        });
+    });
+    
+    lazyImages.forEach(img => imageObserver.observe(img));
+});
+
+// Предзагрузка критичных ресурсов
+const criticalResources = [
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
+    'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap'
+];
+
+criticalResources.forEach(resource => {
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'style';
+    link.href = resource;
+    document.head.appendChild(link);
+});
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -718,3 +829,78 @@ if (copyNotification) {
     console.log('   • Анимации плавные и оптимизированные');
     console.log('   • Секция баз с фильтрацией и сортировкой');
 });
+// В самом конце вашего основного скрипта, после console.log('✅ Cobalt BAB инициализирован!...')
+
+// ========== ПРЕЛОАДЕР ==========
+const preloader = document.querySelector('.preloader');
+const progressFill = document.querySelector('.progress-fill');
+const progressPercent = document.querySelector('.progress-percent');
+
+if (preloader) {
+    let progress = 0;
+    const totalTime = 15000; // Уменьшил время для более быстрой загрузки
+    const interval = 150;
+    
+    function updateProgress() {
+        if (progress >= 100) {
+            // Добавляем небольшую задержку перед скрытием
+            setTimeout(() => {
+                preloader.classList.add('loaded');
+                
+                // Активируем основной контент после скрытия прелоадера
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                    document.body.style.overflow = 'visible';
+                    
+                    // Запускаем анимации контента после полной загрузки
+                    setTimeout(() => {
+                        document.body.style.opacity = '0';
+                        document.body.style.transition = 'opacity 0.5s ease';
+                        
+                        setTimeout(() => {
+                            document.body.style.opacity = '1';
+                        }, 10);
+                        
+                        console.log('🎉 Прелоадер завершен, контент готов!');
+                    }, 50);
+                }, 500);
+            }, 200);
+            return;
+        }
+        
+        progress += 1;
+        if (progressFill) progressFill.style.width = `${progress}%`;
+        if (progressPercent) progressPercent.textContent = `${progress}%`;
+        
+        setTimeout(updateProgress, interval);
+    }
+    
+    // Отключаем скролл на время показа прелоадера
+    document.body.style.overflow = 'hidden';
+    
+    // Запускаем прогресс бар
+    setTimeout(() => {
+        updateProgress();
+    }, 300);
+    
+    // Ускоряем загрузку если страница уже загружена
+    window.addEventListener('load', function() {
+        if (progress < 90) {
+            progress = 90;
+            if (progressFill) progressFill.style.width = `${progress}%`;
+            if (progressPercent) progressPercent.textContent = `${progress}%`;
+        }
+    });
+    
+    // Аварийное скрытие прелоадера через 5 секунд
+    setTimeout(() => {
+        if (preloader && !preloader.classList.contains('loaded')) {
+            preloader.style.display = 'none';
+            document.body.style.overflow = 'visible';
+            console.warn('⚠️ Прелоадер принудительно скрыт по таймауту');
+        }
+    }, 5000);
+}
+
+// ЗАВЕРШЕНИЕ СКРИПТА
+console.log('🚀 Cobalt BAB полностью загружен и готов!');
