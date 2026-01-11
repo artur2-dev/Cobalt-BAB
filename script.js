@@ -241,8 +241,11 @@ function initializeSite() {
             // Добавляем активный класс к текущей ссылке
             this.classList.add('active');
             
-            // Получаем ID целевой секции
-            const targetId = this.getAttribute('href').substring(1);
+            // Получаем ID целевой секции из href
+            const href = this.getAttribute('href');
+            const targetId = href.substring(1); // Убираем #
+            
+            console.log('🔗 Навигация:', `Переход к секции #${targetId}`);
             
             // Плавный переход между секциями
             sections.forEach(section => {
@@ -264,16 +267,21 @@ function initializeSite() {
             });
             
             // Плавная прокрутка к секции (только для не-home секций)
-            if (targetId !== 'home' && document.getElementById(targetId)) {
+            if (targetId !== 'home') {
                 const targetSection = document.getElementById(targetId);
-                const headerHeight = header.offsetHeight;
-                const targetPosition = targetSection.offsetTop - headerHeight - 20;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            } else if (targetId === 'home') {
+                if (targetSection) {
+                    const headerHeight = header.offsetHeight;
+                    const targetPosition = targetSection.offsetTop - headerHeight - 20;
+                    
+                    setTimeout(() => {
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }, 100);
+                }
+            } else {
+                // Home - прокручиваем к началу
                 window.scrollTo({
                     top: 0,
                     behavior: 'smooth'
@@ -282,6 +290,18 @@ function initializeSite() {
             
             // Обновляем URL без перезагрузки страницы
             history.pushState(null, null, `#${targetId}`);
+            
+            // Закрываем мобильное меню если оно открыто
+            const nav = document.querySelector('nav');
+            if (nav && nav.classList.contains('active')) {
+                const hamburger = document.querySelector('.hamburger');
+                const menuOverlay = document.querySelector('.menu-overlay');
+                hamburger.classList.remove('active');
+                nav.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
         });
     });
     
@@ -780,30 +800,30 @@ function initializeSite() {
     }
     
     // ========== ОБРАБОТКА ХЭША В URL ==========
-    const hash = window.location.hash.substring(1);
-    if (hash && document.getElementById(hash)) {
-        // Небольшая задержка для плавного перехода
-        setTimeout(() => {
-            // Удаляем активный класс у всех ссылок
-            navLinks.forEach(item => item.classList.remove('active'));
+    function navigateToSection(targetId) {
+        console.log('📍 Переход к секции:', targetId);
+        
+        // Удаляем активный класс у всех ссылок
+        navLinks.forEach(item => item.classList.remove('active'));
+        
+        // Добавляем активный класс к соответствующей ссылке
+        const targetLink = document.querySelector(`.nav-link[href="#${targetId}"]`);
+        if (targetLink) {
+            targetLink.classList.add('active');
+        }
+        
+        // Скрываем все секции
+        sections.forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        // Показываем целевую секцию
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+            targetSection.classList.add('active');
             
-            // Добавляем активный класс к соответствующей ссылке
-            const targetLink = document.querySelector(`.nav-link[href="#${hash}"]`);
-            if (targetLink) {
-                targetLink.classList.add('active');
-            }
-            
-            // Скрываем все секции
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Показываем целевую секцию
-            const targetSection = document.getElementById(hash);
-            if (targetSection) {
-                targetSection.classList.add('active');
-                
-                // Прокручиваем к секции
+            // Прокручиваем к секции
+            if (targetId !== 'home') {
                 const headerHeight = header.offsetHeight;
                 const targetPosition = targetSection.offsetTop - headerHeight - 20;
                 
@@ -813,9 +833,37 @@ function initializeSite() {
                         behavior: 'smooth'
                     });
                 }, 100);
+            } else {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             }
+        }
+    }
+    
+    // Обработка хэша при загрузке
+    const hash = window.location.hash.substring(1);
+    if (hash && document.getElementById(hash)) {
+        setTimeout(() => {
+            navigateToSection(hash);
+        }, 300);
+    } else {
+        // Если нет хэша, показываем Home
+        setTimeout(() => {
+            navigateToSection('home');
         }, 300);
     }
+    
+    // Обработка изменения хэша (кнопка назад/вперед браузера)
+    window.addEventListener('hashchange', function() {
+        const newHash = window.location.hash.substring(1);
+        if (newHash) {
+            navigateToSection(newHash);
+        } else {
+            navigateToSection('home');
+        }
+    });
     
     console.log('✅ Cobalt BAB инициализирован! Все системы готовы.');
 }

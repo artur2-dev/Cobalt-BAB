@@ -3697,7 +3697,7 @@ html {
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--gradient-dark);
+    background: linear-gradient(135deg, #0a1f3e 0%, #0d2847 50%, #0a1f3e 100%);
     z-index: 9999;
     display: flex;
     justify-content: center;
@@ -3716,113 +3716,99 @@ html {
     max-width: 500px;
     width: 90%;
     padding: 2rem;
-    background: rgba(16, 30, 51, 0.8);
+    background: rgba(16, 30, 51, 0.85);
     border-radius: var(--border-radius);
-    border: 1px solid rgba(52, 152, 219, 0.2);
+    border: 1.5px solid rgba(100, 180, 255, 0.3);
     backdrop-filter: blur(10px);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
     position: relative;
     z-index: 2;
 }
 
-/* Спиннер */
+/* Снежинка спиннер */
 .preloader-spinner {
     position: relative;
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     margin: 0 auto 2rem;
 }
 
 .spinner-circle {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    opacity: 0.8;
-    mix-blend-mode: screen;
+    width: 20px;
+    height: 20px;
+    left: 50%;
+    top: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    opacity: 0.9;
+}
+
+.spinner-circle::before {
+    content: '❄';
+    position: absolute;
+    font-size: 2rem;
+    color: rgba(100, 180, 255, 0.9);
+    text-shadow: 0 0 10px rgba(100, 180, 255, 0.6);
 }
 
 .spinner-circle:nth-child(1) {
-    background: var(--accent-color);
-    animation: spin1 2s linear infinite;
-    box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+    animation: snowflake-spin1 4s linear infinite;
 }
 
 .spinner-circle:nth-child(2) {
-    background: var(--primary-color);
-    animation: spin2 2s linear infinite;
-    box-shadow: 0 0 20px rgba(52, 152, 219, 0.5);
+    animation: snowflake-spin2 4s linear infinite;
 }
 
 .spinner-circle:nth-child(3) {
-    background: #9b59b6;
-    animation: spin3 2s linear infinite;
-    box-shadow: 0 0 20px rgba(155, 89, 182, 0.5);
+    animation: snowflake-spin3 4s linear infinite;
 }
 
 .spinner-circle:nth-child(4) {
-    background: #2ecc71;
-    animation: spin4 2s linear infinite;
-    box-shadow: 0 0 20px rgba(46, 204, 113, 0.5);
+    animation: snowflake-spin4 4s linear infinite;
 }
 
-@keyframes spin1 {
-    0%, 100% {
-        transform: rotate(0deg) translateY(-10px) scale(1);
+@keyframes snowflake-spin1 {
+    0% {
+        transform: rotate(0deg) translateY(-45px) scale(1);
+        opacity: 1;
     }
-    25% {
-        transform: rotate(90deg) translateY(10px) scale(1.1);
-    }
-    50% {
-        transform: rotate(180deg) translateY(-10px) scale(1);
-    }
-    75% {
-        transform: rotate(270deg) translateY(10px) scale(0.9);
+    100% {
+        transform: rotate(360deg) translateY(-45px) scale(1);
+        opacity: 1;
     }
 }
 
-@keyframes spin2 {
-    0%, 100% {
-        transform: rotate(90deg) translateY(10px) scale(1.1);
+@keyframes snowflake-spin2 {
+    0% {
+        transform: rotate(90deg) translateY(-45px) scale(0.9);
+        opacity: 0.8;
     }
-    25% {
-        transform: rotate(180deg) translateY(-10px) scale(1);
-    }
-    50% {
-        transform: rotate(270deg) translateY(10px) scale(0.9);
-    }
-    75% {
-        transform: rotate(360deg) translateY(-10px) scale(1);
+    100% {
+        transform: rotate(450deg) translateY(-45px) scale(0.9);
+        opacity: 0.8;
     }
 }
 
-@keyframes spin3 {
-    0%, 100% {
-        transform: rotate(180deg) translateY(-10px) scale(1);
+@keyframes snowflake-spin3 {
+    0% {
+        transform: rotate(180deg) translateY(-45px) scale(0.8);
+        opacity: 0.7;
     }
-    25% {
-        transform: rotate(270deg) translateY(10px) scale(0.9);
-    }
-    50% {
-        transform: rotate(360deg) translateY(-10px) scale(1);
-    }
-    75% {
-        transform: rotate(450deg) translateY(10px) scale(1.1);
+    100% {
+        transform: rotate(540deg) translateY(-45px) scale(0.8);
+        opacity: 0.7;
     }
 }
 
-@keyframes spin4 {
-    0%, 100% {
-        transform: rotate(270deg) translateY(10px) scale(0.9);
+@keyframes snowflake-spin4 {
+    0% {
+        transform: rotate(270deg) translateY(-45px) scale(0.95);
+        opacity: 0.85;
     }
-    25% {
-        transform: rotate(360deg) translateY(-10px) scale(1);
-    }
-    50% {
-        transform: rotate(450deg) translateY(10px) scale(1.1);
-    }
-    75% {
-        transform: rotate(540deg) translateY(-10px) scale(1);
+    100% {
+        transform: rotate(630deg) translateY(-45px) scale(0.95);
+        opacity: 0.85;
     }
 }
 
@@ -3836,7 +3822,7 @@ html {
     font-size: 2.2rem;
     font-weight: 700;
     margin-bottom: 0.8rem;
-    background: linear-gradient(135deg, #00d4ff 0%, #3498db 50%, #9b59b6 100%);
+    background: linear-gradient(135deg, #64e6ff 0%, #3498db 50%, #0088cc 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -3846,10 +3832,11 @@ html {
 }
 
 .preloader-subtitle {
-    color: var(--gray-color);
+    color: rgba(150, 200, 255, 0.9);
     font-size: 1.1rem;
     line-height: 1.5;
-    opacity: 0.9;
+    opacity: 0.95;
+    letter-spacing: 0.5px;
 }
 
 /* Прогресс-бар */
@@ -3870,10 +3857,10 @@ html {
 .progress-fill {
     width: 0%;
     height: 100%;
-    background: var(--gradient-accent);
+    background: linear-gradient(90deg, rgba(100, 180, 255, 0.8) 0%, rgba(64, 224, 255, 0.9) 50%, rgba(100, 180, 255, 0.8) 100%);
     border-radius: 4px;
     transition: width 0.3s ease;
-    box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+    box-shadow: 0 0 15px rgba(100, 180, 255, 0.6);
 }
 
 .progress-percent {
@@ -3881,8 +3868,8 @@ html {
     text-align: center;
     font-size: 1.2rem;
     font-weight: 600;
-    color: var(--accent-color);
-    text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+    color: rgba(100, 180, 255, 0.95);
+    text-shadow: 0 0 10px rgba(100, 180, 255, 0.5);
 }
 
 /* Фоновые частицы */
