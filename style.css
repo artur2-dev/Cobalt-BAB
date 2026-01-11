@@ -676,8 +676,9 @@ main {
     margin-bottom: 1.5rem;
     border-left: 4px solid var(--primary-color);
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
     gap: 1rem;
     border: 1px solid rgba(52, 152, 219, 0.2);
 }
@@ -687,7 +688,8 @@ main {
     color: var(--accent-light);
     font-size: 1rem;
     overflow-x: auto;
-    white-space: nowrap;
+    word-wrap: break-word;
+    white-space: normal;
     flex: 1;
     text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
 }
@@ -1622,6 +1624,36 @@ footer::before {
         border-radius: 22px;
     }
     
+    .bind-card {
+        padding: 1.3rem;
+    }
+    
+    .bind-code {
+        padding: 0.9rem;
+        gap: 0.8rem;
+        flex-direction: column;
+    }
+    
+    .bind-code code {
+        font-size: 0.9rem;
+        white-space: normal;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        max-width: 100%;
+    }
+    
+    .copy-btn {
+        padding: 0.5rem 0.9rem;
+        font-size: 0.85rem;
+        gap: 0.4rem;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .copy-btn i {
+        font-size: 0.85rem;
+    }
+    
     .footer-content {
         grid-template-columns: 1fr;
         gap: 2.5rem;
@@ -2020,12 +2052,13 @@ html {
     margin-bottom: 1.5rem;
     border-left: 4px solid var(--primary-color);
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
     gap: 1rem;
     border: 1px solid rgba(52, 152, 219, 0.2);
     position: relative;
-    z-index: 10; /* Важное изменение! */
+    z-index: 10;
     pointer-events: auto !important;
 }
 
