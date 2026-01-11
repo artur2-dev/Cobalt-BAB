@@ -33,26 +33,31 @@
         transform: translateY(-10vh) translateX(0);
         opacity: 1;
     }
-    90% {
-        opacity: 1;
-    }
     100% {
-        transform: translateY(100vh) translateX(100px);
-        opacity: 0;
+        transform: translateY(110vh) translateX(100px);
+        opacity: 0.3;
     }
 }
 
 @keyframes snowfall-slow {
     0% {
-        transform: translateY(-10vh) translateX(0);
-        opacity: 0.8;
-    }
-    90% {
-        opacity: 0.8;
+        transform: translateY(-20vh) translateX(0);
+        opacity: 0.6;
     }
     100% {
-        transform: translateY(100vh) translateX(150px);
-        opacity: 0;
+        transform: translateY(120vh) translateX(150px);
+        opacity: 0.1;
+    }
+}
+
+@keyframes snowfall-very-slow {
+    0% {
+        transform: translateY(-15vh) translateX(0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(115vh) translateX(80px);
+        opacity: 0.15;
     }
 }
 
@@ -62,16 +67,16 @@ body::after {
     top: -10vh;
     left: 0;
     width: 100%;
-    height: 110vh;
+    height: 120vh;
     background-image: 
-        radial-gradient(2px 2px at 20px 30px, #fff, rgba(255,255,255,0)),
-        radial-gradient(2px 2px at 60px 70px, #fff, rgba(255,255,255,0)),
-        radial-gradient(1px 1px at 50px 50px, #fff, rgba(255,255,255,0)),
-        radial-gradient(1px 1px at 130px 80px, #fff, rgba(255,255,255,0)),
-        radial-gradient(2px 2px at 90px 10px, #fff, rgba(255,255,255,0));
+        radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.9), rgba(255,255,255,0)),
+        radial-gradient(2px 2px at 60px 70px, rgba(255,255,255,0.85), rgba(255,255,255,0)),
+        radial-gradient(1px 1px at 50px 50px, rgba(255,255,255,0.8), rgba(255,255,255,0)),
+        radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.75), rgba(255,255,255,0)),
+        radial-gradient(2px 2px at 90px 10px, rgba(255,255,255,0.9), rgba(255,255,255,0));
     background-repeat: repeat;
     background-size: 200px 200px;
-    animation: snowfall 10s linear infinite;
+    animation: snowfall 12s linear infinite;
     pointer-events: none;
     z-index: 1;
 }
@@ -104,20 +109,20 @@ body::before {
 html::before {
     content: '';
     position: fixed;
-    top: -10vh;
+    top: -20vh;
     left: 0;
     width: 100%;
-    height: 110vh;
+    height: 130vh;
     background-image: 
-        radial-gradient(1px 1px at 10px 20px, rgba(255,255,255,0.9), rgba(255,255,255,0)),
-        radial-gradient(1px 1px at 40px 60px, rgba(255,255,255,0.8), rgba(255,255,255,0)),
-        radial-gradient(0.5px 0.5px at 70px 40px, rgba(255,255,255,0.7), rgba(255,255,255,0)),
-        radial-gradient(1.5px 1.5px at 100px 80px, rgba(255,255,255,0.85), rgba(255,255,255,0)),
-        radial-gradient(0.5px 0.5px at 130px 10px, rgba(255,255,255,0.75), rgba(255,255,255,0)),
-        radial-gradient(1px 1px at 160px 70px, rgba(255,255,255,0.9), rgba(255,255,255,0));
+        radial-gradient(1px 1px at 10px 20px, rgba(255,255,255,0.7), rgba(255,255,255,0)),
+        radial-gradient(1px 1px at 40px 60px, rgba(255,255,255,0.6), rgba(255,255,255,0)),
+        radial-gradient(0.5px 0.5px at 70px 40px, rgba(255,255,255,0.5), rgba(255,255,255,0)),
+        radial-gradient(1.5px 1.5px at 100px 80px, rgba(255,255,255,0.65), rgba(255,255,255,0)),
+        radial-gradient(0.5px 0.5px at 130px 10px, rgba(255,255,255,0.55), rgba(255,255,255,0)),
+        radial-gradient(1px 1px at 160px 70px, rgba(255,255,255,0.7), rgba(255,255,255,0));
     background-repeat: repeat;
     background-size: 200px 200px;
-    animation: snowfall 15s linear infinite;
+    animation: snowfall-slow 18s linear infinite;
     pointer-events: none;
     z-index: 2;
 }
@@ -125,17 +130,19 @@ html::before {
 html::after {
     content: '';
     position: fixed;
-    top: -10vh;
+    top: -15vh;
     left: 0;
     width: 100%;
-    height: 110vh;
+    height: 125vh;
     background-image: 
-        radial-gradient(1.5px 1.5px at 30px 50px, rgba(255,255,255,0.7), rgba(255,255,255,0)),
-        radial-gradient(1px 1px at 80px 30px, rgba(255,255,255,0.85), rgba(255,255,255,0)),
-        radial-gradient(1px 1px at 120px 60px, rgba(255,255,255,0.8), rgba(255,255,255,0));
+        radial-gradient(1.5px 1.5px at 30px 50px, rgba(255,255,255,0.5), rgba(255,255,255,0)),
+        radial-gradient(1px 1px at 80px 30px, rgba(255,255,255,0.65), rgba(255,255,255,0)),
+        radial-gradient(1px 1px at 120px 60px, rgba(255,255,255,0.6), rgba(255,255,255,0)),
+        radial-gradient(0.5px 0.5px at 150px 90px, rgba(255,255,255,0.55), rgba(255,255,255,0)),
+        radial-gradient(1.5px 1.5px at 170px 30px, rgba(255,255,255,0.7), rgba(255,255,255,0));
     background-repeat: repeat;
     background-size: 250px 250px;
-    animation: snowfall-slow 20s linear infinite;
+    animation: snowfall-very-slow 25s linear infinite;
     pointer-events: none;
     z-index: 1;
 }
