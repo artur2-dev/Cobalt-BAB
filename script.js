@@ -1,14 +1,208 @@
-// Оптимизированный JavaScript для сайта Cobalt BAB
-// Версия 2.2 - Исправлено уведомление о копировании
-
+// ========== ПРЕЛОАДЕР ==========
 document.addEventListener('DOMContentLoaded', function() {
+    const preloader = document.querySelector('.preloader');
+    const progressFill = document.querySelector('.progress-fill');
+    const progressPercent = document.querySelector('.progress-percent');
+
+    if (preloader) {
+        let progress = 0;
+        const totalTime = 2000; // 2 секунды для быстрой загрузки
+        const interval = 50; // Обновление каждые 50мс
+        
+        // Блокируем скролл на время показа прелоадера
+        document.body.style.overflow = 'hidden';
+
+        function updateProgress() {
+            progress += 2; // Увеличиваем быстрее
+            
+            if (progress > 100) {
+                progress = 100;
+            }
+            
+            if (progressFill) {
+                progressFill.style.width = `${progress}%`;
+            }
+            
+            if (progressPercent) {
+                progressPercent.textContent = `${progress}%`;
+            }
+            
+            if (progress < 100) {
+                setTimeout(updateProgress, interval);
+            } else {
+                // Задержка перед скрытием для демонстрации 100%
+                setTimeout(() => {
+                    preloader.classList.add('loaded');
+                    
+                    // Разблокируем скролл
+                    document.body.style.overflow = '';
+                    
+                    // Удаляем прелоадер из DOM через 0.5 секунды
+                    setTimeout(() => {
+                        preloader.style.display = 'none';
+                        
+                        // Запускаем остальные анимации сайта
+                        startSiteAnimations();
+                    }, 500);
+                }, 300);
+            }
+        }
+
+        // Запускаем прогресс-бар
+        setTimeout(updateProgress, 500);
+
+        // Если страница загрузилась быстрее, ускоряем завершение
+        window.addEventListener('load', function() {
+            if (progress < 90) {
+                progress = 90;
+                if (progressFill) progressFill.style.width = `${progress}%`;
+                if (progressPercent) progressPercent.textContent = `${progress}%`;
+            }
+        });
+
+        // Аварийное скрытие через 4 секунды
+        setTimeout(() => {
+            if (preloader && !preloader.classList.contains('loaded')) {
+                preloader.classList.add('loaded');
+                document.body.style.overflow = '';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                    startSiteAnimations();
+                }, 500);
+                console.warn('⚠️ Прелоадер принудительно скрыт по таймауту');
+            }
+        }, 4000);
+    } else {
+        // Если прелоадера нет, сразу запускаем анимации сайта
+        startSiteAnimations();
+    }
+
+    // Функция запуска анимаций сайта после прелоадера
+    function startSiteAnimations() {
+        console.log('🚀 Прелоадер завершен, запускаем анимации сайта...');
+        
+        // Плавное появление всего контента
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 0.5s ease';
+        
+        setTimeout(() => {
+            document.body.style.opacity = '1';
+        }, 10);
+        
+        // Запускаем основной код сайта
+        initializeSite();
+    }
+});
+
+// ========== ОСНОВНОЙ КОД САЙТА ==========
+function initializeSite() {
     console.log('🎮 Cobalt BAB - Запуск исправленной версии...');
     
-    // ========== НАВИГАЦИЯ ==========
+    // ========== ПЕРЕМЕННЫЕ ==========
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('.section');
     const header = document.querySelector('header');
     
+    // ========== ГАМБУРГЕР-МЕНЮ (ТОЛЬКО НА МОБИЛЬНЫХ) ==========
+    if (window.innerWidth <= 992) {
+        const hamburger = document.createElement('button');
+        hamburger.className = 'hamburger';
+        hamburger.innerHTML = '<span></span><span></span><span></span>';
+        hamburger.setAttribute('aria-label', 'Меню');
+        hamburger.setAttribute('aria-expanded', 'false');
+
+        // Создаем оверлей для меню
+        const menuOverlay = document.createElement('div');
+        menuOverlay.className = 'menu-overlay';
+
+        // Вставляем кнопку в хедер
+        const headerContainer = document.querySelector('header .container');
+        const mobileControls = document.createElement('div');
+        mobileControls.className = 'mobile-header-controls';
+        mobileControls.appendChild(hamburger);
+        headerContainer.appendChild(mobileControls);
+        document.body.appendChild(menuOverlay);
+
+        const nav = document.querySelector('nav');
+
+        // Функция переключения меню
+        function toggleMenu() {
+            const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+            hamburger.setAttribute('aria-expanded', !isExpanded);
+        }
+
+        // Обработчики для гамбургера
+        hamburger.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
+
+        // Закрытие меню при клике на ссылку
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                setTimeout(toggleMenu, 300);
+            });
+        });
+
+        // Закрытие меню клавишей ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && nav.classList.contains('active')) {
+                toggleMenu();
+            }
+        });
+    }
+    
+    // ========== ОБРАБОТКА КНОПКИ "СМОТРЕТЬ БИНДЫ" ==========
+    const viewBindsButton = document.querySelector('.hero-btn[href="#binds"]');
+    if (viewBindsButton) {
+        viewBindsButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Анимация нажатия
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+            
+            // Удаляем активный класс у всех ссылок
+            navLinks.forEach(item => item.classList.remove('active'));
+            
+            // Добавляем активный класс к соответствующей ссылке
+            const targetLink = document.querySelector('.nav-link[href="#binds"]');
+            if (targetLink) {
+                targetLink.classList.add('active');
+            }
+            
+            // Скрываем все секции
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Показываем целевую секцию
+            const targetSection = document.getElementById('binds');
+            if (targetSection) {
+                targetSection.classList.add('active');
+                
+                // Прокручиваем к секции
+                const headerHeight = header.offsetHeight;
+                const targetPosition = targetSection.offsetTop - headerHeight - 20;
+                
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }, 100);
+            }
+            
+            // Обновляем URL без перезагрузки страницы
+            history.pushState(null, null, '#binds');
+        });
+    }
+    
+    // ========== НАВИГАЦИЯ ==========
     // Плавная анимация хедера при скролле
     window.addEventListener('scroll', function() {
         if (window.scrollY > 50) {
@@ -18,119 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ========== ГАМБУРГЕР-МЕНЮ ==========
-const hamburger = document.createElement('button');
-hamburger.className = 'hamburger';
-hamburger.innerHTML = '<span></span><span></span><span></span>';
-hamburger.setAttribute('aria-label', 'Меню');
-hamburger.setAttribute('aria-expanded', 'false');
-
-// Создаем оверлей для меню
-const menuOverlay = document.createElement('div');
-menuOverlay.className = 'menu-overlay';
-
-// Вставляем кнопку в хедер
-const headerContainer = document.querySelector('header .container');
-const mobileControls = document.createElement('div');
-mobileControls.className = 'mobile-header-controls';
-mobileControls.appendChild(hamburger);
-headerContainer.appendChild(mobileControls);
-document.body.appendChild(menuOverlay);
-
-const nav = document.querySelector('nav');
-
-// Функция переключения меню
-function toggleMenu() {
-    const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
-    hamburger.classList.toggle('active');
-    nav.classList.toggle('active');
-    menuOverlay.classList.toggle('active');
-    document.body.classList.toggle('menu-open');
-    hamburger.setAttribute('aria-expanded', !isExpanded);
-}
-
-// Обработчики для гамбургера
-hamburger.addEventListener('click', toggleMenu);
-menuOverlay.addEventListener('click', toggleMenu);
-
-// Закрытие меню при клике на ссылку
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-        if (window.innerWidth <= 992) {
-            setTimeout(toggleMenu, 300); // Даем время для плавного перехода
-        }
-    });
-});
-
-// Закрытие меню при ресайзе окна (если перешли на десктоп)
-window.addEventListener('resize', () => {
-    if (window.innerWidth > 992) {
-        hamburger.classList.remove('active');
-        nav.classList.remove('active');
-        menuOverlay.classList.remove('active');
-        document.body.classList.remove('menu-open');
-        hamburger.setAttribute('aria-expanded', 'false');
-    }
-});
-
-// Закрытие меню клавишей ESC
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && nav.classList.contains('active')) {
-        toggleMenu();
-    }
-});
-
-// ========== УЛУЧШЕНИЕ ДЛЯ МОБИЛЬНЫХ ==========
-// Увеличиваем тап-зоны для мобильных
-if ('ontouchstart' in window || navigator.maxTouchPoints) {
-    document.querySelectorAll('.copy-btn, .tab-btn, .filter-btn, .guide-tab-btn').forEach(btn => {
-        btn.style.minHeight = '44px';
-        btn.style.padding = '0.8rem 1.2rem';
-    });
-}
-
-// Оптимизация для медленных устройств
-if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    // Упрощаем анимации для мобильных
-    document.documentElement.style.setProperty('--transition', 'all 0.3s ease');
-    
-    // Отключаем параллакс для экономии батареи
-    window.removeEventListener('scroll', () => {});
-}
-
-// ========== УЛУЧШЕНИЕ ПРОИЗВОДИТЕЛЬНОСТИ ==========
-// Ленивая загрузка изображений
-document.addEventListener('DOMContentLoaded', function() {
-    const lazyImages = document.querySelectorAll('img[data-src]');
-    
-    const imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.getAttribute('data-src');
-                img.removeAttribute('data-src');
-                imageObserver.unobserve(img);
-            }
-        });
-    });
-    
-    lazyImages.forEach(img => imageObserver.observe(img));
-});
-
-// Предзагрузка критичных ресурсов
-const criticalResources = [
-    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-    'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap'
-];
-
-criticalResources.forEach(resource => {
-    const link = document.createElement('link');
-    link.rel = 'preload';
-    link.as = 'style';
-    link.href = resource;
-    document.head.appendChild(link);
-});
-    
+    // Обработка кликов по навигационным ссылкам
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             // ОСОБЫЙ СЛУЧАЙ: Discord ссылка - открываем в новой вкладке
@@ -139,7 +221,6 @@ criticalResources.forEach(resource => {
                 this.textContent.includes('Discord')) {
                 
                 // Не останавливаем событие для Discord
-                // Пусть работает как обычная ссылка
                 this.target = '_blank';
                 this.rel = 'noopener noreferrer';
                 return; // Выходим из функции
@@ -210,8 +291,6 @@ criticalResources.forEach(resource => {
     if (discordHeroBtn) {
         discordHeroBtn.target = '_blank';
         discordHeroBtn.rel = 'noopener noreferrer';
-        // Убираем обработчик клика, если он есть
-        discordHeroBtn.onclick = null;
     }
     
     // Кнопка в секции Discord
@@ -219,7 +298,6 @@ criticalResources.forEach(resource => {
     if (discordJoinBtn) {
         discordJoinBtn.target = '_blank';
         discordJoinBtn.rel = 'noopener noreferrer';
-        discordJoinBtn.onclick = null;
     }
     
     // Кнопка в гайдах
@@ -227,14 +305,12 @@ criticalResources.forEach(resource => {
     if (discordHelpBtn) {
         discordHelpBtn.target = '_blank';
         discordHelpBtn.rel = 'noopener noreferrer';
-        discordHelpBtn.onclick = null;
     }
     
     // Ссылка в футере
     document.querySelectorAll('a[href*="discord"]').forEach(link => {
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
-        link.onclick = null;
     });
     
     // ========== ТАБЫ БИНДОВ ==========
@@ -323,161 +399,165 @@ criticalResources.forEach(resource => {
         });
     }
     
-    // ========== КОПИРОВАНИЕ БИНДОВ (ИСПРАВЛЕННАЯ ВЕРСИЯ) ==========
-const copyBtns = document.querySelectorAll('.copy-btn');
-const copyNotification = document.getElementById('copyNotification');
-
-// Глобальная переменная для таймера уведомления
-let notificationTimer = null;
-
-// Функция для отображения уведомления
-function showCopyNotification(message, isError = false) {
-    // Очищаем предыдущий таймер
-    if (notificationTimer) {
-        clearTimeout(notificationTimer);
-    }
+    // ========== КОПИРОВАНИЕ БИНДОВ ==========
+    const copyBtns = document.querySelectorAll('.copy-btn');
+    const copyNotification = document.getElementById('copyNotification');
     
-    // Устанавливаем текст и стиль
-    copyNotification.textContent = message;
-    copyNotification.style.background = isError 
-        ? 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)' 
-        : 'var(--gradient-primary)';
+    // Глобальная переменная для таймера уведомления
+    let notificationTimer = null;
     
-    // Показываем уведомление
-    copyNotification.classList.remove('show');
-    void copyNotification.offsetWidth; // Перезапуск анимации
-    copyNotification.classList.add('show');
-    
-    // Устанавливаем таймер на скрытие
-    notificationTimer = setTimeout(() => {
-        copyNotification.classList.remove('show');
-    }, 2500); // 2.5 секунды
-}
-
-// Функция для копирования текста с fallback
-function copyToClipboard(text) {
-    return new Promise((resolve, reject) => {
-        // Пробуем современный метод
-        if (navigator.clipboard && window.isSecureContext) {
-            navigator.clipboard.writeText(text)
-                .then(resolve)
-                .catch(() => {
-                    // Fallback для старых браузеров
-                    const textArea = document.createElement('textarea');
-                    textArea.value = text;
-                    textArea.style.position = 'fixed';
-                    textArea.style.left = '-999999px';
-                    textArea.style.top = '-999999px';
-                    document.body.appendChild(textArea);
-                    textArea.focus();
-                    textArea.select();
-                    
-                    try {
-                        const success = document.execCommand('copy');
-                        document.body.removeChild(textArea);
-                        if (success) resolve();
-                        else reject(new Error('Не удалось скопировать'));
-                    } catch (err) {
-                        document.body.removeChild(textArea);
-                        reject(err);
-                    }
-                });
-        } else {
-            // Fallback для HTTP сайтов
-            const textArea = document.createElement('textarea');
-            textArea.value = text;
-            textArea.style.position = 'fixed';
-            textArea.style.left = '-999999px';
-            textArea.style.top = '-999999px';
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            
-            try {
-                const success = document.execCommand('copy');
-                document.body.removeChild(textArea);
-                if (success) resolve();
-                else reject(new Error('Не удалось скопировать'));
-            } catch (err) {
-                document.body.removeChild(textArea);
-                reject(err);
-            }
-        }
-    });
-}
-
-// Обработчики для кнопок копирования
-copyBtns.forEach(btn => {
-    btn.addEventListener('click', async function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        const bindText = this.getAttribute('data-clipboard-text');
-        
-        // Анимация нажатия
-        this.style.transform = 'scale(0.95)';
-        
-        // Сохраняем оригинальный вид кнопки
-        const originalHTML = this.innerHTML;
-        const originalBg = this.style.background;
-        const originalColor = this.style.color;
-        
-        try {
-            // Копируем текст
-            await copyToClipboard(bindText);
-            
-            // Успешное копирование
-            this.innerHTML = '<i class="fas fa-check"></i> Скопировано!';
-            this.style.background = 'var(--gradient-accent)';
-            this.style.color = 'white';
-            
-            // Показываем уведомление
-            showCopyNotification('✅ Бинд скопирован в буфер обмена!');
-            
-            // Восстанавливаем кнопку через 1.5 секунды
-            setTimeout(() => {
-                this.innerHTML = originalHTML;
-                this.style.background = originalBg;
-                this.style.color = originalColor;
-                this.style.transform = '';
-            }, 1500);
-            
-        } catch (err) {
-            console.error('Ошибка при копировании:', err);
-            
-            // Ошибка копирования
-            this.innerHTML = '<i class="fas fa-times"></i> Ошибка!';
-            this.style.background = 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)';
-            this.style.color = 'white';
-            
-            // Показываем уведомление об ошибке
-            showCopyNotification('❌ Нажмите Ctrl+C для копирования', true);
-            
-            // Восстанавливаем кнопку через 2 секунды
-            setTimeout(() => {
-                this.innerHTML = originalHTML;
-                this.style.background = originalBg;
-                this.style.color = originalColor;
-                this.style.transform = '';
-            }, 2000);
-        }
-    });
-});
-
-// Закрытие уведомления при клике на него
-if (copyNotification) {
-    copyNotification.addEventListener('click', function() {
-        this.classList.remove('show');
+    // Функция для отображения уведомления
+    function showCopyNotification(message, isError = false) {
+        // Очищаем предыдущий таймер
         if (notificationTimer) {
             clearTimeout(notificationTimer);
         }
+        
+        // Устанавливаем текст и стиль
+        copyNotification.textContent = message;
+        copyNotification.style.background = isError 
+            ? 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)' 
+            : 'var(--gradient-primary)';
+        
+        // Показываем уведомление
+        copyNotification.classList.remove('show');
+        void copyNotification.offsetWidth; // Перезапуск анимации
+        copyNotification.classList.add('show');
+        
+        // Устанавливаем таймер на скрытие
+        notificationTimer = setTimeout(() => {
+            copyNotification.classList.remove('show');
+        }, 2500); // 2.5 секунды
+    }
+    
+    // Функция для копирования текста с fallback
+    function copyToClipboard(text) {
+        return new Promise((resolve, reject) => {
+            // Пробуем современный метод
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text)
+                    .then(resolve)
+                    .catch(() => {
+                        // Fallback для старых браузеров
+                        const textArea = document.createElement('textarea');
+                        textArea.value = text;
+                        textArea.style.position = 'fixed';
+                        textArea.style.left = '-999999px';
+                        textArea.style.top = '-999999px';
+                        document.body.appendChild(textArea);
+                        textArea.focus();
+                        textArea.select();
+                        
+                        try {
+                            const success = document.execCommand('copy');
+                            document.body.removeChild(textArea);
+                            if (success) resolve();
+                            else reject(new Error('Не удалось скопировать'));
+                        } catch (err) {
+                            document.body.removeChild(textArea);
+                            reject(err);
+                        }
+                    });
+            } else {
+                // Fallback для HTTP сайтов
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-999999px';
+                textArea.style.top = '-999999px';
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                
+                try {
+                    const success = document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    if (success) resolve();
+                    else reject(new Error('Не удалось скопировать'));
+                } catch (err) {
+                    document.body.removeChild(textArea);
+                    reject(err);
+                }
+            }
+        });
+    }
+    
+    // Обработчики для кнопок копирования
+    copyBtns.forEach(btn => {
+        btn.addEventListener('click', async function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const bindText = this.getAttribute('data-clipboard-text');
+            
+            // Анимация нажатия
+            this.style.transform = 'scale(0.95)';
+            
+            // Сохраняем оригинальный вид кнопки
+            const originalHTML = this.innerHTML;
+            const originalBg = this.style.background;
+            const originalColor = this.style.color;
+            
+            try {
+                // Копируем текст
+                await copyToClipboard(bindText);
+                
+                // Успешное копирование
+                this.innerHTML = '<i class="fas fa-check"></i> Скопировано!';
+                this.style.background = 'var(--gradient-accent)';
+                this.style.color = 'white';
+                
+                // Показываем уведомление
+                showCopyNotification('✅ Бинд скопирован в буфер обмена!');
+                
+                // Восстанавливаем кнопку через 1.5 секунды
+                setTimeout(() => {
+                    this.innerHTML = originalHTML;
+                    this.style.background = originalBg;
+                    this.style.color = originalColor;
+                    this.style.transform = '';
+                }, 1500);
+                
+            } catch (err) {
+                console.error('Ошибка при копировании:', err);
+                
+                // Ошибка копирования
+                this.innerHTML = '<i class="fas fa-times"></i> Ошибка!';
+                this.style.background = 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)';
+                this.style.color = 'white';
+                
+                // Показываем уведомление об ошибке
+                showCopyNotification('❌ Нажмите Ctrl+C для копирования', true);
+                
+                // Восстанавливаем кнопку через 2 секунды
+                setTimeout(() => {
+                    this.innerHTML = originalHTML;
+                    this.style.background = originalBg;
+                    this.style.color = originalColor;
+                    this.style.transform = '';
+                }, 2000);
+            }
+        });
     });
-}
+    
+    // Закрытие уведомления при клике на него
+    if (copyNotification) {
+        copyNotification.addEventListener('click', function() {
+            this.classList.remove('show');
+            if (notificationTimer) {
+                clearTimeout(notificationTimer);
+            }
+        });
+    }
     
     // ========== КНОПКА НАВЕРХ ==========
     const scrollTopBtn = document.getElementById('scrollTopBtn');
     
     if (scrollTopBtn) {
+        // Изначально скрываем
+        scrollTopBtn.style.display = 'none';
+        scrollTopBtn.style.opacity = '0';
+        
         window.addEventListener('scroll', function() {
             if (window.scrollY > 500) {
                 scrollTopBtn.style.display = 'flex';
@@ -598,61 +678,6 @@ if (copyNotification) {
         observer.observe(avatar.parentElement);
     });
     
-    // ========== ПАРАЛЛАКС ЭФФЕКТ ==========
-    window.addEventListener('scroll', function() {
-        const scrolled = window.scrollY;
-        const hero = document.querySelector('.hero');
-        
-        if (hero) {
-            hero.style.backgroundPositionY = scrolled * 0.5 + 'px';
-        }
-        
-        // Параллакс для карточек на главной
-        const cards = document.querySelectorAll('.card');
-        cards.forEach((card, index) => {
-            const speed = 0.1 + (index * 0.05);
-            card.style.transform = `translateY(${scrolled * speed * 0.1}px)`;
-        });
-    });
-    
-    // ========== ОБРАБОТКА ХЭША В URL ==========
-    const hash = window.location.hash.substring(1);
-    if (hash && document.getElementById(hash)) {
-        // Небольшая задержка для плавного перехода
-        setTimeout(() => {
-            // Удаляем активный класс у всех ссылок
-            navLinks.forEach(item => item.classList.remove('active'));
-            
-            // Добавляем активный класс к соответствующей ссылке
-            const targetLink = document.querySelector(`.nav-link[href="#${hash}"]`);
-            if (targetLink) {
-                targetLink.classList.add('active');
-            }
-            
-            // Скрываем все секции
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Показываем целевую секцию
-            const targetSection = document.getElementById(hash);
-            if (targetSection) {
-                targetSection.classList.add('active');
-                
-                // Прокручиваем к секции
-                const headerHeight = header.offsetHeight;
-                const targetPosition = targetSection.offsetTop - headerHeight - 20;
-                
-                setTimeout(() => {
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }, 100);
-            }
-        }, 300);
-    }
-    
     // ========== СЕКЦИЯ БАЗ ==========
     const filterBtns = document.querySelectorAll('.filter-btn');
     const sortSelect = document.querySelector('.sort-select');
@@ -718,7 +743,6 @@ if (copyNotification) {
                 cardsArray.forEach(card => grid.appendChild(card));
             });
         }
-        
     }
     
     // ========== ОБНОВЛЕНИЕ ГОДА В ФУТЕРЕ ==========
@@ -735,72 +759,6 @@ if (copyNotification) {
             }
         });
     }
-    
-    // ========== ДОПОЛНИТЕЛЬНЫЕ АНИМАЦИИ ==========
-    
-    // Анимация иконок при наведении
-    document.querySelectorAll('.nav-link i, .btn i, .card i').forEach(icon => {
-        icon.style.transition = 'transform 0.3s ease';
-        
-        const parent = icon.parentElement;
-        parent.addEventListener('mouseenter', () => {
-            icon.style.transform = 'scale(1.2) rotate(5deg)';
-        });
-        
-        parent.addEventListener('mouseleave', () => {
-            icon.style.transform = 'scale(1) rotate(0deg)';
-        });
-    });
-    
-    // Анимация Discord лого
-    const discordLogo = document.querySelector('.discord-logo');
-    if (discordLogo) {
-        discordLogo.style.animation = 'float 4s ease-in-out infinite';
-    }
-    
-    // ========== КЛАВИАТУРНЫЕ СОКРАЩЕНИЯ ==========
-    document.addEventListener('keydown', function(e) {
-        // Ctrl + C для быстрого копирования (когда фокус на кнопке копирования)
-        if (e.ctrlKey && e.key === 'c') {
-            const activeCopyBtn = document.querySelector('.copy-btn:focus');
-            if (activeCopyBtn) {
-                activeCopyBtn.click();
-            }
-        }
-        
-        // Escape для скрытия уведомлений
-        if (e.key === 'Escape' && copyNotification) {
-            copyNotification.classList.remove('show');
-            if (notificationTimer) {
-                clearTimeout(notificationTimer);
-            }
-        }
-        
-        // Стрелки для навигации по табам
-        if (document.activeElement.classList.contains('tab-btn')) {
-            const currentTab = document.activeElement;
-            const tabIndex = Array.from(tabBtns).indexOf(currentTab);
-            
-            if (e.key === 'ArrowRight' && tabIndex < tabBtns.length - 1) {
-                tabBtns[tabIndex + 1].click();
-                tabBtns[tabIndex + 1].focus();
-            } else if (e.key === 'ArrowLeft' && tabIndex > 0) {
-                tabBtns[tabIndex - 1].click();
-                tabBtns[tabIndex - 1].focus();
-            }
-        }
-    });
-    
-    // ========== АНИМАЦИЯ ЗАГРУЗКИ ==========
-    // Плавное появление всего контента после загрузки
-    setTimeout(() => {
-        document.body.style.opacity = '0';
-        document.body.style.transition = 'opacity 0.5s ease';
-        
-        setTimeout(() => {
-            document.body.style.opacity = '1';
-        }, 10);
-    }, 100);
     
     // ========== АНИМАЦИЯ ПРОГРЕСС-БАРА В ГАЙДАХ ==========
     const progressBar = document.querySelector('.progress-fill');
@@ -821,85 +779,45 @@ if (copyNotification) {
         }
     }
     
-    // ========== ИНИЦИАЛИЗАЦИЯ ВСЕХ АНИМАЦИЙ ==========
-    console.log('✅ Cobalt BAB инициализирован! Все системы готовы.');
-    console.log('📌 Особенности этой версии:');
-    console.log('   • Уведомления о копировании работают корректно');
-    console.log('   • Discord ссылки открываются в новой вкладке');
-    console.log('   • Анимации плавные и оптимизированные');
-    console.log('   • Секция баз с фильтрацией и сортировкой');
-});
-// В самом конце вашего основного скрипта, после console.log('✅ Cobalt BAB инициализирован!...')
-
-// ========== ПРЕЛОАДЕР ==========
-const preloader = document.querySelector('.preloader');
-const progressFill = document.querySelector('.progress-fill');
-const progressPercent = document.querySelector('.progress-percent');
-
-if (preloader) {
-    let progress = 0;
-    const totalTime = 15000; // Уменьшил время для более быстрой загрузки
-    const interval = 150;
-    
-    function updateProgress() {
-        if (progress >= 100) {
-            // Добавляем небольшую задержку перед скрытием
-            setTimeout(() => {
-                preloader.classList.add('loaded');
+    // ========== ОБРАБОТКА ХЭША В URL ==========
+    const hash = window.location.hash.substring(1);
+    if (hash && document.getElementById(hash)) {
+        // Небольшая задержка для плавного перехода
+        setTimeout(() => {
+            // Удаляем активный класс у всех ссылок
+            navLinks.forEach(item => item.classList.remove('active'));
+            
+            // Добавляем активный класс к соответствующей ссылке
+            const targetLink = document.querySelector(`.nav-link[href="#${hash}"]`);
+            if (targetLink) {
+                targetLink.classList.add('active');
+            }
+            
+            // Скрываем все секции
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Показываем целевую секцию
+            const targetSection = document.getElementById(hash);
+            if (targetSection) {
+                targetSection.classList.add('active');
                 
-                // Активируем основной контент после скрытия прелоадера
+                // Прокручиваем к секции
+                const headerHeight = header.offsetHeight;
+                const targetPosition = targetSection.offsetTop - headerHeight - 20;
+                
                 setTimeout(() => {
-                    preloader.style.display = 'none';
-                    document.body.style.overflow = 'visible';
-                    
-                    // Запускаем анимации контента после полной загрузки
-                    setTimeout(() => {
-                        document.body.style.opacity = '0';
-                        document.body.style.transition = 'opacity 0.5s ease';
-                        
-                        setTimeout(() => {
-                            document.body.style.opacity = '1';
-                        }, 10);
-                        
-                        console.log('🎉 Прелоадер завершен, контент готов!');
-                    }, 50);
-                }, 500);
-            }, 200);
-            return;
-        }
-        
-        progress += 1;
-        if (progressFill) progressFill.style.width = `${progress}%`;
-        if (progressPercent) progressPercent.textContent = `${progress}%`;
-        
-        setTimeout(updateProgress, interval);
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }, 100);
+            }
+        }, 300);
     }
     
-    // Отключаем скролл на время показа прелоадера
-    document.body.style.overflow = 'hidden';
-    
-    // Запускаем прогресс бар
-    setTimeout(() => {
-        updateProgress();
-    }, 300);
-    
-    // Ускоряем загрузку если страница уже загружена
-    window.addEventListener('load', function() {
-        if (progress < 90) {
-            progress = 90;
-            if (progressFill) progressFill.style.width = `${progress}%`;
-            if (progressPercent) progressPercent.textContent = `${progress}%`;
-        }
-    });
-    
-    // Аварийное скрытие прелоадера через 5 секунд
-    setTimeout(() => {
-        if (preloader && !preloader.classList.contains('loaded')) {
-            preloader.style.display = 'none';
-            document.body.style.overflow = 'visible';
-            console.warn('⚠️ Прелоадер принудительно скрыт по таймауту');
-        }
-    }, 5000);
+    console.log('✅ Cobalt BAB инициализирован! Все системы готовы.');
 }
 
 // ЗАВЕРШЕНИЕ СКРИПТА

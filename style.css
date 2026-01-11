@@ -1039,30 +1039,6 @@ footer::before {
     line-height: 1.5;
 }
 
-/* Кнопка наверх */
-#scrollTopBtn {
-    position: fixed;
-    bottom: 2.5rem;
-    right: 2.5rem;
-    background: var(--gradient-primary);
-    color: white;
-    border: none;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    font-size: 1.4rem;
-    cursor: pointer;
-    display: none;
-    z-index: 100;
-    transition: var(--transition);
-    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-}
-
-#scrollTopBtn:hover {
-    transform: translateY(-5px) scale(1.1);
-    box-shadow: 0 10px 30px rgba(52, 152, 219, 0.6);
-}
 
 /* Уведомление о копировании */
 #copyNotification {
@@ -1241,13 +1217,6 @@ footer::before {
         padding-left: 0.5rem;
     }
     
-    #scrollTopBtn {
-        width: 50px;
-        height: 50px;
-        font-size: 1.2rem;
-        bottom: 2rem;
-        right: 2rem;
-    }
 }
 
 /* Дополнительные анимации */
@@ -3268,47 +3237,574 @@ html {
     opacity: 0 !important;
     pointer-events: none !important;
 }
-/* ========== АДАПТИВНОСТЬ И ГАМБУРГЕР-МЕНЮ ========== */
+/* ========== ПРЕЛОАДЕР ========== */
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-dark);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    overflow: hidden;
+}
 
-/* Скрываем обычное меню на мобильных */
-@media (max-width: 992px) {
-    nav {
-        display: none;
-        position: fixed;
-        top: 80px;
-        left: 0;
-        right: 0;
-        background: rgba(10, 25, 47, 0.98);
-        backdrop-filter: blur(15px);
+.preloader.loaded {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.preloader-content {
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    padding: 2rem;
+    background: rgba(16, 30, 51, 0.8);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(52, 152, 219, 0.2);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    position: relative;
+    z-index: 2;
+}
+
+/* Спиннер */
+.preloader-spinner {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 2rem;
+}
+
+.spinner-circle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    opacity: 0.8;
+    mix-blend-mode: screen;
+}
+
+.spinner-circle:nth-child(1) {
+    background: var(--accent-color);
+    animation: spin1 2s linear infinite;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+}
+
+.spinner-circle:nth-child(2) {
+    background: var(--primary-color);
+    animation: spin2 2s linear infinite;
+    box-shadow: 0 0 20px rgba(52, 152, 219, 0.5);
+}
+
+.spinner-circle:nth-child(3) {
+    background: #9b59b6;
+    animation: spin3 2s linear infinite;
+    box-shadow: 0 0 20px rgba(155, 89, 182, 0.5);
+}
+
+.spinner-circle:nth-child(4) {
+    background: #2ecc71;
+    animation: spin4 2s linear infinite;
+    box-shadow: 0 0 20px rgba(46, 204, 113, 0.5);
+}
+
+@keyframes spin1 {
+    0%, 100% {
+        transform: rotate(0deg) translateY(-10px) scale(1);
+    }
+    25% {
+        transform: rotate(90deg) translateY(10px) scale(1.1);
+    }
+    50% {
+        transform: rotate(180deg) translateY(-10px) scale(1);
+    }
+    75% {
+        transform: rotate(270deg) translateY(10px) scale(0.9);
+    }
+}
+
+@keyframes spin2 {
+    0%, 100% {
+        transform: rotate(90deg) translateY(10px) scale(1.1);
+    }
+    25% {
+        transform: rotate(180deg) translateY(-10px) scale(1);
+    }
+    50% {
+        transform: rotate(270deg) translateY(10px) scale(0.9);
+    }
+    75% {
+        transform: rotate(360deg) translateY(-10px) scale(1);
+    }
+}
+
+@keyframes spin3 {
+    0%, 100% {
+        transform: rotate(180deg) translateY(-10px) scale(1);
+    }
+    25% {
+        transform: rotate(270deg) translateY(10px) scale(0.9);
+    }
+    50% {
+        transform: rotate(360deg) translateY(-10px) scale(1);
+    }
+    75% {
+        transform: rotate(450deg) translateY(10px) scale(1.1);
+    }
+}
+
+@keyframes spin4 {
+    0%, 100% {
+        transform: rotate(270deg) translateY(10px) scale(0.9);
+    }
+    25% {
+        transform: rotate(360deg) translateY(-10px) scale(1);
+    }
+    50% {
+        transform: rotate(450deg) translateY(10px) scale(1.1);
+    }
+    75% {
+        transform: rotate(540deg) translateY(-10px) scale(1);
+    }
+}
+
+/* Текст прелоадера */
+.preloader-text {
+    margin-bottom: 2rem;
+}
+
+.preloader-title {
+    display: block;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(135deg, #00d4ff 0%, #3498db 50%, #9b59b6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradient-shift 4s ease infinite;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.preloader-subtitle {
+    color: var(--gray-color);
+    font-size: 1.1rem;
+    line-height: 1.5;
+    opacity: 0.9;
+}
+
+/* Прогресс-бар */
+.preloader-progress {
+    width: 100%;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    margin-bottom: 0.8rem;
+    overflow: hidden;
+    border: 1px solid rgba(52, 152, 219, 0.2);
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--gradient-accent);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+
+.progress-percent {
+    display: block;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+
+/* Фоновые частицы */
+.preloader-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    background: var(--accent-color);
+    border-radius: 50%;
+    opacity: 0.3;
+    filter: blur(1px);
+    animation: float-particle 15s infinite linear;
+}
+
+.particle:nth-child(1) {
+    width: 20px;
+    height: 20px;
+    top: 10%;
+    left: 10%;
+    animation-duration: 20s;
+    background: var(--accent-color);
+}
+
+.particle:nth-child(2) {
+    width: 15px;
+    height: 15px;
+    top: 30%;
+    left: 80%;
+    animation-duration: 25s;
+    background: var(--primary-color);
+}
+
+.particle:nth-child(3) {
+    width: 25px;
+    height: 25px;
+    top: 70%;
+    left: 20%;
+    animation-duration: 18s;
+    background: #9b59b6;
+}
+
+.particle:nth-child(4) {
+    width: 10px;
+    height: 10px;
+    top: 50%;
+    left: 60%;
+    animation-duration: 30s;
+    background: #2ecc71;
+}
+
+.particle:nth-child(5) {
+    width: 18px;
+    height: 18px;
+    top: 85%;
+    left: 40%;
+    animation-duration: 22s;
+    background: #e74c3c;
+}
+
+@keyframes float-particle {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(50px, 50px) rotate(90deg);
+    }
+    50% {
+        transform: translate(100px, 0) rotate(180deg);
+    }
+    75% {
+        transform: translate(50px, -50px) rotate(270deg);
+    }
+    100% {
+        transform: translate(0, 0) rotate(360deg);
+    }
+}
+
+@keyframes gradient-shift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Адаптивность прелоадера */
+@media (max-width: 768px) {
+    .preloader-content {
         padding: 1.5rem;
-        flex-direction: column;
-        align-items: center;
-        border-radius: 0 0 var(--border-radius) var(--border-radius);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        border-bottom: 2px solid var(--accent-color);
-        z-index: 999;
-        max-height: 80vh;
-        overflow-y: auto;
+        width: 95%;
     }
-
-    nav.active {
-        display: flex;
-        animation: slideDown 0.3s ease-out;
+    
+    .preloader-spinner {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 1.5rem;
     }
-
-    .nav-link {
-        width: 100%;
-        max-width: 300px;
-        margin: 0.3rem 0;
-        justify-content: center;
-        padding: 1rem 1.5rem;
-        border-radius: var(--border-radius);
-        border: 1px solid rgba(52, 152, 219, 0.2);
+    
+    .preloader-title {
+        font-size: 1.8rem;
     }
+    
+    .preloader-subtitle {
+        font-size: 1rem;
+    }
+    
+    .progress-bar {
+        height: 6px;
+    }
+    
+    .progress-percent {
+        font-size: 1rem;
+    }
+}
 
-    /* Гамбургер-кнопка */
+@media (max-width: 480px) {
+    .preloader-content {
+        padding: 1.2rem;
+    }
+    
+    .preloader-spinner {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 1.2rem;
+    }
+    
+    .preloader-title {
+        font-size: 1.5rem;
+    }
+    
+    .preloader-subtitle {
+        font-size: 0.9rem;
+    }
+}
+
+/* Анимация затухания при завершении */
+@keyframes fadeOutUp {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+.preloader.loaded .preloader-content {
+    animation: fadeOutUp 0.5s ease forwards;
+}
+
+/* Дополнительные эффекты */
+.preloader::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 30%, rgba(0, 212, 255, 0.1) 50%, transparent 70%);
+    animation: shine 6s infinite linear;
+}
+
+@keyframes shine {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Пульсация для привлечения внимания */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.preloader-subtitle {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Эффект свечения для прогресс-бара */
+.progress-fill {
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.4), 
+        transparent);
+    transform: translateX(-100%);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+/* ========== ИСПРАВЛЕНИЕ КНОПКИ "НАВЕРХ" ========== */
+#scrollTopBtn {
+    position: fixed;
+    bottom: 2.5rem;
+    right: 2.5rem;
+    background: var(--gradient-primary);
+    color: white;
+    border: none;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: none; /* Скрыта по умолчанию */
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: var(--transition);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    /* Центрирование содержимого */
+    text-align: center;
+    line-height: 60px; /* Высота кнопки */
+    padding: 0; /* Убираем лишние отступы */
+}
+
+/* ОСОБЕННО ВАЖНО для мобильных: */
+@media (max-width: 768px) {
+    #scrollTopBtn {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+        line-height: 50px; /* Для мобильных тоже центрируем */
+        /* Центрирование по горизонтали */
+        left: auto !important; /* Сбрасываем left если он был */
+        transform: none !important; /* Убираем transform если он был */
+        margin: 0; /* Убираем margin */
+    }
+    
+    /* На очень маленьких экранах делаем больше отступ */
+    @media (max-width: 480px) {
+        #scrollTopBtn {
+            bottom: 1rem;
+            right: 1rem;
+            width: 45px;
+            height: 45px;
+            font-size: 1.1rem;
+            line-height: 45px;
+        }
+    }
+}
+
+/* На очень широких экранах тоже центрируем */
+@media (min-width: 1200px) {
+    #scrollTopBtn {
+        right: calc(50% - 600px + 2.5rem); /* 600px = половина max-width контейнера */
+    }
+}
+
+/* Состояния кнопки */
+#scrollTopBtn.show {
+    display: flex !important; /* Используем flex для центрирования */
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+#scrollTopBtn.hide {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+    /* Держим display: flex чтобы не прыгала позиция */
+    display: flex !important;
+    pointer-events: none; /* Отключаем клики когда скрыта */
+}
+
+/* Ховер эффект */
+#scrollTopBtn:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 10px 30px rgba(52, 152, 219, 0.6);
+    background: var(--gradient-accent);
+}
+
+/* Активное состояние (нажатие) */
+#scrollTopBtn:active {
+    transform: translateY(-2px) scale(1.05);
+}
+
+/* Анимация появления/скрытия */
+#scrollTopBtn {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Исправление для iOS */
+@supports (-webkit-touch-callout: none) {
+    #scrollTopBtn {
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+    }
+}
+
+/* Гарантированное центрирование иконки внутри кнопки */
+#scrollTopBtn i {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    /* Исправляем возможное смещение иконки */
+    position: relative;
+    top: 0;
+    left: 0;
+    line-height: inherit;
+}
+
+/* ФИКС: Если где-то в вашем CSS есть правила смещающие кнопку, переопределяем их */
+#scrollTopBtn[style*="left"] {
+    left: auto !important;
+    right: 2.5rem !important;
+}
+
+/* Для мобильных явно указываем позицию */
+@media (max-width: 768px) {
+    #scrollTopBtn[style*="left"],
+    #scrollTopBtn[style*="transform"] {
+        left: auto !important;
+        right: 1.5rem !important;
+        transform: none !important;
+    }
+}
+/* ========== ИСПРАВЛЕНИЕ ГАМБУРГЕРА ========== */
+
+/* Скрываем гамбургер на десктопе */
+.hamburger {
+    display: none;
+    /* Резервные стили если вдруг покажется */
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Скрываем оверлей на десктопе */
+.menu-overlay {
+    display: none;
+}
+
+/* ТОЛЬКО на мобильных показываем гамбургер */
+@media (max-width: 992px) {
     .hamburger {
-        display: flex;
+        display: flex !important;
         flex-direction: column;
         justify-content: space-between;
         width: 30px;
@@ -3319,8 +3815,13 @@ html {
         padding: 0;
         z-index: 1000;
         position: relative;
+        /* Возвращаем на место */
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        margin-left: auto; /* Чтобы кнопка была справа */
     }
-
+    
     .hamburger span {
         display: block;
         width: 100%;
@@ -3330,418 +3831,50 @@ html {
         transition: var(--transition);
         transform-origin: center;
     }
-
+    
     .hamburger.active span:nth-child(1) {
         transform: translateY(10px) rotate(45deg);
     }
-
+    
     .hamburger.active span:nth-child(2) {
         opacity: 0;
     }
-
+    
     .hamburger.active span:nth-child(3) {
         transform: translateY(-10px) rotate(-45deg);
     }
-
-    /* Адаптивность хедера */
-    header .container {
-        flex-wrap: wrap;
-    }
-
-    .logo {
-        flex: 1;
-        min-width: 200px;
-    }
-
-    .mobile-header-controls {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    /* Адаптивность героя */
-    .hero {
-        padding: 3rem 1rem;
-        min-height: auto;
-    }
-
-    .hero-title {
-        font-size: 2.5rem;
-    }
-
-    .hero-subtitle {
-        font-size: 1.3rem;
-    }
-
-    .hero-description {
-        font-size: 1.1rem;
-        padding: 0 1rem;
-    }
-
-    .hero-stats {
-        flex-direction: column;
-        gap: 2rem;
-    }
-
-    .cta-buttons {
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .btn {
-        width: 100%;
-        max-width: 300px;
-    }
-
-    /* Адаптивность биндов */
-    .bind-category {
-        grid-template-columns: 1fr;
-    }
-
-    .bind-code {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .copy-btn {
-        width: 100%;
-        justify-content: center;
-    }
-
-    /* Адаптивность команды */
-    .team-container {
-        grid-template-columns: 1fr;
-    }
-
-    /* Адаптивность Discord секции */
-    .discord-container {
-        grid-template-columns: 1fr;
-        text-align: center;
-        padding: 2rem;
-    }
-
-    .discord-logo {
-        font-size: 10rem;
-        order: -1;
-        margin-bottom: 2rem;
-    }
-}
-
-@media (max-width: 768px) {
-    /* Базы */
-    .bases-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .bases-controls {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .bases-filters {
-        justify-content: center;
-    }
-
-    .filter-btn {
-        flex: 1;
-        min-width: 120px;
-        justify-content: center;
-    }
-
-    /* Гайды */
-    .guides-tabs {
-        flex-direction: column;
-    }
-
-    .guide-tab-btn {
-        width: 100%;
-        justify-content: center;
-    }
-
-    .guide-main-card,
-    .guide-card {
-        padding: 1.5rem;
-    }
-
-    /* Таблицы */
-    .resource-table {
+    
+    /* Показываем оверлей только когда меню открыто */
+    .menu-overlay.active {
         display: block;
-        overflow-x: auto;
-    }
-
-    /* Футер */
-    .footer-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 2rem;
-    }
-
-    .footer-logo,
-    .footer-links,
-    .footer-contact {
-        margin: 0 auto;
-    }
-
-    .footer-links a {
-        justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 998;
+        backdrop-filter: blur(3px);
+        animation: fadeIn 0.3s ease;
     }
 }
 
-@media (max-width: 480px) {
-    /* Еще более мелкие экраны */
-    .container {
-        padding: 0 1rem;
-    }
-
-    .hero-title {
-        font-size: 2rem;
-    }
-
-    .section-title {
-        font-size: 1.8rem;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
-
-    .category-tabs {
-        gap: 0.5rem;
-    }
-
-    .tab-btn {
-        padding: 0.7rem 1rem;
-        font-size: 0.9rem;
-        flex: 1;
-        min-width: 120px;
-        text-align: center;
-    }
-
-    .feature-card,
-    .bind-card,
-    .base-card {
-        padding: 1.5rem;
-    }
-
-    /* Кнопка наверх */
-    #scrollTopBtn {
-        width: 50px;
-        height: 50px;
-        bottom: 1.5rem;
-        right: 1.5rem;
-    }
-
-    /* Уведомление */
-    #copyNotification {
-        width: 90%;
-        padding: 1rem;
-        font-size: 0.9rem;
-    }
-}
-
-/* Анимации */
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-/* Дополнительные мобильные стили */
-@media (hover: none) {
-    /* Убираем hover-эффекты на тач-устройствах */
-    .nav-link:hover,
-    .btn:hover,
-    .card:hover,
-    .bind-card:hover,
-    .team-card:hover {
-        transform: none;
-    }
-
-    /* Вместо hover используем активное состояние */
-    .nav-link:active,
-    .btn:active,
-    .tab-btn:active,
-    .filter-btn:active {
-        transform: scale(0.95);
-    }
-}
-
-/* Улучшаем читаемость на мобильных */
-@media (max-width: 768px) {
-    body {
-        font-size: 16px;
-        line-height: 1.6;
-    }
-
-    h1, h2, h3 {
-        line-height: 1.3;
-    }
-
-    p {
-        margin-bottom: 1rem;
-    }
-
-    /* Увеличиваем тап-зоны */
-    button,
-    .btn,
-    .nav-link,
-    .tab-btn,
-    .filter-btn {
-        min-height: 44px;
-        min-width: 44px;
-    }
-
-    /* Улучшаем скроллбар для мобильных */
-    ::-webkit-scrollbar {
-        width: 6px;
-    }
-}
-
-/* Фикс для iOS */
-@supports (-webkit-touch-callout: none) {
-    .hero,
-    .discord-container,
-    .guide-main-card {
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
-    }
-}
-
-/* Фикс для мобильной клавиатуры */
-@media (max-width: 768px) {
-    input,
-    select,
-    textarea {
-        font-size: 16px; /* Предотвращает зум в iOS */
-    }
-}
-
-/* Скрываем гамбургер на десктопе */
-.hamburger {
-    display: none;
-}
-
-@media (max-width: 992px) {
+/* Гарантированно скрываем на больших экранах */
+@media (min-width: 993px) {
     .hamburger {
-        display: flex;
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+    
+    .mobile-header-controls {
+        display: none !important;
     }
 }
 
-/* Адаптивные отступы */
-@media (max-width: 992px) {
-    main {
-        padding: 2rem 0 3rem;
-    }
-
-    .section {
-        padding: 2rem 0;
-    }
-
-    .features,
-    .bases-header,
-    .guides-header {
-        margin-top: 3rem;
-    }
-}
-
-/* Улучшение для очень маленьких экранов */
-@media (max-width: 360px) {
-    :root {
-        --border-radius: 10px;
-    }
-
-    .container {
-        padding: 0 0.8rem;
-    }
-
-    .logo h1 {
-        font-size: 1.5rem;
-    }
-
-    .hero-title {
-        font-size: 1.8rem;
-    }
-
-    .section-title {
-        font-size: 1.5rem;
-    }
-
-    .btn {
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
-    }
-}
-
-/* Анимация для мобильного меню */
-@keyframes slideInLeft {
-    from {
-        transform: translateX(-100%);
-    }
-    to {
-        transform: translateX(0);
-    }
-}
-
-/* Затемнение фона при открытом меню */
-.menu-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
-    z-index: 998;
-    backdrop-filter: blur(3px);
-}
-
-.menu-overlay.active {
-    display: block;
-    animation: fadeIn 0.3s ease;
-}
-
-/* Фикс для скролла при открытом меню */
-body.menu-open {
-    overflow: hidden;
-}
-
-/* Улучшение для навигации в мобильном меню */
-@media (max-width: 992px) {
-    nav {
-        gap: 0.5rem;
-    }
-
-    .nav-link {
-        font-size: 1.1rem;
-        padding: 1rem;
-        text-align: center;
-        border: none;
-        background: rgba(255, 255, 255, 0.05);
-        margin: 0.2rem 0;
-    }
-
-    .nav-link.active {
-        background: var(--gradient-primary);
-        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
-    }
-
-    .discord-btn {
-        margin-top: 1rem;
-        background: var(--gradient-accent);
-        color: white !important;
-    }
+/* Анимация для оверлея */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
