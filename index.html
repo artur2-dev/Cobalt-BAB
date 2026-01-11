@@ -10,6 +10,36 @@
     <link rel="icon" type="image/x-icon" href="https://cdn2.steamgriddb.com/icon/c291b01517f3e6797c774c306591cc32.png">
 </head>
 <body>
+    <!-- Прелоадер -->
+<div class="preloader">
+    <div class="preloader-content">
+        <div class="preloader-spinner">
+            <div class="spinner-circle"></div>
+            <div class="spinner-circle"></div>
+            <div class="spinner-circle"></div>
+            <div class="spinner-circle"></div>
+        </div>
+        <div class="preloader-text">
+            <span class="preloader-title">Загрузка</span>
+            <span class="preloader-subtitle">Загружаем информацию про раст...</span>
+        </div>
+        <div class="preloader-progress">
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <span class="progress-percent">0%</span>
+        </div>
+    </div>
+    
+    <!-- Фоновые элементы -->
+    <div class="preloader-bg">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+</div>
     <!-- Шапка сайта -->
     <header>
         <div class="container">
@@ -1133,15 +1163,42 @@
                 </div>
                 
                 <div class="team-card">
-                    <div class="team-avatar admin">
-                        <i class="fas fa-user-cog"></i>
+                    <div class="team-avatar admin" style="width: 140px; height: 140px; border-radius: 50%; overflow: hidden; margin: 0 auto 25px; border: 4px solid transparent; background: linear-gradient(135deg, #3498db, #00d4ff) border-box; box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);">
+                        <img src="https://i.postimg.cc/59CDqCz6/Snimok-ekrana-2025-12-27-021225.png" 
+                            alt="Аватар ezhikhich" 
+                            style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; padding: 2px; background: #0a192f; box-sizing: border-box;">
                     </div>
+                    
                     <h3>Администратор</h3>
                     <p class="team-name">ezhikhich</p>
                     <p class="team-role">Администратор и разработчик</p>
-                    <p class="team-desc">Ник в Discord: <span class="discord-id">saymon1337</span></p>
-                    <div class="team-social">
-                        <span>Добавьте сюда контактную информацию</span>
+                    <p class="team-desc">Discord: <span class="discord-id">saymon1337</span></p>
+                    
+                    <div class="team-about">
+                        <h4>👋 Обо мне:</h4>
+                        <p>Привет! Я отвечаю за техническую часть и порядок на сервере. Если у тебя возникли проблемы с ботом, нужно добавить функцию или есть идеи по улучшению — обращайся! 😊</p>
+                        
+                        <div class="team-stats">
+                            <p>
+                                <strong><span class="stat-icon">📊</span> Активность:</strong>
+                                <span>Высокая</span>
+                            </p>
+                            <p>
+                                <strong><span class="stat-icon">⏰</span> Время ответа:</strong>
+                                <span>5-15 минут</span>
+                            </p>
+                            <p>
+                                <strong><span class="stat-icon">🎯</span> Направление:</strong>
+                                <span>Техподдержка & Разработка</span>
+                            </p>
+                        </div>
+                        
+                        <div class="team-personality">
+                            <span class="personality-tag">🔧 Техническая помощь</span>
+                            <span class="personality-tag">🤝 Поддержка</span>
+                            <span class="personality-tag">⚡ Быстрые ответы</span>
+                            <span class="personality-tag">💡 Решение проблем</span>
+                        </div>
                     </div>
                 </div>
                 
@@ -1221,5 +1278,53 @@
     <div id="copyNotification">Бинд скопирован в буфер обмена!</div>
 
     <script src="script.js"></script>
+    <script>
+// Прелоадер скрипт
+document.addEventListener('DOMContentLoaded', function() {
+    const preloader = document.querySelector('.preloader');
+    const progressFill = document.querySelector('.progress-fill');
+    const progressPercent = document.querySelector('.progress-percent');
+    
+    let progress = 0;
+    const totalTime = 2000;
+    const interval = 20;
+    
+    function updateProgress() {
+        if (progress >= 100) {
+            setTimeout(() => {
+                preloader.classList.add('loaded');
+                
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                    // Включаем скролл после скрытия прелоадера
+                    document.body.style.overflow = 'visible';
+                }, 500);
+            }, 300);
+            return;
+        }
+        
+        progress += 1;
+        progressFill.style.width = `${progress}%`;
+        progressPercent.textContent = `${progress}%`;
+        
+        setTimeout(updateProgress, interval);
+    }
+    
+    // Отключаем скролл на время показа прелоадера
+    document.body.style.overflow = 'hidden';
+    
+    setTimeout(() => {
+        updateProgress();
+    }, 500);
+    
+    window.addEventListener('load', function() {
+        if (progress < 90) {
+            progress = 90;
+            progressFill.style.width = `${progress}%`;
+            progressPercent.textContent = `${progress}%`;
+        }
+    });
+});
+</script>
 </body>
 </html>

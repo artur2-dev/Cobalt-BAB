@@ -3268,3 +3268,307 @@ html {
     opacity: 0 !important;
     pointer-events: none !important;
 }
+/* ========== ПРЕЛОАДЕР ========== */
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-dark);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.preloader.loaded {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.preloader-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 500px;
+    padding: 40px;
+    background: rgba(16, 30, 51, 0.8);
+    border-radius: 24px;
+    border: 1px solid rgba(52, 152, 219, 0.2);
+    backdrop-filter: blur(20px);
+    box-shadow: 
+        0 20px 50px rgba(0, 20, 40, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Спиннер */
+.preloader-spinner {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 40px;
+}
+
+.spinner-circle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    animation: spinnerRotate 2s linear infinite;
+}
+
+.spinner-circle:nth-child(1) {
+    border-top-color: var(--primary-color);
+    animation-delay: 0s;
+}
+
+.spinner-circle:nth-child(2) {
+    border-right-color: var(--accent-color);
+    animation-delay: 0.5s;
+}
+
+.spinner-circle:nth-child(3) {
+    border-bottom-color: var(--discord-color);
+    animation-delay: 1s;
+}
+
+.spinner-circle:nth-child(4) {
+    border-left-color: var(--success-color);
+    animation-delay: 1.5s;
+}
+
+@keyframes spinnerRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Текст */
+.preloader-text {
+    margin-bottom: 40px;
+}
+
+.preloader-title {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--light-color);
+    margin-bottom: 15px;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, #00d4ff, #3498db, #9b59b6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% auto;
+    animation: gradientShift 3s ease infinite;
+}
+
+.preloader-subtitle {
+    display: block;
+    font-size: 1.2rem;
+    color: var(--gray-color);
+    opacity: 0.9;
+}
+
+/* Прогресс бар */
+.preloader-progress {
+    width: 100%;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    position: relative;
+    border: 1px solid rgba(52, 152, 219, 0.2);
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        var(--primary-color), 
+        var(--accent-color));
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent);
+    animation: progressShine 2s infinite;
+}
+
+.progress-percent {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    text-align: center;
+}
+
+/* Фоновые частицы */
+.preloader-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    background: var(--gradient-accent);
+    border-radius: 50%;
+    opacity: 0.3;
+    filter: blur(20px);
+}
+
+.particle:nth-child(1) {
+    width: 200px;
+    height: 200px;
+    top: 10%;
+    left: 10%;
+    animation: particleFloat 20s infinite linear;
+}
+
+.particle:nth-child(2) {
+    width: 150px;
+    height: 150px;
+    top: 70%;
+    right: 15%;
+    animation: particleFloat 25s infinite linear reverse;
+}
+
+.particle:nth-child(3) {
+    width: 100px;
+    height: 100px;
+    bottom: 20%;
+    left: 20%;
+    animation: particleFloat 18s infinite linear;
+}
+
+.particle:nth-child(4) {
+    width: 250px;
+    height: 250px;
+    top: 50%;
+    right: 25%;
+    animation: particleFloat 30s infinite linear;
+}
+
+.particle:nth-child(5) {
+    width: 80px;
+    height: 80px;
+    bottom: 40%;
+    right: 40%;
+    animation: particleFloat 22s infinite linear reverse;
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(50px, -50px) rotate(90deg);
+    }
+    50% {
+        transform: translate(0, -100px) rotate(180deg);
+    }
+    75% {
+        transform: translate(-50px, -50px) rotate(270deg);
+    }
+    100% {
+        transform: translate(0, 0) rotate(360deg);
+    }
+}
+
+@keyframes progressShine {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@keyframes gradientShift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .preloader-content {
+        padding: 30px 20px;
+        margin: 0 20px;
+    }
+    
+    .preloader-spinner {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 30px;
+    }
+    
+    .preloader-title {
+        font-size: 2rem;
+    }
+    
+    .preloader-subtitle {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .preloader-content {
+        padding: 25px 15px;
+    }
+    
+    .preloader-spinner {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 25px;
+    }
+    
+    .preloader-title {
+        font-size: 1.5rem;
+    }
+    
+    .preloader-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .progress-bar {
+        height: 6px;
+    }
+    
+    .progress-percent {
+        font-size: 1rem;
+    }
+}

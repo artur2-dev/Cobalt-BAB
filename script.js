@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
             header.classList.remove('scrolled');
         }
     });
+
+    
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
