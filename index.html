@@ -2,164 +2,142 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cobalt BAB - Лучшие бинды для Rust</title>
-    <link rel="stylesheet" href="style.css?v=4.4">
+    <title>Cobalt BAB — Rust бинды, гайды, базы</title>
+    <meta name="description" content="Бинды, гайды и готовые базы для Rust. Быстрый старт, конфиги и поддержка сообщества.">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="index.html">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Cobalt BAB — Rust бинды, гайды, базы">
+    <meta property="og:description" content="Бинды, гайды и готовые базы для Rust. Быстрый старт, конфиги и поддержка сообщества.">
+    <meta property="og:image" content="assets/img/site-icon.png">
+    <meta property="og:url" content="index.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cobalt BAB — Rust бинды, гайды, базы">
+    <meta name="twitter:description" content="Бинды, гайды и готовые базы для Rust. Быстрый старт, конфиги и поддержка сообщества.">
+    <meta name="twitter:image" content="assets/img/site-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="style.min.css?v=18B78481" as="style">
+    <link rel="preload" href="script.min.js?v=8A7AB4A8" as="script">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" as="style">
+    <link rel="stylesheet" href="style.min.css?v=18B78481">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="https://cdn2.steamgriddb.com/icon/c291b01517f3e6797c774c306591cc32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/site-icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/site-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/site-icon.png">
 </head>
-<body>
-    <!-- Прелоадер -->
-<div class="preloader">
-    <div class="preloader-content">
-        <div class="preloader-spinner">
-            <div class="spinner-circle"></div>
-            <div class="spinner-circle"></div>
-            <div class="spinner-circle"></div>
-            <div class="spinner-circle"></div>
-        </div>
-        <div class="preloader-text">
-            <span class="preloader-title">❄ Cobalt BAB ❄</span>
-            <span class="preloader-subtitle">Загружаем лучшие бинды для Rust...</span>
-        </div>
-        <div class="preloader-progress">
-            <div class="progress-bar">
-                <div class="progress-fill"></div>
+<body data-page="home">
+    <div class="preloader">
+        <div class="preloader-content">
+            <div class="preloader-spinner">
+                <div class="spinner-circle"></div><div class="spinner-circle"></div><div class="spinner-circle"></div><div class="spinner-circle"></div>
             </div>
-            <span class="progress-percent">0%</span>
+            <div class="preloader-text">
+                <span class="preloader-title">Cobalt BAB</span>
+                <span class="preloader-subtitle">Загружаем контент...</span>
+            </div>
+            <div class="preloader-progress">
+                <div class="progress-bar"><div class="progress-fill"></div></div>
+                <span class="progress-percent">0%</span>
+            </div>
         </div>
     </div>
-    
-    <!-- Фоновые элементы -->
-    <div class="preloader-bg">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
+
+    <div class="bg-blob-2" aria-hidden="true"></div>
+    <div class="bg-blob-3" aria-hidden="true"></div>
+    <div class="bg-blob-4" aria-hidden="true"></div>
+
+    <div class="discord-badge" aria-hidden="false">
+        <button class="discord-puck" aria-label="Discord Cobalt BAB"><i class="fab fa-discord"></i></button>
+        <span class="discord-label">Discord</span>
+        <div class="discord-hover-card" role="tooltip">
+            <div class="hover-header"><span class="label">Discord</span><span class="title">Cobalt BAB</span></div>
+            <div class="status-row">
+                <span class="status-dot" aria-hidden="true"></span>
+                <div class="status-text">
+                    <span class="status-title">Онлайн</span>
+                    <span class="status-sub"><span class="discord-online">—</span> игроков сейчас</span>
+                </div>
+            </div>
+            <div class="hover-stats">
+                <div><span class="stat-label">Онлайн</span><span class="stat-value discord-online">—</span></div>
+                <div><span class="stat-label">Участников</span><span class="stat-value discord-members">—</span></div>
+            </div>
+            <a class="btn primary-btn hover-join" href="https://discord.gg/Q8ZfawakxS" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i> Войти в Discord</a>
+        </div>
     </div>
-</div>
-    <!-- Шапка сайта -->
+
     <header>
         <div class="container">
             <div class="logo">
                 <h1><i class="fas fa-leaf"></i> Cobalt BAB</h1>
-                <p>🌿 Лучшие бинды для Rust от команды сервера</p>
+                <p>Лучшие бинды, гайды и базы для Rust от команды сервера</p>
             </div>
             <nav>
-                <a href="#home" class="nav-link active"><i class="fas fa-home"></i> Главная</a>
-                <a href="#binds" class="nav-link"><i class="fas fa-keyboard"></i> Бинды</a>
-                <a href="#guides" class="nav-link"><i class="fas fa-book"></i> Гайды</a>
-                <a href="#faq" class="nav-link"><i class="fas fa-question-circle"></i> FAQ</a>
-                <a href="#bases" class="nav-link"><i class="fas fa-envelope"></i>Базы</a>
-                <a href="#team" class="nav-link"><i class="fas fa-users"></i> Команда</a>
-                <a href="https://discord.gg/Q8ZfawakxS" class="nav-link discord-btn" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-discord"></i> Discord
-                </a>
+                <a href="index.html" class="nav-link active"><i class="fas fa-home"></i> Главная</a>
+                <a href="binds.html" class="nav-link"><i class="fas fa-keyboard"></i> Бинды</a>
+                <a href="guides.html" class="nav-link"><i class="fas fa-book"></i> Гайды</a>
+                <a href="faq.html" class="nav-link"><i class="fas fa-question-circle"></i> FAQ</a>
+                <a href="bases.html" class="nav-link"><i class="fas fa-envelope"></i> Базы</a>
+                <a href="team.html" class="nav-link"><i class="fas fa-users"></i> Команда</a>
+                <a href="https://discord.gg/Q8ZfawakxS" class="nav-link discord-btn" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i> Discord</a>
             </nav>
         </div>
     </header>
 
-    <!-- Основной контент -->
     <main class="container">
-        <!-- Приветственная секция -->
-        <section id="home" class="section active">
-            <div class="hero">
-                <div class="hero-content">
-                    <div class="hero-glow"></div>
-                    <!-- Rust логотип (фото) -->
-                    <div class="rust-logo-container">
-                        <img src="rust-logo.png" alt="Rust Game Logo" class="rust-logo-img">
-                    </div>
-                    <h2 class="hero-title">
-                        <span class="hero-gradient">Cobalt BAB</span>
-                        <span class="hero-subtitle">Discord-сервер по Rust</span>
-                    </h2>
-                    <p class="hero-description">Бинды и гайды для Rust — быстрый старт и помощь 24/7.</p>
-                    
-                    
-                    <div class="hero-stats">
-                        <div class="stat">
-                            <span class="stat-number">25+</span>
-                            <span class="stat-label">Биндов</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">50+</span>
-                            <span class="stat-label">Гайдов</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">24/7</span>
-                            <span class="stat-label">Поддержка</span>
-                        </div>
-                    </div>
-                    
-                    <div class="cta-buttons">
-                        <a href="#binds" class="btn primary-btn hero-btn">
-                            <i class="fas fa-keyboard"></i>
-                            <span>Смотреть бинды</span>
-                            <div class="btn-glow"></div>
-                        </a>
-                        <!-- Вместо строки 55 -->
-                        <a href="https://discord.gg/Q8ZfawakxS" class="btn secondary-btn hero-btn" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-discord"></i>
-                            <span>Вступить в Discord</span>
-                            <div class="btn-glow"></div>
-                        </a>
-                    </div>
+        <section class="hero hero-page">
+            <div class="hero-content">
+                <div class="hero-title-wrap">
+                    <span class="badge badge-blue"><i class="fas fa-house"></i> Главная</span>
+                    <h2 class="hero-title-page">Cobalt BAB — Discord-сервер по Rust</h2>
+                    <p class="hero-description">Бинды, гайды и готовые базы в одном месте. Копируйте, изучайте и играйте увереннее.</p>
                 </div>
-                
-                <div class="hero-particles" id="particles-js"></div>
+                <div class="hero-stats">
+                    <div class="stat"><span class="stat-number">25+</span><span class="stat-label">биндов</span></div>
+                    <div class="stat"><span class="stat-number">50+</span><span class="stat-label">гайдов</span></div>
+                    <div class="stat"><span class="stat-number">24/7</span><span class="stat-label">поддержка</span></div>
+                </div>
+                <div class="cta-buttons">
+                    <a href="binds.html" class="btn primary-btn hero-btn"><i class="fas fa-keyboard"></i><span>Смотреть бинды</span><div class="btn-glow"></div></a>
+                    <a href="https://discord.gg/Q8ZfawakxS" class="btn secondary-btn hero-btn" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i><span>Вступить в Discord</span><div class="btn-glow"></div></a>
+                </div>
             </div>
-            
-            <div class="features">
-                <h3 class="features-title">Почему выбирают наш сервер?</h3>
-                
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-bolt"></i>
-                            <div class="icon-glow"></div>
-                        </div>
-                        <h4>Мгновенные бинды</h4>
-                        <p>Готовые конфигурации для любого геймплея</p>
-                        <div class="feature-shine"></div>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-users"></i>
-                            <div class="icon-glow"></div>
-                        </div>
-                        <h4>Активное комьюнити</h4>
-                        <p>Общайтесь с опытными игроками и делитесь опытом</p>
-                        <div class="feature-shine"></div>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                            <div class="icon-glow"></div>
-                        </div>
-                        <h4>Подробные гайды</h4>
-                        <p>От новичка до профессионала за короткое время</p>
-                        <div class="feature-shine"></div>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-shield-alt"></i>
-                            <div class="icon-glow"></div>
-                        </div>
-                        <h4>Безопасность</h4>
-                        <p>Проверенные бинды без нарушения правил игры</p>
-                        <div class="feature-shine"></div>
-                    </div>
+            <div class="hero-particles" id="particles-js"></div>
+        </section>
+        <section class="features">
+            <h3 class="features-title">Почему игроки выбирают нас?</h3>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i><div class="icon-glow"></div></div>
+                    <h4>Мгновенные бинды</h4>
+                    <p>Копируй готовые конфиги и играй комфортно без лишних настроек.</p>
+                    <div class="feature-shine"></div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-users"></i><div class="icon-glow"></div></div>
+                    <h4>Активное комьюнити</h4>
+                    <p>Дружелюбные игроки и модераторы помогут с любым вопросом.</p>
+                    <div class="feature-shine"></div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-graduation-cap"></i><div class="icon-glow"></div></div>
+                    <h4>Подробные гайды</h4>
+                    <p>Пошаговые инструкции по выживанию, крафту, PvP и экономике Rust.</p>
+                    <div class="feature-shine"></div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i><div class="icon-glow"></div></div>
+                    <h4>Безопасность</h4>
+                    <p>Актуальные советы по защите базы, рейдам и предотвращению взломов.</p>
+                    <div class="feature-shine"></div>
                 </div>
             </div>
         </section>
-
-        <!-- Секция с биндами -->
 <section id="binds" class="section">
     <h2 class="section-title"><i class="fas fa-keyboard"></i> Лучшие бинды для Rust</h2>
     <p class="section-subtitle">Скопируйте команды и вставьте в консоль игры (F1)</p>
@@ -445,305 +423,9 @@
         </ol>
     </div>
 </section>
-                <!-- Секция с базами -->
-        <section id="bases" class="section">
-            <div class="bases-header">
-                <h2 class="section-title">
-                    <i class="fas fa-chess-rook"></i>
-                    <span class="title-text">Готовые базы для Rust</span>
-                </h2>
-                <p class="section-subtitle">Лучшие дизайны баз от опытных игроков. Скачайте и используйте уже сегодня!</p>
-            </div>
-            
-            <div class="bases-controls">
-                <div class="bases-filters">
-                    <button class="filter-btn active" data-filter="all">
-                        <i class="fas fa-layer-group"></i> Все базы
-                    </button>
-                    <button class="filter-btn" data-filter="beginner">
-                        <i class="fas fa-seedling"></i> Для новичков
-                    </button>
-                    <button class="filter-btn" data-filter="advanced">
-                        <i class="fas fa-shield-alt"></i> Продвинутые
-                    </button>
-                    <button class="filter-btn" data-filter="raid">
-                        <i class="fas fa-fort-awesome"></i> Рейдовые
-                    </button>
-                    <button class="filter-btn" data-filter="clan">
-                        <i class="fas fa-users"></i> Для клана
-                    </button>
-                </div>
-                
-                <div class="bases-sort">
-                    <span class="sort-label">Сортировка:</span>
-                    <select class="sort-select">
-                        <option value="newest">Сначала новые</option>
-                        <option value="popular">По популярности</option>
-                        <option value="size">По размеру</option>
-                        <option value="cost">По стоимости</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div class="bases-grid">
-                <!-- База 1 - Пример для замены на ваши фото -->
-                <div class="base-card" data-category="beginner" data-size="2x2" data-cost="low">
-                    <div class="base-image">
-                        <img src="https://i.ytimg.com/vi/S_CFXbUXuWs/maxresdefault.jpg" alt="База для новичков 2x2" class="base-img">
-                        <div class="base-badge beginner-badge">
-                            <i class="fas fa-seedling"></i> Для новичков
-                        </div>
-                        <div class="base-stats">
-                            <span class="stat"><i class="fas fa-expand-arrows-alt"></i> 4x1</span>
-                            <span class="stat"><i class="fas fa-coins"></i> Средняя</span>
-                            <span class="stat"><i class="fas fa-shield-alt"></i> 5/10</span>
-                        </div>
-                    </div>
-                    
-                    <div class="base-content">
-                        <h3 class="base-title">База для новичка "Начало"</h3>
-                        <p class="base-description">Идеальная первая база. Простая в строительстве, требует мало ресурсов, но обеспечивает базовую защиту.</p>
-                        
-                        <div class="base-features">
-                            <div class="feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Быстрая постройка (20 мин)</span>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Требует: 10к камня, 5к дерева</span>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Автономный шкаф TC</span>
-                            </div>
-                        </div>
-                        
-                        <div class="base-actions">
-                            <a href="БУДЕТ_ДОБАВЛЕНО_СКОРО" class="btn base-download-btn" download>
-                                <i class="fas fa-download"></i> Скачать план
-                            </a>
-                            <a href="https://www.youtube.com/watch?v=S_CFXbUXuWs" class="btn base-preview-btn" target="_blank">
-                                <i class="fas fa-video"></i> Смотреть видео
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- База 2 - Пример для замены -->
-                <div class="base-card" data-category="advanced" data-size="3x3" data-cost="medium">
-                    <div class="base-image">
-                        <img src="https://i.ytimg.com/vi/TP0d52JjmXY/maxresdefault.jpg" alt="Продвинутая база 3x3" class="base-img">
-                        <div class="base-badge advanced-badge">
-                            <i class="fas fa-shield-alt"></i> Продвинутая
-                        </div>
-                        <div class="base-stats">
-                            <span class="stat"><i class="fas fa-expand-arrows-alt"></i> 3x3</span>
-                            <span class="stat"><i class="fas fa-coins"></i> Средняя</span>
-                            <span class="stat"><i class="fas fa-shield-alt"></i> 7/10</span>
-                        </div>
-                    </div>
-                    
-                    <div class="base-content">
-                        <h3 class="base-title">База "Крепость"</h3>
-                        <p class="base-description">Баланс защиты и стоимости. Идеальна для сольной игры или дуэта. Выдерживает средние рейды.</p>
-                        
-                        <div class="base-features">
-                            <div class="feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Ложные стены и переходы</span>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Требует: 25к камня, 15к дерева</span>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Защита от онлайн-рейдов</span>
-                            </div>
-                        </div>
-                        
-                        <div class="base-actions">
-                            <a href="БУДЕТ_ДОБАВЛЕНО_СКОРО" class="btn base-download-btn" download>
-                                <i class="fas fa-download"></i> Скачать план
-                            </a>
-                            </button>
-                            <a href="https://www.youtube.com/watch?v=TP0d52JjmXY" class="btn base-preview-btn" target="_blank">
-                                <i class="fas fa-video"></i> Смотреть видео
-                            </a>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- База 2 - Пример для замены -->
-                <div class="base-card" data-category="advanced" data-size="3x3" data-cost="medium">
-                    <div class="base-image">
-                        <img src="https://i.postimg.cc/BvBwTKN7/8a5ffb11-e451-4d0b-aead-220d779659c1.png" alt="Продвинутая база 3x3" class="base-img">
-                        <div class="base-badge advanced-badge">
-                            <i class="fas fa-shield-alt"></i> Продвинутая
-                        </div>
-                        <div class="base-stats">
-                            <span class="stat"><i class="fas fa-expand-arrows-alt"></i> 3x3</span>
-                            <span class="stat"><i class="fas fa-coins"></i> Средняя</span>
-                            <span class="stat"><i class="fas fa-shield-alt"></i> 7/10</span>
-                        </div>
-                    </div>
-                    
-                    <div class="base-content">
-                        <h3 class="base-title">База "Амогус"</h3>
-                        <p class="base-description">Баланс защиты и стоимости. Идеальна для сольной игры или дуэта. Выдерживает средние рейды.</p>
-                        
-                        <div class="base-features">
-                            <div class="feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Ложные стены и переходы</span>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Требует: время</span>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Защита от онлайн-рейдов</span>
-                            </div>
-                        </div>
-                        
-                        <div class="base-actions">
-                            <a href="БУДЕТ_ДОБАВЛЕНО_СКОРО" class="btn base-download-btn" download>
-                                <i class="fas fa-download"></i> Скачать план
-                            </a>
-                            </button>
-                            <a href="https://youtu.be/CRFAZzJ54oA" class="btn base-preview-btn" target="_blank">
-                                <i class="fas fa-video"></i> Смотреть видео
-                            </a>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- База 1 - Пример для замены на ваши фото -->
-                <div class="base-card" data-category="beginner" data-size="2x2" data-cost="low">
-                    <div class="base-image">
-                        <img src="https://i.postimg.cc/4NbTyDGL/38c5e27d-54c0-4df7-8a63-25896a05c46a.png" alt="База для новичков 2x2" class="base-img">
-                        <div class="base-badge beginner-badge">
-                            <i class="fas fa-seedling"></i> Для новичков
-                        </div>
-                        <div class="base-stats">
-                            <span class="stat"><i class="fas fa-expand-arrows-alt"></i> 3x1</span>
-                            <span class="stat"><i class="fas fa-coins"></i> Средняя</span>
-                            <span class="stat"><i class="fas fa-shield-alt"></i> 6/10</span>
-                        </div>
-                    </div>
-                    
-                    <div class="base-content">
-                        <h3 class="base-title">База для новичка "Начало"</h3>
-                        <p class="base-description">Идеальная первая база. Простая в строительстве, требует мало ресурсов, но обеспечивает базовую защиту.</p>
-                        
-                        <div class="base-features">
-                            <div class="feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Быстрая постройка (15 мин)</span>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Требует: 15к камня, 26к металла, 321 мвк</span>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Автономный шкаф TC</span>
-                            </div>
-                        </div>
-                        
-                        <div class="base-actions">
-                            <a href="БУДЕТ_ДОБАВЛЕНО_СКОРО" class="btn base-download-btn" download>
-                                <i class="fas fa-download"></i> Скачать план
-                            </a>
-                            <a href="https://www.youtube.com/watch?v=836__nw1Foo" class="btn base-preview-btn" target="_blank">
-                                <i class="fas fa-video"></i> Смотреть видео
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- База 3 - Пример для замены -->
-                <div class="base-card" data-category="clan" data-size="4x4" data-cost="high">
-                    <div class="base-image">
-                        <img src="https://i.postimg.cc/2jWxQmVw/14cf89a7-cac3-4740-880d-9d3794e253e4.png" alt="Клановая база 4x4" class="base-img">
-                        <div class="base-badge clan-badge">
-                            <i class="fas fa-users"></i> Для клана
-                        </div>
-                        <div class="base-stats">
-                            <span class="stat"><i class="fas fa-expand-arrows-alt"></i> 4x4</span>
-                            <span class="stat"><i class="fas fa-coins"></i> Высокая</span>
-                            <span class="stat"><i class="fas fa-shield-alt"></i> 9/10</span>
-                        </div>
-                    </div>
-                    
-                    <div class="base-content">
-                        <h3 class="base-title">Клановая база "Цитадель"</h3>
-                        <p class="base-description">Мощная база для 4-6 игроков. Множество комнат, турели, система защиты от оффлайн-рейдов.</p>
-                        
-                        <div class="base-features">
-                            <div class="feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Турельные позиции (6 шт)</span>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Требует: 82к камня, 17к металла, 126 мвк</span>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Отсеки для 10+ игроков</span>
-                            </div>
-                        </div>
-                        
-                        <div class="base-actions">
-                            <a href="БУДЕТ_ДОБАВЛЕНО_СКОРО" class="btn base-download-btn" download>
-                                <i class="fas fa-download"></i> Скачать план
-                            </a>
-                            <a href="https://www.youtube.com/watch?v=F_7VdPWvoU8" class="btn base-preview-btn" target="_blank">
-                                <i class="fas fa-video"></i> Смотреть видео
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="bases-info">
-                <div class="info-card">
-                    <div class="info-icon">
-                        <i class="fas fa-question-circle"></i>
-                    </div>
-                    <div class="info-content">
-                        <h4>Как использовать базы?</h4>
-                        <ol>
-                            <li>Скачайте файл с планом базы (.png или .pdf)</li>
-                            <li>Откройте файл на втором мониторе или телефоне</li>
-                            <li>Стройте в игре по шагам, сверяясь с планом</li>
-                            <li>Используйте строительную панель (hammer) для точности</li>
-                        </ol>
-                    </div>
-                </div>
-                
-                <div class="info-card">
-                    <div class="info-icon">
-                        <i class="fas fa-lightbulb"></i>
-                    </div>
-                    <div class="info-content">
-                        <h4>Советы по строительству</h4>
-                        <ul>
-                            <li>Всегда стройте сначала деревянный каркас</li>
-                            <li>Улучшайте до камня сразу после постройки</li>
-                            <li>Проверяйте стабильность (строительная панель)</li>
-                            <li>Сначала стены и полы, потом двери и окна</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Секция с гайдами (ИСПРАВЛЕННАЯ) -->
-        <section id="guides" class="section">
+<section id="guides" class="section">
             <div class="guides-header">
                 <h2 class="section-title">
                     <i class="fas fa-graduation-cap"></i>
@@ -1260,8 +942,306 @@
             </div>
         </section>
 
-        <!-- ========== СЕКЦИЯ FAQ ========== -->
-        <section id="faq" class="section">
+
+<section id="bases" class="section">
+            <div class="bases-header">
+                <h2 class="section-title">
+                    <i class="fas fa-chess-rook"></i>
+                    <span class="title-text">Готовые базы для Rust</span>
+                </h2>
+                <p class="section-subtitle">Лучшие дизайны баз от опытных игроков. Скачайте и используйте уже сегодня!</p>
+            </div>
+            
+            <div class="bases-controls">
+                <div class="bases-filters">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-layer-group"></i> Все базы
+                    </button>
+                    <button class="filter-btn" data-filter="beginner">
+                        <i class="fas fa-seedling"></i> Для новичков
+                    </button>
+                    <button class="filter-btn" data-filter="advanced">
+                        <i class="fas fa-shield-alt"></i> Продвинутые
+                    </button>
+                    <button class="filter-btn" data-filter="raid">
+                        <i class="fas fa-fort-awesome"></i> Рейдовые
+                    </button>
+                    <button class="filter-btn" data-filter="clan">
+                        <i class="fas fa-users"></i> Для клана
+                    </button>
+                </div>
+                
+                <div class="bases-sort">
+                    <span class="sort-label">Сортировка:</span>
+                    <select class="sort-select">
+                        <option value="newest">Сначала новые</option>
+                        <option value="popular">По популярности</option>
+                        <option value="size">По размеру</option>
+                        <option value="cost">По стоимости</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="bases-grid">
+                <!-- База 1 - Пример для замены на ваши фото -->
+                <div class="base-card" data-category="beginner" data-size="2x2" data-cost="low">
+                    <div class="base-image">
+                        <img src="https://i.ytimg.com/vi/S_CFXbUXuWs/maxresdefault.jpg" alt="База для новичков 2x2" class="base-img" loading="lazy">
+                        <div class="base-badge beginner-badge">
+                            <i class="fas fa-seedling"></i> Для новичков
+                        </div>
+                        <div class="base-stats">
+                            <span class="stat"><i class="fas fa-expand-arrows-alt"></i> 4x1</span>
+                            <span class="stat"><i class="fas fa-coins"></i> Средняя</span>
+                            <span class="stat"><i class="fas fa-shield-alt"></i> 5/10</span>
+                        </div>
+                    </div>
+                    
+                    <div class="base-content">
+                        <h3 class="base-title">База для новичка "Начало"</h3>
+                        <p class="base-description">Идеальная первая база. Простая в строительстве, требует мало ресурсов, но обеспечивает базовую защиту.</p>
+                        
+                        <div class="base-features">
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Быстрая постройка (20 мин)</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Требует: 10к камня, 5к дерева</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Автономный шкаф TC</span>
+                            </div>
+                        </div>
+                        
+                        <div class="base-actions">
+                            <a href="БУДЕТ_ДОБАВЛЕНО_СКОРО" class="btn base-download-btn" download>
+                                <i class="fas fa-download"></i> Скачать план
+                            </a>
+                            <a href="https://www.youtube.com/watch?v=S_CFXbUXuWs" class="btn base-preview-btn" target="_blank">
+                                <i class="fas fa-video"></i> Смотреть видео
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- База 2 - Пример для замены -->
+                <div class="base-card" data-category="advanced" data-size="3x3" data-cost="medium">
+                    <div class="base-image">
+                        <img src="https://i.ytimg.com/vi/TP0d52JjmXY/maxresdefault.jpg" alt="Продвинутая база 3x3" class="base-img" loading="lazy">
+                        <div class="base-badge advanced-badge">
+                            <i class="fas fa-shield-alt"></i> Продвинутая
+                        </div>
+                        <div class="base-stats">
+                            <span class="stat"><i class="fas fa-expand-arrows-alt"></i> 3x3</span>
+                            <span class="stat"><i class="fas fa-coins"></i> Средняя</span>
+                            <span class="stat"><i class="fas fa-shield-alt"></i> 7/10</span>
+                        </div>
+                    </div>
+                    
+                    <div class="base-content">
+                        <h3 class="base-title">База "Крепость"</h3>
+                        <p class="base-description">Баланс защиты и стоимости. Идеальна для сольной игры или дуэта. Выдерживает средние рейды.</p>
+                        
+                        <div class="base-features">
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Ложные стены и переходы</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Требует: 25к камня, 15к дерева</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Защита от онлайн-рейдов</span>
+                            </div>
+                        </div>
+                        
+                        <div class="base-actions">
+                            <a href="БУДЕТ_ДОБАВЛЕНО_СКОРО" class="btn base-download-btn" download>
+                                <i class="fas fa-download"></i> Скачать план
+                            </a>
+                            </button>
+                            <a href="https://www.youtube.com/watch?v=TP0d52JjmXY" class="btn base-preview-btn" target="_blank">
+                                <i class="fas fa-video"></i> Смотреть видео
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- База 2 - Пример для замены -->
+                <div class="base-card" data-category="advanced" data-size="3x3" data-cost="medium">
+                    <div class="base-image">
+                        <img src="https://i.postimg.cc/BvBwTKN7/8a5ffb11-e451-4d0b-aead-220d779659c1.png" alt="Продвинутая база 3x3" class="base-img" loading="lazy">
+                        <div class="base-badge advanced-badge">
+                            <i class="fas fa-shield-alt"></i> Продвинутая
+                        </div>
+                        <div class="base-stats">
+                            <span class="stat"><i class="fas fa-expand-arrows-alt"></i> 3x3</span>
+                            <span class="stat"><i class="fas fa-coins"></i> Средняя</span>
+                            <span class="stat"><i class="fas fa-shield-alt"></i> 7/10</span>
+                        </div>
+                    </div>
+                    
+                    <div class="base-content">
+                        <h3 class="base-title">База "Амогус"</h3>
+                        <p class="base-description">Баланс защиты и стоимости. Идеальна для сольной игры или дуэта. Выдерживает средние рейды.</p>
+                        
+                        <div class="base-features">
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Ложные стены и переходы</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Требует: время</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Защита от онлайн-рейдов</span>
+                            </div>
+                        </div>
+                        
+                        <div class="base-actions">
+                            <a href="БУДЕТ_ДОБАВЛЕНО_СКОРО" class="btn base-download-btn" download>
+                                <i class="fas fa-download"></i> Скачать план
+                            </a>
+                            </button>
+                            <a href="https://youtu.be/CRFAZzJ54oA" class="btn base-preview-btn" target="_blank">
+                                <i class="fas fa-video"></i> Смотреть видео
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- База 1 - Пример для замены на ваши фото -->
+                <div class="base-card" data-category="beginner" data-size="2x2" data-cost="low">
+                    <div class="base-image">
+                        <img src="https://i.postimg.cc/4NbTyDGL/38c5e27d-54c0-4df7-8a63-25896a05c46a.png" alt="База для новичков 2x2" class="base-img" loading="lazy">
+                        <div class="base-badge beginner-badge">
+                            <i class="fas fa-seedling"></i> Для новичков
+                        </div>
+                        <div class="base-stats">
+                            <span class="stat"><i class="fas fa-expand-arrows-alt"></i> 3x1</span>
+                            <span class="stat"><i class="fas fa-coins"></i> Средняя</span>
+                            <span class="stat"><i class="fas fa-shield-alt"></i> 6/10</span>
+                        </div>
+                    </div>
+                    
+                    <div class="base-content">
+                        <h3 class="base-title">База для новичка "Начало"</h3>
+                        <p class="base-description">Идеальная первая база. Простая в строительстве, требует мало ресурсов, но обеспечивает базовую защиту.</p>
+                        
+                        <div class="base-features">
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Быстрая постройка (15 мин)</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Требует: 15к камня, 26к металла, 321 мвк</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Автономный шкаф TC</span>
+                            </div>
+                        </div>
+                        
+                        <div class="base-actions">
+                            <a href="БУДЕТ_ДОБАВЛЕНО_СКОРО" class="btn base-download-btn" download>
+                                <i class="fas fa-download"></i> Скачать план
+                            </a>
+                            <a href="https://www.youtube.com/watch?v=836__nw1Foo" class="btn base-preview-btn" target="_blank">
+                                <i class="fas fa-video"></i> Смотреть видео
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- База 3 - Пример для замены -->
+                <div class="base-card" data-category="clan" data-size="4x4" data-cost="high">
+                    <div class="base-image">
+                        <img src="https://i.postimg.cc/2jWxQmVw/14cf89a7-cac3-4740-880d-9d3794e253e4.png" alt="Клановая база 4x4" class="base-img" loading="lazy">
+                        <div class="base-badge clan-badge">
+                            <i class="fas fa-users"></i> Для клана
+                        </div>
+                        <div class="base-stats">
+                            <span class="stat"><i class="fas fa-expand-arrows-alt"></i> 4x4</span>
+                            <span class="stat"><i class="fas fa-coins"></i> Высокая</span>
+                            <span class="stat"><i class="fas fa-shield-alt"></i> 9/10</span>
+                        </div>
+                    </div>
+                    
+                    <div class="base-content">
+                        <h3 class="base-title">Клановая база "Цитадель"</h3>
+                        <p class="base-description">Мощная база для 4-6 игроков. Множество комнат, турели, система защиты от оффлайн-рейдов.</p>
+                        
+                        <div class="base-features">
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Турельные позиции (6 шт)</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Требует: 82к камня, 17к металла, 126 мвк</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Отсеки для 10+ игроков</span>
+                            </div>
+                        </div>
+                        
+                        <div class="base-actions">
+                            <a href="БУДЕТ_ДОБАВЛЕНО_СКОРО" class="btn base-download-btn" download>
+                                <i class="fas fa-download"></i> Скачать план
+                            </a>
+                            <a href="https://www.youtube.com/watch?v=F_7VdPWvoU8" class="btn base-preview-btn" target="_blank">
+                                <i class="fas fa-video"></i> Смотреть видео
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bases-info">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <div class="info-content">
+                        <h4>Как использовать базы?</h4>
+                        <ol>
+                            <li>Скачайте файл с планом базы (.png или .pdf)</li>
+                            <li>Откройте файл на втором мониторе или телефоне</li>
+                            <li>Стройте в игре по шагам, сверяясь с планом</li>
+                            <li>Используйте строительную панель (hammer) для точности</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="info-content">
+                        <h4>Советы по строительству</h4>
+                        <ul>
+                            <li>Всегда стройте сначала деревянный каркас</li>
+                            <li>Улучшайте до камня сразу после постройки</li>
+                            <li>Проверяйте стабильность (строительная панель)</li>
+                            <li>Сначала стены и полы, потом двери и окна</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+<section id="faq" class="section">
             <div class="container">
                 <div class="section-header">
                     <h2 class="section-title"><i class="fas fa-question-circle"></i> Часто задаваемые вопросы</h2>
@@ -1461,8 +1441,9 @@
             </div>
         </section>
 
-        <!-- Секция с командой -->
-        <section id="team" class="section">
+
+
+<section id="team" class="section">
     <h2 class="section-title"><i class="fas fa-users"></i> Команда сервера</h2>
     <p class="section-subtitle">Создатели и администраторы проекта Cobalt BAB</p>
     
@@ -1509,7 +1490,7 @@
                 <div class="team-card">
                     <div class="team-avatar admin" style="width: 140px; height: 140px; border-radius: 50%; overflow: hidden; margin: 0 auto 25px; border: 4px solid transparent; background: linear-gradient(135deg, #3498db, #00d4ff) border-box; box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);">
                         <img src="https://i.postimg.cc/59CDqCz6/Snimok-ekrana-2025-12-27-021225.png" 
-                            alt="Аватар ezhikhich" 
+                            alt="Аватар ezhikhich" loading="lazy"
                             style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; padding: 2px; background: #0a192f; box-sizing: border-box;">
                     </div>
                     
@@ -1586,81 +1567,40 @@
             </div>
         </section>
 
-            <!-- Секция Discord -->
-            <section id="discord" class="section">
-                <div class="discord-container">
-                    <div class="discord-info">
-                        <h2><i class="fab fa-discord"></i> Присоединяйтесь к нашему Discord</h2>
-                        <p>Получайте актуальные новости, общайтесь с игроками и получайте помощь по биндам</p>
-                        <ul class="discord-features">
-                            <li><i class="fas fa-check-circle"></i> Актуальные новости сервера</li>
-                            <li><i class="fas fa-check-circle"></i> Помощь с настройкой биндов</li>
-                            <li><i class="fas fa-check-circle"></i> Общение с другими игроками</li>
-                            <li><i class="fas fa-check-circle"></i> Эксклюзивные гайды и советы</li>
-                        </ul>
-                        <a href="https://discord.gg/Q8ZfawakxS" class="btn discord-join-btn" target="_blank">
-                            <i class="fab fa-discord"></i> Присоединиться к Discord
-                        </a>
-                        <p class="discord-note">Присоединяйтесь к нашему сообществу игроков!</p>
-                    </div>
-                    <div class="discord-image">
-                        <i class="fab fa-discord discord-logo"></i>
-                    </div>
-                </div>
-            </section>
 
-            <section class="cta-strip">
-                <div class="cta-strip-inner">
-                    <div class="cta-strip-text">
-                        <h3>Готов прокачать Rust быстрее?</h3>
-                        <p>Бинды, гайды и помощь 24/7 — всё в одном Discord.</p>
-                    </div>
-                    <a href="https://discord.gg/Q8ZfawakxS" class="btn primary-btn cta-strip-btn" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-discord"></i>
-                        <span>Вступить в Discord</span>
-                    </a>
-                </div>
-            </section>
-        </main>
+    </main>
 
-    <!-- Подвал сайта -->
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
                     <h3><i class="fas fa-gamepad"></i> Cobalt BAB</h3>
-                    <p>Лучшие бинды для Rust. Ускорьте свою игру уже сегодня!</p>
+                    <p>Лучшие бинды, гайды и базы для Rust. Ускорьте свою игру уже сегодня!</p>
                 </div>
                 <div class="footer-links">
                     <h4>Быстрые ссылки</h4>
-                    <a href="#home">Главная</a>
-                    <a href="#binds">Бинды</a>
-                    <a href="#guid>es">Гайды</a>
-                    <a href="#faq">FAQ</a>
-                    <a href="#bases">Базы</a>
-                    <a href="#team">Команда</a>
-                    <a href="https://discord.gg/Q8ZfawakxS" target="_blank" rel="noopener noreferrer">Discord</a>
+                    <a href="index.html">Главная</a>
+                    <a href="binds.html">Бинды</a>
+                    <a href="guides.html">Гайды</a>
+                    <a href="faq.html">FAQ</a>
                 </div>
                 <div class="footer-contact">
                     <h4>Контакты</h4>
-                    <p>Discord сервер: <span>Cobalt BAB</span></p>
+                    <p>Discord сервер: <a href="https://discord.gg/Q8ZfawakxS" target="_blank" rel="noopener noreferrer">Cobalt BAB</a></p>
                     <p>Создатель: <span>BIBAS</span></p>
-                    <p>Разработчики: <span>ezhikhich и Хардик | LIRU</span></p>
+                    <p>Разработчики: <span>ezhikhich</span> и <span>Хардик | LIRU</span></p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; <span id="currentYear">2023</span> Cobalt BAB. Все бинды собраны для сообщества Rust. Все права защищены.</p>
+                <p>&copy; <span id="currentYear">2026</span> Cobalt BAB. Все материалы собраны для сообщества Rust. Все права защищены.</p>
                 <p class="disclaimer">Rust является зарегистрированной торговой маркой Facepunch Studios. Данный сайт не аффилирован с Facepunch Studios.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Кнопка наверх -->
     <button id="scrollTopBtn" title="Наверх"><i class="fas fa-chevron-up"></i></button>
+    <div id="copyNotification">Скопировано в буфер обмена!</div>
 
-    <!-- Уведомление о копировании -->
-    <div id="copyNotification">Бинд скопирован в буфер обмена!</div>
-
-    <script src="script.js"></script>
+    <script src="script.min.js?v=8A7AB4A8" defer></script>
 </body>
 </html>

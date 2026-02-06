@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cobalt BAB - �����, ����� � ������� ���� ��� Rust. ������� ����� � ��������� 24/7 � Discord.">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="index.html">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Cobalt BAB - ������ ����� � ����� �� Rust">
+    <meta property="og:description" content="������� �����, �����, ���� � ��������� 24/7 ��� ������� Rust � ���������� Cobalt BAB.">
+    <meta property="og:image" content="assets/img/site-icon.png">
+    <meta property="og:url" content="index.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cobalt BAB - ������ ����� � ����� �� Rust">
+    <meta name="twitter:description" content="�������� �����, ������ ����� � ����������� � Discord Cobalt BAB.">
+    <meta name="twitter:image" content="assets/img/site-icon.png">
+    <title>Cobalt BAB - Rust �����, �����, ����</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="style.min.css?v=18B78481" as="style">
+    <link rel="preload" href="script.min.js?v=8A7AB4A8" as="script">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" as="style">
+    <link rel="stylesheet" href="style.min.css?v=18B78481">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/site-icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/site-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/site-icon.png">
+    <link rel="preload" as="image" fetchpriority="high" href="rust-logo.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "name": "Cobalt BAB",
+          "url": "index.html",
+          "logo": "assets/img/site-icon.png",
+          "sameAs": [
+            "https://discord.gg/Q8ZfawakxS"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "name": "Cobalt BAB",
+          "url": "index.html",
+          "inLanguage": "ru-RU",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Cobalt BAB"
+          }
+        }
+      ]
+    }
+    </script>
+</head>
+<body data-page="home">
+    <div class="preloader">
+        <div class="preloader-content">
+            <div class="preloader-spinner">
+                <div class="spinner-circle"></div><div class="spinner-circle"></div><div class="spinner-circle"></div><div class="spinner-circle"></div>
+            </div>
+            <div class="preloader-text">
+                <span class="preloader-title">� Cobalt BAB �</span>
+                <span class="preloader-subtitle">��������� �����, ����� � ����...</span>
+            </div>
+            <div class="preloader-progress">
+                <div class="progress-bar"><div class="progress-fill"></div></div>
+                <span class="progress-percent">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-blob-2" aria-hidden="true"></div>
+    <div class="bg-blob-3" aria-hidden="true"></div>
+    <div class="bg-blob-4" aria-hidden="true"></div>
+
+    <div class="discord-badge" aria-hidden="false">
+        <button class="discord-puck" aria-label="Discord Cobalt BAB"><i class="fab fa-discord"></i></button>
+        <span class="discord-label">Discord</span>
+        <div class="discord-hover-card" role="tooltip">
+            <div class="hover-header"><span class="label">Discord</span><span class="title">Cobalt BAB</span></div>
+            <div class="status-row">
+                <span class="status-dot" aria-hidden="true"></span>
+                <div class="status-text">
+                    <span class="status-title">������</span>
+                    <span class="status-sub"><span class="discord-online">�</span> ������� ������</span>
+                </div>
+            </div>
+            <div class="hover-stats">
+                <div><span class="stat-label">������</span><span class="stat-value discord-online">�</span></div>
+                <div><span class="stat-label">����������</span><span class="stat-value discord-members">�</span></div>
+            </div>
+            <a class="btn primary-btn hover-join" href="https://discord.gg/Q8ZfawakxS" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i> ����� � Discord</a>
+        </div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1><i class="fas fa-leaf"></i> Cobalt BAB</h1>
+                <p>������ �����, ����� � ���� ��� Rust �� ������� �������</p>
+            </div>
+            <nav>
+                <a href="index.html" class="nav-link active"><i class="fas fa-home"></i> �������</a>
+                <a href="binds.html" class="nav-link"><i class="fas fa-keyboard"></i> �����</a>
+                <a href="guides.html" class="nav-link"><i class="fas fa-book"></i> �����</a>
+                <a href="faq.html" class="nav-link"><i class="fas fa-question-circle"></i> FAQ</a>
+                <a href="bases.html" class="nav-link"><i class="fas fa-envelope"></i>����</a>
+                <a href="team.html" class="nav-link"><i class="fas fa-users"></i> �������</a>
+                <a href="https://discord.gg/Q8ZfawakxS" class="nav-link discord-btn" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i> Discord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="rust-logo-container">
+                        <img src="rust-logo.png" alt="Rust Game Logo" class="rust-logo-img" loading="lazy">
+                    </div>
+                    <h2 class="hero-title">
+                        <span class="hero-gradient">Cobalt BAB</span>
+                        <span class="hero-subtitle">Discord-������ �� Rust</span>
+                    </h2>
+                    <p class="hero-description">����� � ����� ��� Rust - ������� ����� � ������ 24/7.</p>
+                    <div class="hero-stats">
+                        <div class="stat"><span class="stat-number">25+</span><span class="stat-label">������</span></div>
+                        <div class="stat"><span class="stat-number">50+</span><span class="stat-label">������</span></div>
+                        <div class="stat"><span class="stat-number">24/7</span><span class="stat-label">���������</span></div>
+                    </div>
+                    <div class="cta-buttons">
+                        <a href="binds.html" class="btn primary-btn hero-btn"><i class="fas fa-keyboard"></i><span>�������� �����</span><div class="btn-glow"></div></a>
+                        <a href="https://discord.gg/Q8ZfawakxS" class="btn secondary-btn hero-btn" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i><span>�������� � Discord</span><div class="btn-glow"></div></a>
+                    </div>
+                </div>
+                <div class="hero-particles" id="particles-js"></div>
+            </div>
+        </section>
+
+        <section class="home-features-section">
+            <div class="features">
+                <h3 class="features-title">������ ������ �������� ���?</h3>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-bolt"></i><div class="icon-glow"></div></div>
+                        <h4>���������� �����</h4>
+                        <p>������� ������� ������� � ����� ��������� ��� ������ ��������.</p>
+                        <div class="feature-shine"></div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-users"></i><div class="icon-glow"></div></div>
+                        <h4>�������� ���������</h4>
+                        <p>����������� ������ � ���������� ������� � ����� ��������.</p>
+                        <div class="feature-shine"></div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-graduation-cap"></i><div class="icon-glow"></div></div>
+                        <h4>��������� �����</h4>
+                        <p>��������� ���������� �� ���������, ������, PvP � ��������� Rust.</p>
+                        <div class="feature-shine"></div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-shield-alt"></i><div class="icon-glow"></div></div>
+                        <h4>������������</h4>
+                        <p>���������� ������ �� ������ ����, ������ � �������������� �������.</p>
+                        <div class="feature-shine"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3><i class="fas fa-gamepad"></i> Cobalt BAB</h3>
+                    <p>������ �����, ����� � ���� ��� Rust. �������� ���� ���� ��� �������!</p>
+                </div>
+                <div class="footer-links">
+                    <h4>������� ������</h4>
+                    <a href="index.html">�������</a>
+                    <a href="binds.html">�����</a>
+                    <a href="guides.html">�����</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="bases.html">����</a>
+                    <a href="team.html">�������</a>
+                </div>
+                <div class="footer-contact">
+                    <h4>��������</h4>
+                    <p>Discord ������: <a href="https://discord.gg/Q8ZfawakxS" target="_blank" rel="noopener noreferrer">Cobalt BAB</a></p>
+                    <p>���������: <span>BIBAS</span></p>
+                    <p>������������: <span>ezhikhich</span> � <span>������ | LIRU</span></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear">2026</span> Cobalt BAB. ��� ��������� ������� ��� ���������� Rust. ��� ����� ��������.</p>
+                <p class="disclaimer">Rust �������� ������������������ �������� ������ Facepunch Studios. ������ ���� �� ����������� � Facepunch Studios.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button id="scrollTopBtn" title="������"><i class="fas fa-chevron-up"></i></button>
+    <div id="copyNotification">����������� � ����� ������!</div>
+
+    <script src="script.min.js?v=8A7AB4A8" defer></script>
+</body>
+</html>
+
+
+
+

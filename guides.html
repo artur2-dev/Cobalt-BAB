@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гайды — Cobalt BAB</title>
+    <meta name="description" content="Подробные гайды по Rust: выживание, ресурсы, строительство и PvP.">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="guides.html">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Гайды — Cobalt BAB">
+    <meta property="og:description" content="Подробные гайды по Rust: выживание, ресурсы, строительство и PvP.">
+    <meta property="og:image" content="assets/img/site-icon.png">
+    <meta property="og:url" content="guides.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Гайды — Cobalt BAB">
+    <meta name="twitter:description" content="Подробные гайды по Rust: выживание, ресурсы, строительство и PvP.">
+    <meta name="twitter:image" content="assets/img/site-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="style.min.css?v=18B78481" as="style">
+    <link rel="preload" href="script.min.js?v=8A7AB4A8" as="script">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" as="style">
+    <link rel="stylesheet" href="style.min.css?v=18B78481">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/site-icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/site-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/site-icon.png">
+</head>
+<body data-page="guides">
+    <div class="preloader">
+        <div class="preloader-content">
+            <div class="preloader-spinner">
+                <div class="spinner-circle"></div><div class="spinner-circle"></div><div class="spinner-circle"></div><div class="spinner-circle"></div>
+            </div>
+            <div class="preloader-text">
+                <span class="preloader-title">Cobalt BAB</span>
+                <span class="preloader-subtitle">Загружаем контент...</span>
+            </div>
+            <div class="preloader-progress">
+                <div class="progress-bar"><div class="progress-fill"></div></div>
+                <span class="progress-percent">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-blob-2" aria-hidden="true"></div>
+    <div class="bg-blob-3" aria-hidden="true"></div>
+    <div class="bg-blob-4" aria-hidden="true"></div>
+
+    <div class="discord-badge" aria-hidden="false">
+        <button class="discord-puck" aria-label="Discord Cobalt BAB"><i class="fab fa-discord"></i></button>
+        <span class="discord-label">Discord</span>
+        <div class="discord-hover-card" role="tooltip">
+            <div class="hover-header"><span class="label">Discord</span><span class="title">Cobalt BAB</span></div>
+            <div class="status-row">
+                <span class="status-dot" aria-hidden="true"></span>
+                <div class="status-text">
+                    <span class="status-title">Онлайн</span>
+                    <span class="status-sub"><span class="discord-online">—</span> игроков сейчас</span>
+                </div>
+            </div>
+            <div class="hover-stats">
+                <div><span class="stat-label">Онлайн</span><span class="stat-value discord-online">—</span></div>
+                <div><span class="stat-label">Участников</span><span class="stat-value discord-members">—</span></div>
+            </div>
+            <a class="btn primary-btn hover-join" href="https://discord.gg/Q8ZfawakxS" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i> Войти в Discord</a>
+        </div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1><i class="fas fa-leaf"></i> Cobalt BAB</h1>
+                <p>Лучшие бинды, гайды и базы для Rust от команды сервера</p>
+            </div>
+            <nav>
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Главная</a>
+                <a href="binds.html" class="nav-link"><i class="fas fa-keyboard"></i> Бинды</a>
+                <a href="guides.html" class="nav-link active"><i class="fas fa-book"></i> Гайды</a>
+                <a href="faq.html" class="nav-link"><i class="fas fa-question-circle"></i> FAQ</a>
+                <a href="bases.html" class="nav-link"><i class="fas fa-envelope"></i> Базы</a>
+                <a href="team.html" class="nav-link"><i class="fas fa-users"></i> Команда</a>
+                <a href="https://discord.gg/Q8ZfawakxS" class="nav-link discord-btn" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i> Discord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero hero-page">
+            <div class="hero-content">
+                <div class="hero-title-wrap">
+                    <span class="badge badge-blue"><i class="fas fa-book"></i> Гайды</span>
+                    <h2 class="hero-title-page">Гайды по Rust для новичков</h2>
+                    <p class="hero-description">От первых минут до продвинутых тактик: выживание, ресурсы, база, PvP.</p>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat"><span class="stat-number">5</span><span class="stat-label">категорий</span></div>
+                    <div class="stat"><span class="stat-number">50+</span><span class="stat-label">советов</span></div>
+                    <div class="stat"><span class="stat-number">24/7</span><span class="stat-label">поддержка</span></div>
+                </div>
+            </div>
+        </section>
+<section id="guides" class="section">
+            <div class="guides-header">
+                <h2 class="section-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span class="title-text">Гайды по Rust для новичков</span>
+                </h2>
+                <p class="section-subtitle">От выживания до PvP: всё, что нужно знать начинающему игроку</p>
+            </div>
+            
+            <div class="guides-nav">
+                <div class="guides-tabs">
+                    <button class="guide-tab-btn active" data-guide="beginner">
+                        <i class="fas fa-seedling"></i>
+                        <span>Начало игры</span>
+                    </button>
+                    <button class="guide-tab-btn" data-guide="resources">
+                        <i class="fas fa-gem"></i>
+                        <span>Ресурсы</span>
+                    </button>
+                    <button class="guide-tab-btn" data-guide="base">
+                        <i class="fas fa-home"></i>
+                        <span>Строительство</span>
+                    </button>
+                    <button class="guide-tab-btn" data-guide="pvp-guide">
+                        <i class="fas fa-crosshairs"></i>
+                        <span>PvP и безопасность</span>
+                    </button>
+                    <button class="guide-tab-btn" data-guide="advanced">
+                        <i class="fas fa-rocket"></i>
+                        <span>Продвинутые техники</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="guides-container">
+                <!-- Гайд для начинающих -->
+                <div class="guide-category active" id="beginner">
+                    <div class="guide-main-card">
+                        <div class="guide-card-header">
+                            <h3 class="guide-title">
+                                <i class="fas fa-seedling"></i>
+                                Первые шаги в Rust
+                            </h3>
+                            <div class="guide-difficulty beginner-difficulty">
+                                <span>Для новичков</span>
+                            </div>
+                        </div>
+                        
+                        <div class="guide-content">
+                            <h4 class="guide-subtitle">Первые 30 минут игры</h4>
+                            
+                            <div class="guide-steps">
+                                <div class="guide-step">
+                                    <div class="step-number">1</div>
+                                    <div class="step-content">
+                                        <h5>Собирайте ресурсы</h5>
+                                        <p>Камень и дерево руками, затем создайте каменный топор</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="guide-step">
+                                    <div class="step-number">2</div>
+                                    <div class="step-content">
+                                        <h5>Создайте инструменты</h5>
+                                        <p>Каменный топор и каменная кирка - ваш минимум</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="guide-step">
+                                    <div class="step-number">3</div>
+                                    <div class="step-content">
+                                        <h5>Найдите еду</h5>
+                                        <p>Собирайте грибы, ягоды, охотьтесь на животных</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="guide-step">
+                                    <div class="step-number">4</div>
+                                    <div class="step-content">
+                                        <h5>Постройте убежище</h5>
+                                        <p>Даже небольшая хижина из дерева спасёт от первых угроз</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="guide-step">
+                                    <div class="step-number">5</div>
+                                    <div class="step-content">
+                                        <h5>Создайте спальный мешок</h5>
+                                        <p>Это ваша точка возрождения</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="guide-tip">
+                                <div class="tip-icon">
+                                    <i class="fas fa-lightbulb"></i>
+                                </div>
+                                <div class="tip-content">
+                                    <p class="tip-title">Совет</p>
+                                    <p class="tip-text">Первым делом найдите безопасное место у скал или в лесу, подальше от монументов</p>
+                                </div>
+                            </div>
+                            
+                            <div class="guide-checklist">
+                                <h5 class="checklist-title">Чеклист выживания:</h5>
+                                <div class="checklist-items">
+                                    <div class="checklist-item checked">
+                                        <div class="check-icon">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                        <span class="check-text">Топор и кирка</span>
+                                    </div>
+                                    <div class="checklist-item checked">
+                                        <div class="check-icon">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                        <span class="check-text">100+ дерева и камня</span>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <div class="check-icon">
+                                            <i class="far fa-circle"></i>
+                                        </div>
+                                        <span class="check-text">Спальный мешок</span>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <div class="check-icon">
+                                            <i class="far fa-circle"></i>
+                                        </div>
+                                        <span class="check-text">Деревянная хижина</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="guide-side-cards">
+                        <div class="guide-side-card">
+                            <h4 class="side-card-title">
+                                <i class="fas fa-map-marked-alt"></i>
+                                Ориентация на местности
+                            </h4>
+                            <p class="side-card-text">Используйте карту (G) для навигации. Запомните ориентиры:</p>
+                            <ul class="side-card-list">
+                                <li>Большие монументы отмечены на карте</li>
+                                <li>Дороги ведут к важным точкам</li>
+                                <li>ЛЭПы указывают на цивилизацию</li>
+                            </ul>
+                            <div class="mini-tip">
+                                <i class="fas fa-compass"></i>
+                                <span>Для ориентира отметьте свою базу на карте — нажмите G, затем правой кнопкой мыши поставьте метку в точке вашего дома.</span>
+                            </div>
+                        </div>
+                        
+                        <div class="guide-side-card">
+                            <h4 class="side-card-title">
+                                <i class="fas fa-shield-alt"></i>
+                                Избегание опасностей
+                            </h4>
+                            <p class="side-card-text">Что убивает новичков чаще всего:</p>
+                            <ul class="side-card-list">
+                                <li>Голод и жажда - следите за показателями</li>
+                                <li>Дикие животные - волки и медведи</li>
+                                <li>Другие игроки - избегайте контактов в начале</li>
+                                <li>Радиация — не заходите в зоны монументов без антирадиационного костюма</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Гайд по ресурсам -->
+                <div class="guide-category" id="resources">
+                    <div class="guide-main-card">
+                        <div class="guide-card-header">
+                            <h3 class="guide-title">
+                                <i class="fas fa-gem"></i>
+                                Добыча ресурсов
+                            </h3>
+                            <div class="guide-difficulty medium-difficulty">
+                                <span>Средняя сложность</span>
+                            </div>
+                        </div>
+                        
+                        <div class="guide-content">
+                            <div class="resource-table">
+                                <div class="table-header">
+                                    <div class="table-cell">Ресурс</div>
+                                    <div class="table-cell">Где найти</div>
+                                    <div class="table-cell">Инструмент</div>
+                                    <div class="table-cell">Применение</div>
+                                </div>
+                                
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <i class="fas fa-tree"></i>
+                                        <span>Дерево</span>
+                                    </div>
+                                    <div class="table-cell">Деревья, пни</div>
+                                    <div class="table-cell">Топор</div>
+                                    <div class="table-cell">Строительство, топливо</div>
+                                </div>
+                                
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <i class="fas fa-mountain"></i>
+                                        <span>Камень</span>
+                                    </div>
+                                    <div class="table-cell">Скалы, валуны</div>
+                                    <div class="table-cell">Кирка, бур</div>
+                                    <div class="table-cell">Инструменты, стены, строительство</div>
+                                </div>
+                                
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <i class="fas fa-coins"></i>
+                                        <span>Металл</span>
+                                    </div>
+                                    <div class="table-cell">Металлические руды</div>
+                                    <div class="table-cell">Кирка, бур</div>
+                                    <div class="table-cell">Оружие, броня, боеприпасы, строительство</div>
+                                </div>
+                                
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <i class="fas fa-oil-can"></i>
+                                        <span>Сера</span>
+                                    </div>
+                                    <div class="table-cell">Жёлтые камни</div>
+                                    <div class="table-cell">Кирка, бур</div>
+                                    <div class="table-cell">Взрывчатка, боеприпасы</div>
+                                </div>
+                                
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <i class="fas fa-shirt"></i>
+                                        <span>Ткань</span>
+                                    </div>
+                                    <div class="table-cell">Травянистые поля</div>
+                                    <div class="table-cell">Куст конопли, добыча животных</div>
+                                    <div class="table-cell">Одежда, медицина</div>
+                                </div>
+                            </div>
+                            
+                            <div class="guide-tips">
+                                <h4 class="tips-title">Эффективная добыча</h4>
+                                <div class="tip-list">
+                                    <div class="tip-item">
+                                        <div class="tip-bullet"></div>
+                                        <p><strong>Удар по слабым точкам:</strong> Ищите блестящие точки на ресурсах</p>
+                                    </div>
+                                    <div class="tip-item">
+                                        <div class="tip-bullet"></div>
+                                        <p><strong>Правильные инструменты:</strong> Металлические инструменты в 2 раза эффективнее</p>
+                                    </div>
+                                    <div class="tip-item">
+                                        <div class="tip-bullet"></div>
+                                        <p><strong>Металлалом:</strong> Ищите в бочках и сундуках, обменивайте у торговцев</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Гайд по строительству базы -->
+                <div class="guide-category" id="base">
+                    <div class="guide-main-card">
+                        <div class="guide-card-header">
+                            <h3 class="guide-title">
+                                <i class="fas fa-home"></i>
+                                Строительство базы
+                            </h3>
+                            <div class="guide-difficulty medium-difficulty">
+                                <span>Средняя сложность</span>
+                            </div>
+                        </div>
+                        
+                        <div class="guide-content">
+                            <h4 class="guide-subtitle">План идеальной базы для новичка</h4>
+                            
+                            <div class="base-steps">
+                                <div class="base-step">
+                                    <div class="step-circle">
+                                        <span>1</span>
+                                    </div>
+                                    <div class="base-step-content">
+                                        <h5>Выбор локации</h5>
+                                        <p>Вдали от монументов, но близко к ресурсам. Идеально - в лесу у скал</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="base-step">
+                                    <div class="step-circle">
+                                        <span>2</span>
+                                    </div>
+                                    <div class="base-step-content">
+                                        <h5>Фундамент и стены</h5>
+                                        <p>2x2 из каменных блоков. Сначала дерево, потом сразу камень</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="base-step">
+                                    <div class="step-circle">
+                                        <span>3</span>
+                                    </div>
+                                    <div class="base-step-content">
+                                        <h5>Защита и ловушки</h5>
+                                        <p>Двери с кодовыми замками, оконные решётки, шкафы для авторизации, турели и ловушки с дробовиком</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="base-step">
+                                    <div class="step-circle">
+                                        <span>4</span>
+                                    </div>
+                                    <div class="base-step-content">
+                                        <h5>Хранилища и комфорт</h5>
+                                        <p>Ящики для ресурсов, печи, спальный мешок, исследовательский стол, ремонтный стол</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="guide-warning">
+                            <div class="warning-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="warning-content">
+                                <p class="warning-title">Критические ошибки новичков:</p>
+                                <p class="warning-text"><i class="fas fa-times-circle"></i> <strong>Нет запаса ресурсов:</strong> Должно быть минимум 2 строки камня на экстренный ремонт</p>
+                                <p class="warning-text"><i class="fas fa-times-circle"></i> <strong>Соломенные стены:</strong> Улучшайте до дерева или камня в первые 5 минут, иначе - гарантированный рейд</p>
+                                <p class="warning-text"><i class="fas fa-times-circle"></i> <strong>Нет шкафа TC:</strong> Не забывайте поставить тул-шкаф с авторизацией внутри базы</p>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    
+                    <div class="guide-side-card full-card">
+                        <h4 class="side-card-title">
+                            <i class="fas fa-lock"></i>
+                            Безопасность базы
+                        </h4>
+                        <ul class="security-list">
+                            <li><i class="fas fa-check-circle"></i> Используйте кодовые замки вместо ключевых</li>
+                            <li><i class="fas fa-check-circle"></i> Разместите турели при наличии ресурсов</li>
+                            <li><i class="fas fa-check-circle"></i> Спрячьте шкаф для авторизации в секретном месте</li>
+                            <li><i class="fas fa-check-circle"></i> Постройте несколько слоёв стен</li>
+                        </ul>
+                        
+                        <div class="security-rating">
+                            <span class="rating-label">Уровень безопасности:</span>
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <p class="rating-note">Добавьте турели для повышения</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Гайд по PvP -->
+                <div class="guide-category" id="pvp-guide">
+                    <div class="guide-main-card">
+                        <div class="guide-card-header">
+                            <h3 class="guide-title">
+                                <i class="fas fa-crosshairs"></i>
+                                Основы PvP в Rust
+                            </h3>
+                            <div class="guide-difficulty hard-difficulty">
+                                <span>Сложный уровень</span>
+                            </div>
+                        </div>
+                        
+                        <div class="guide-content">
+                            <div class="pvp-grid">
+                                <div class="pvp-card">
+                                    <div class="pvp-icon">
+                                        <i class="fas fa-running"></i>
+                                    </div>
+                                    <h5>Позиционирование</h5>
+                                    <p>Всегда двигайтесь, не стойте на месте. Используйте укрытия и высоту</p>
+                                </div>
+                                
+                                <div class="pvp-card">
+                                    <div class="pvp-icon">
+                                        <i class="fas fa-headset"></i>
+                                    </div>
+                                    <h5>Звук</h5>
+                                    <p>Используйте наушники. Слышьте шаги противника за углом</p>
+                                </div>
+                                
+                                <div class="pvp-card">
+                                    <div class="pvp-icon">
+                                        <i class="fas fa-medkit"></i>
+                                    </div>
+                                    <h5>Лечение</h5>
+                                    <p>Всегда имейте медицинские шприцы. Лечитесь за укрытием</p>
+                                </div>
+                                
+                                <div class="pvp-card">
+                                    <div class="pvp-icon">
+                                        <i class="fas fa-arrows-alt-h"></i>
+                                    </div>
+                                    <h5>Дистанция</h5>
+                                    <p>Используйте оружие согласно дистанции: луки вблизи, винтовки издалека</p>
+                                </div>
+                            </div>
+                            
+                            <div class="guide-tips">
+                                <h4 class="tips-title">Типичные ошибки новичков в PvP</h4>
+                                <div class="mistakes-list">
+                                    <div class="mistake-item">
+                                        <i class="fas fa-times"></i>
+                                        <span>Бег по открытой местности</span>
+                                    </div>
+                                    <div class="mistake-item">
+                                        <i class="fas fa-times"></i>
+                                        <span>Стрельба без укрытия</span>
+                                    </div>
+                                    <div class="mistake-item">
+                                        <i class="fas fa-times"></i>
+                                        <span>Использование неподходящего оружия</span>
+                                    </div>
+                                    <div class="mistake-item">
+                                        <i class="fas fa-times"></i>
+                                        <span>Забывают про лечение</span>
+                                    </div>
+                                    <div class="mistake-item">
+                                        <i class="fas fa-times"></i>
+                                        <span>Не проверяют углы</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Продвинутые техники -->
+                <div class="guide-category" id="advanced">
+                    <div class="guide-cards-grid">
+                        <div class="guide-card">
+                            <h3 class="guide-card-title">
+                                <i class="fas fa-chess"></i>
+                                Продвинутые тактики
+                            </h3>
+                            <ul class="advanced-list">
+                                <li>
+                                    <strong>Рейды:</strong>
+                                    <span>Правильный расчёт взрывчатки, тайминг атак</span>
+                                </li>
+                                <li>
+                                    <strong>Фарм монументов:</strong>
+                                    <span>Маршруты, безопасные зоны, лут-тайминги</span>
+                                </li>
+                                <li>
+                                    <strong>Торговля:</strong>
+                                    <span>Работа с торговцами, безопасные сделки</span>
+                                </li>
+                                <li>
+                                    <strong>Клановые войны:</strong>
+                                    <span>Координация, распределение ролей</span>
+                                </li>
+                            </ul>
+                            
+                            <div class="expert-tip">
+                                <i class="fas fa-crown"></i>
+                                <p>Эти техники требуют 2500+ часов в игре и команды единомышленников</p>
+                            </div>
+                        </div>
+                        
+                        <div class="guide-card">
+                            <h3 class="guide-card-title">
+                                <i class="fas fa-rocket"></i>
+                                Быстрый прогресс
+                            </h3>
+                            
+                            <ol class="progress-steps">
+                                <li>Найдите союзников в игре или Discord</li>
+                                <li>Сфокусируйтесь на одном монументе для лута</li>
+                                <li>Изучите рецепты в исследовательском столе</li>
+                                <li>Укрепите оборону, чтобы избежать потерь</li>
+                                <li>Планируйте свои действия заранее и не оставляйте себя без необходимых материалов.</li>
+                            </ol>
+                            
+                            <div class="progress-track">
+                                <div class="progress-info">
+                                    <span class="progress-label">Прогресс до продвинутого игрока:</span>
+                                    <span class="progress-value">65%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 65%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="guides-footer">
+                <div class="footer-content">
+                    <h3 class="footer-title">
+                        <i class="fas fa-question-circle"></i>
+                        Нужна помощь?
+                    </h3>
+                    <p class="footer-text">Присоединяйтесь к нашему Discord серверу, где опытные игроки ответят на ваши вопросы и помогут в игре!</p>
+                    <a href="https://discord.gg/Q8ZfawakxS" class="btn discord-help-btn" target="_blank">
+                        <i class="fab fa-discord"></i>
+                        <span>Получить помощь в Discord</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3><i class="fas fa-gamepad"></i> Cobalt BAB</h3>
+                    <p>Лучшие бинды, гайды и базы для Rust. Ускорьте свою игру уже сегодня!</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Быстрые ссылки</h4>
+                    <a href="index.html">Главная</a>
+                    <a href="binds.html">Бинды</a>
+                    <a href="guides.html">Гайды</a>
+                    <a href="faq.html">FAQ</a>
+                </div>
+                <div class="footer-contact">
+                    <h4>Контакты</h4>
+                    <p>Discord сервер: <a href="https://discord.gg/Q8ZfawakxS" target="_blank" rel="noopener noreferrer">Cobalt BAB</a></p>
+                    <p>Создатель: <span>BIBAS</span></p>
+                    <p>Разработчики: <span>ezhikhich</span> и <span>Хардик | LIRU</span></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear">2026</span> Cobalt BAB. Все материалы собраны для сообщества Rust. Все права защищены.</p>
+                <p class="disclaimer">Rust является зарегистрированной торговой маркой Facepunch Studios. Данный сайт не аффилирован с Facepunch Studios.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button id="scrollTopBtn" title="Наверх"><i class="fas fa-chevron-up"></i></button>
+    <div id="copyNotification">Скопировано в буфер обмена!</div>
+
+    <script src="script.min.js?v=8A7AB4A8" defer></script>
+</body>
+</html>

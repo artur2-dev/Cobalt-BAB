@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binds � Cobalt BAB</title>
+    <meta name="description" content="������ ����� ��� Rust �� Cobalt BAB. ���������� ������� � �������� ���� ����.">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="binds.html">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="����� � Cobalt BAB">
+    <meta property="og:description" content="������� ����� ��� Rust: PvP, �������������, ������������� � ���-�������.">
+    <meta property="og:image" content="assets/img/site-icon.png">
+    <meta property="og:url" content="binds.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="����� � Cobalt BAB">
+    <meta name="twitter:description" content="���������� ������� ����� ��� Rust � �������� ����.">
+    <meta name="twitter:image" content="assets/img/site-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="style.min.css?v=18B78481" as="style">
+    <link rel="preload" href="script.min.js?v=8A7AB4A8" as="script">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" as="style">
+    <link rel="stylesheet" href="style.min.css?v=18B78481">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/site-icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/site-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/site-icon.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "����� � Cobalt BAB",
+      "description": "������ ����� ��� Rust �� Cobalt BAB. ���������� ������� � �������� ���� ����.",
+      "url": "binds.html",
+      "inLanguage": "ru-RU",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Cobalt BAB",
+        "url": "index.html"
+      }
+    }
+    </script>
+</head>
+<body data-page="binds">
+    <div class="preloader">
+        <div class="preloader-content">
+            <div class="preloader-spinner">
+                <div class="spinner-circle"></div><div class="spinner-circle"></div><div class="spinner-circle"></div><div class="spinner-circle"></div>
+            </div>
+            <div class="preloader-text">
+                <span class="preloader-title">� Cobalt BAB �</span>
+                <span class="preloader-subtitle">��������� ������ ����� ��� Rust...</span>
+            </div>
+            <div class="preloader-progress">
+                <div class="progress-bar"><div class="progress-fill"></div></div>
+                <span class="progress-percent">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-blob-2" aria-hidden="true"></div>
+    <div class="bg-blob-3" aria-hidden="true"></div>
+    <div class="bg-blob-4" aria-hidden="true"></div>
+
+    <div class="discord-badge" aria-hidden="false">
+        <button class="discord-puck" aria-label="Discord Cobalt BAB"><i class="fab fa-discord"></i></button>
+        <span class="discord-label">Discord</span>
+        <div class="discord-hover-card" role="tooltip">
+            <div class="hover-header"><span class="label">Discord</span><span class="title">Cobalt BAB</span></div>
+            <div class="status-row">
+                <span class="status-dot" aria-hidden="true"></span>
+                <div class="status-text">
+                    <span class="status-title">������</span>
+                    <span class="status-sub"><span class="discord-online">�</span> ������� ������</span>
+                </div>
+            </div>
+            <div class="hover-stats">
+                <div><span class="stat-label">������</span><span class="stat-value discord-online">�</span></div>
+                <div><span class="stat-label">����������</span><span class="stat-value discord-members">�</span></div>
+            </div>
+            <a class="btn primary-btn hover-join" href="https://discord.gg/Q8ZfawakxS" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i> ����� � Discord</a>
+        </div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1><i class="fas fa-leaf"></i> Cobalt BAB</h1>
+                <p>������ ����� ��� Rust �� ������� �������</p>
+            </div>
+            <nav>
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> �������</a>
+                <a href="binds.html" class="nav-link active"><i class="fas fa-keyboard"></i> �����</a>
+                <a href="guides.html" class="nav-link"><i class="fas fa-book"></i> �����</a>
+                <a href="faq.html" class="nav-link"><i class="fas fa-question-circle"></i> FAQ</a>
+                <a href="bases.html" class="nav-link"><i class="fas fa-envelope"></i>����</a>
+                <a href="team.html" class="nav-link"><i class="fas fa-users"></i> �������</a>
+                <a href="https://discord.gg/Q8ZfawakxS" class="nav-link discord-btn" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i> Discord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero hero-page">
+            <div class="hero-content">
+                <div class="hero-title-wrap">
+                    <span class="badge badge-blue"><i class="fas fa-keyboard"></i> �����</span>
+                    <h2 class="hero-title-page">��� ����� � ����� �����</h2>
+                    <p class="hero-description">������� ������� �������: PvP, �������������, �������������, ���?�������. ������� � ��������.</p>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat"><span class="stat-number">25+</span><span class="stat-label">PvP ������</span></div>
+                    <div class="stat"><span class="stat-number">20+</span><span class="stat-label">���� & �����</span></div>
+                    <div class="stat"><span class="stat-number">10+</span><span class="stat-label">���-�������</span></div>
+                </div>
+                <div class="cta-buttons">
+                    <a href="#binds" class="btn primary-btn hero-btn"><i class="fas fa-bolt"></i><span>������� � ����a�</span><div class="btn-glow"></div></a>
+                    <a href="https://discord.gg/Q8ZfawakxS" class="btn secondary-btn hero-btn" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i><span>� Discord �� �������</span><div class="btn-glow"></div></a>
+                </div>
+            </div>
+        </section>
+
+        <section id="binds" class="section active">
+            <h2 class="section-title"><i class="fas fa-keyboard"></i> ������ ����� ��� Rust</h2>
+            <p class="section-subtitle">���������� ������� � �������� � ������� ���� (F1)</p>
+            <div class="category-tabs">
+                <button class="tab-btn active" data-category="pvp">PvP �����</button>
+                <button class="tab-btn" data-category="auto">�������������</button>
+                <button class="tab-btn" data-category="build">�������������</button>
+                <button class="tab-btn" data-category="modded">���. �������</button>
+            </div>
+            <div class="binds-container">
+                <!-- PvP -->
+                <div class="bind-category active" id="pvp">
+                    <div class="bind-card">
+                        <h3><i class="fas fa-crosshairs"></i> ������� ��� (Hover Loot)</h3>
+                        <p class="bind-description">��������� ������������� �������� � ��������� ��� ���������</p>
+                        <div class="bind-code"><code>bind e "+hoverloot;+use;+nextskin"</code><button class="copy-btn" data-clipboard-text='bind e "+hoverloot;+use;+nextskin"'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> �������: E ��� ���</div>
+                    </div>
+                    <div class="bind-card">
+                        <h3><i class="fas fa-user-secret"></i> ����-����� ����</h3>
+                        <p class="bind-description">�������� � ���������� ������������ ��� ���������� ��������</p>
+                        <div class="bind-code"><code>bind z "+attack;+duck"</code><button class="copy-btn" data-clipboard-text='bind z "+attack;+duck"'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> �������: Z ��� U</div>
+                    </div>
+                    <div class="bind-card">
+                        <h3><i class="fas fa-exchange-alt"></i> ����� ���</h3>
+                        <p class="bind-description">������ ���� �������</p>
+                        <div class="bind-code"><code>bind ������� +graphics.vm_horizontal_flip 0;graphics.vm_horizontal_flip 1</code><button class="copy-btn" data-clipboard-text='bind ������� +graphics.vm_horizontal_flip 0;graphics.vm_horizontal_flip 1'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> �������: [�����]</div>
+                    </div>
+                    <div class="bind-card">
+                        <h3><i class="fas fa-terminal"></i> ����-���������</h3>
+                        <p class="bind-description">��������� ������� � ����� combatlog</p>
+                        <div class="bind-code"><code>bind f1 "consoletoggle;combatlog"</code><button class="copy-btn" data-clipboard-text='bind f1 "consoletoggle;combatlog"'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> �������: F1</div>
+                    </div>
+                    <div class="bind-card">
+                        <h3><i class="fas fa-eye"></i> ��� ������� �������� ������</h3>
+                        <p class="bind-description">������� ���������� ����� �������� ������ (Alt)</p>
+                        <div class="bind-code"><code>client.headlerp_inertia false</code><button class="copy-btn" data-clipboard-text='client.headlerp_inertia false'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> ������� (F1)</div>
+                    </div>
+                    <div class="bind-card">
+                        <h3><i class="fas fa-water"></i> ������� ����</h3>
+                        <p class="bind-description">���� �� �������� ������ ����</p>
+                        <div class="bind-code"><code>bind X ~water.quality -1;water.quality 2"</code><button class="copy-btn" data-clipboard-text='bind X ~water.quality -1;water.quality 2"'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> �������: X</div>
+                    </div>
+                    <div class="bind-card">
+                        <h3><i class="fas fa-first-aid"></i> ������� �������</h3>
+                        <p class="bind-description">��������� ���������� ������� �� ���������� �����</p>
+                        <div class="bind-code"><code>bind 3 "+buttons.slot3;+buttons.attack"</code><button class="copy-btn" data-clipboard-text='bind 3 "+buttons.slot3;+buttons.attack"'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> �������: 3 (��������)</div>
+                    </div>
+                    <div class="bind-card">
+                        <h3><i class="fas fa-expand"></i> ��� ���������</h3>
+                        <p class="bind-description">���������� ����� �� mouse3</p>
+                        <div class="bind-code"><code>bind mouse3 "+graphics.fov 90;graphics.fov 70"</code><button class="copy-btn" data-clipboard-text='bind mouse3 "+graphics.fov 90;graphics.fov 70"'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-mouse"></i> �������: �������</div>
+                    </div>
+                    <div class="bind-card">
+                        <h3><i class="fas fa-crosshairs"></i> ��������� ���</h3>
+                        <p class="bind-description">���� ������ �� ������</p>
+                        <div class="bind-code"><code>graphics.vm_fov_scale False</code><button class="copy-btn" data-clipboard-text='graphics.vm_fov_scale False'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> �������</div>
+                    </div>
+                </div>
+
+                <!-- ������������� -->
+                <div class="bind-category" id="auto">
+                    <div class="bind-card">
+                        <h3><i class="fas fa-running"></i> ����-���</h3>
+                        <p class="bind-description">��� ��� ��������� �������</p>
+                        <div class="bind-code"><code>bind q "forward;sprint"</code><button class="copy-btn" data-clipboard-text='bind q "forward;sprint"'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> �������: Q ��� Z</div>
+                    </div>
+                    <div class="bind-card">
+                        <h3><i class="fas fa-volume-mute"></i> ���������� ������</h3>
+                        <p class="bind-description">������� ����� �������������/�������/�����</p>
+                        <div class="bind-code"><code>bind F6 ~meta.exec "audio.speakers 1";meta.exec "audio.speakers 2"</code><button class="copy-btn" data-clipboard-text='bind F6 ~meta.exec "audio.speakers 1";meta.exec "audio.speakers 2"'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> �������: F6</div>
+                    </div>
+                    <div class="bind-card">
+                        <h3><i class="fas fa-map"></i> �������� �����</h3>
+                        <p class="bind-description">������� ������ � �����</p>
+                        <div class="bind-code"><code>bind m "map"</code><button class="copy-btn" data-clipboard-text='bind m "map"'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> �������: M</div>
+                    </div>
+                    <div class="bind-card">
+                        <h3><i class="fas fa-syringe"></i> ������ ?10</h3>
+                        <p class="bind-description">����� ������ �������</p>
+                        <div class="bind-code"><code>bind X craft.add 1079279582 10</code><button class="copy-btn" data-clipboard-text='bind X craft.add 1079279582 10'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> �������: X</div>
+                    </div>
+                    <div class="bind-card">
+                        <h3><i class="fas fa-gas-pump"></i> ������� ?100</h3>
+                        <p class="bind-description">����� 100 ������� ������� ��������</p>
+                        <div class="bind-code"><code>bind X craft.add -946369541 100</code><button class="copy-btn" data-clipboard-text='bind X craft.add -946369541 100'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> �������: X</div>
+                    </div>
+                    <div class="bind-card">
+                        <h3><i class="fas fa-undo-alt"></i> ����-������</h3>
+                        <p class="bind-description">��������� ��� ������ ��� ��������</p>
+                        <div class="bind-code"><code>input.autocrouch true</code><button class="copy-btn" data-clipboard-text='input.autocrouch true'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> �������</div>
+                    </div>
+                    <div class="bind-card">
+                        <h3><i class="fas fa-broom"></i> ������ ��������</h3>
+                        <p class="bind-description">������� ������� ��������</p>
+                        <div class="bind-code"><code>effects.maxgibs -1</code><button class="copy-btn" data-clipboard-text='effects.maxgibs -1'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> �������</div>
+                    </div>
+                    <div class="bind-card">
+                        <h3><i class="fas fa-archive"></i> 10 ������</h3>
+                        <p class="bind-description">����� 10 ������</p>
+                        <div class="bind-code"><code>bind X "craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382"</code><button class="copy-btn" data-clipboard-text='bind X "craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382;craft.add -97956382"'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> �������: X</div>
+                    </div>
+                    <div class="bind-card">
+                        <h3><i class="fas fa-volume-mute"></i> ����� ����</h3>
+                        <p class="bind-description">������ ������ �����</p>
+                        <div class="bind-code"><code>hitnotify.notification_level 2</code><button class="copy-btn" data-clipboard-text='hitnotify.notification_level 2'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> �������</div>
+                    </div>
+                    <div class="bind-card">
+                        <h3><i class="fas fa-eye-slash"></i> ������� ����</h3>
+                        <p class="bind-description">��������� �����������, �������� ����� �������</p>
+                        <div class="bind-code"><code>mesh.quality 28</code><button class="copy-btn" data-clipboard-text='mesh.quality 28'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> �������: B</div>
+                    </div>
+                </div>
+
+                <!-- ������������� -->
+                <div class="bind-category" id="build">
+                    <div class="bind-card">
+                        <h3><i class="fas fa-trash"></i> �������� ��������</h3>
+                        <p class="bind-description">������� �������� �������� �������� /remove</p>
+                        <div class="bind-code"><code>bind x "chat.say /remove"</code><button class="copy-btn" data-clipboard-text='bind x "chat.say /remove"'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> �������: X</div>
+                    </div>
+                    <div class="bind-card">
+                        <h3><i class="fas fa-level-up-alt"></i> ����-���������</h3>
+                        <p class="bind-description">������� ��������� ��������</p>
+                        <div class="bind-code"><code>bind u "building.upgrade"</code><button class="copy-btn" data-clipboard-text='bind u "building.upgrade"'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> �������: U</div>
+                    </div>
+                </div>
+
+                <!-- ���. ������� -->
+                <div class="bind-category" id="modded">
+                    <div class="bind-card">
+                        <h3><i class="fas fa-home"></i> �������� �����</h3>
+                        <p class="bind-description">������� �������� �� �������� ����� (��� ���. ��������)</p>
+                        <div class="bind-code"><code>bind h "teleport.home 1"</code><button class="copy-btn" data-clipboard-text='bind h "teleport.home 1"'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> �������: H</div>
+                    </div>
+                    <div class="bind-card">
+                        <h3><i class="fas fa-gift"></i> ��������� ����</h3>
+                        <p class="bind-description">������� ��������� ������ ��������� (��� ���. ��������)</p>
+                        <div class="bind-code"><code>bind k "chat.say /kit"</code><button class="copy-btn" data-clipboard-text='bind k "chat.say /kit"'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> �������: K</div>
+                    </div>
+                    <div class="bind-card">
+                        <h3><i class="fas fa-tools"></i> ����� ���� �����</h3>
+                        <p class="bind-description">����� �� � ������ �������</p>
+                        <div class="bind-code"><code>bind key "craft.add 1545779598;craft.add -132516482;craft.add 2005491391;craft.add 442289265"</code><button class="copy-btn" data-clipboard-text='bind key "craft.add 1545779598;craft.add -132516482;craft.add 2005491391;craft.add 442289265"'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> �������: [�����]</div>
+                    </div>
+                    <div class="bind-card">
+                        <h3><i class="fas fa-user-check"></i> ������� ��</h3>
+                        <p class="bind-description">������� ������ �� ������������ (��� ���. ��������)</p>
+                        <div class="bind-code"><code>bind y "chat.say /tpa"</code><button class="copy-btn" data-clipboard-text='bind y "chat.say /tpa"'><i class="far fa-copy"></i> ����������</button></div>
+                        <div class="bind-key"><i class="fas fa-keyboard"></i> �������: Y</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="setup-guide">
+                <h3><i class="fas fa-cogs"></i> ��� ��������� �����</h3>
+                <ol>
+                    <li>�������� ������� � ���� �������� <kbd>F1</kbd></li>
+                    <li>������� �������: <code>bind [�������] "[��������]"</code></li>
+                    <li>������� <kbd>Enter</kbd> ��� ����������</li>
+                    <li>�������: <code>bind mouse1 "+attack;+duck"</code>, <code>bind c "chat.say /remove"</code></li>
+                </ol>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3><i class="fas fa-gamepad"></i> Cobalt BAB</h3>
+                    <p>������ ����� ��� Rust. �������� ���� ���� ��� �������!</p>
+                </div>
+                <div class="footer-links">
+                    <h4>������� ������</h4>
+                    <a href="index.html">�������</a>
+                    <a href="binds.html">�����</a>
+                    <a href="guides.html">�����</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="bases.html">����</a>
+                    <a href="team.html">�������</a>
+                    <a href="https://discord.gg/Q8ZfawakxS" target="_blank" rel="noopener noreferrer">Discord</a>
+                </div>
+                <div class="footer-contact">
+                    <h4>��������</h4>
+                    <p>Discord ������: <a href="https://discord.gg/Q8ZfawakxS" target="_blank" rel="noopener noreferrer">Cobalt BAB</a></p>
+                    <p>���������: <span>BIBAS</span></p>
+                    <p>������������: <span>ezhikhich</span> � <span>������ | LIRU</span></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear">2023</span> Cobalt BAB. ��� ����� ������� ��� ���������� Rust. ��� ����� ��������.</p>
+                <p class="disclaimer">Rust �������� ������������������ �������� ������ Facepunch Studios. ������ ���� �� ����������� � Facepunch Studios.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button id="scrollTopBtn" title="������"><i class="fas fa-chevron-up"></i></button>
+    <div id="copyNotification">���� ���������� � ����� ������!</div>
+
+    <script src="script.min.js?v=8A7AB4A8" defer></script>
+</body>
+</html>
+
+
+
+
+
+
+

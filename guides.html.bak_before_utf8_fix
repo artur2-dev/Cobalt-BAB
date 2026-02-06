@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>����� � Cobalt BAB</title>
+    <meta name="description" content="��������� ����� �� Rust: �����, �������, �������������, PvP � ����������� ������� �� Cobalt BAB.">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="guides.html">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="����� � Cobalt BAB">
+    <meta property="og:description" content="�������� ����� �� Rust: ���������, �������, �������������, PvP � ����������� �������.">
+    <meta property="og:image" content="assets/img/site-icon.png">
+    <meta property="og:url" content="guides.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="����� � Cobalt BAB">
+    <meta name="twitter:description" content="��������� ����� �� Rust �� Cobalt BAB.">
+    <meta name="twitter:image" content="assets/img/site-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="style.min.css?v=18B78481" as="style">
+    <link rel="preload" href="script.min.js?v=8A7AB4A8" as="script">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" as="style">
+    <link rel="stylesheet" href="style.min.css?v=18B78481">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/site-icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/site-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/site-icon.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "����� � Cobalt BAB",
+      "description": "��������� ����� �� Rust: �����, �������, �������������, PvP � ����������� �������.",
+      "url": "guides.html",
+      "inLanguage": "ru-RU",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Cobalt BAB",
+        "url": "index.html"
+      }
+    }
+    </script>
+</head>
+<body data-page="guides">
+    <div class="preloader">
+        <div class="preloader-content">
+            <div class="preloader-spinner">
+                <div class="spinner-circle"></div><div class="spinner-circle"></div><div class="spinner-circle"></div><div class="spinner-circle"></div>
+            </div>
+            <div class="preloader-text">
+                <span class="preloader-title">� Cobalt BAB �</span>
+                <span class="preloader-subtitle">������� ������ ����� �� Rust...</span>
+            </div>
+            <div class="preloader-progress">
+                <div class="progress-bar"><div class="progress-fill"></div></div>
+                <span class="progress-percent">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-blob-2" aria-hidden="true"></div>
+    <div class="bg-blob-3" aria-hidden="true"></div>
+    <div class="bg-blob-4" aria-hidden="true"></div>
+
+    <div class="discord-badge" aria-hidden="false">
+        <button class="discord-puck" aria-label="Discord Cobalt BAB"><i class="fab fa-discord"></i></button>
+        <span class="discord-label">Discord</span>
+        <div class="discord-hover-card" role="tooltip">
+            <div class="hover-header"><span class="label">Discord</span><span class="title">Cobalt BAB</span></div>
+            <div class="status-row">
+                <span class="status-dot" aria-hidden="true"></span>
+                <div class="status-text">
+                    <span class="status-title">������</span>
+                    <span class="status-sub"><span class="discord-online">�</span> ������� ������</span>
+                </div>
+            </div>
+            <div class="hover-stats">
+                <div><span class="stat-label">������</span><span class="stat-value discord-online">�</span></div>
+                <div><span class="stat-label">����������</span><span class="stat-value discord-members">�</span></div>
+            </div>
+            <a class="btn primary-btn hover-join" href="https://discord.gg/Q8ZfawakxS" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i> ����� � Discord</a>
+        </div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1><i class="fas fa-leaf"></i> Cobalt BAB</h1>
+                <p>����� �� Rust �� ������� �������</p>
+            </div>
+            <nav>
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> �������</a>
+                <a href="binds.html" class="nav-link"><i class="fas fa-keyboard"></i> �����</a>
+                <a href="guides.html" class="nav-link active"><i class="fas fa-book"></i> �����</a>
+                <a href="faq.html" class="nav-link"><i class="fas fa-question-circle"></i> FAQ</a>
+                <a href="bases.html" class="nav-link"><i class="fas fa-envelope"></i>����</a>
+                <a href="team.html" class="nav-link"><i class="fas fa-users"></i> �������</a>
+                <a href="https://discord.gg/Q8ZfawakxS" class="nav-link discord-btn" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i> Discord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero hero-page">
+            <div class="hero-content">
+                <div class="hero-title-wrap">
+                    <span class="badge badge-blue"><i class="fas fa-graduation-cap"></i> �����</span>
+                    <h2 class="hero-title-page">��� ����� �� Rust � ����� �����</h2>
+                    <p class="hero-description">�����, �������, �������������, PvP � ����������� ������� � ��� ������� ������ � ������.</p>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat"><span class="stat-number">50+</span><span class="stat-label">������ � �������</span></div>
+                    <div class="stat"><span class="stat-number">24/7</span><span class="stat-label">��������� � Discord</span></div>
+                    <div class="stat"><span class="stat-number">3</span><span class="stat-label">������ ���������</span></div>
+                </div>
+                <div class="cta-buttons">
+                    <a href="#guides" class="btn primary-btn hero-btn"><i class="fas fa-book-open"></i><span>������� � ������</span><div class="btn-glow"></div></a>
+                    <a href="https://discord.gg/Q8ZfawakxS" class="btn secondary-btn hero-btn" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i><span>������ ������ � Discord</span><div class="btn-glow"></div></a>
+                </div>
+            </div>
+        </section>
+
+        <section id="guides" class="section">
+            <div class="guides-header">
+                <h2 class="section-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span class="title-text">����� �� Rust ��� ��������</span>
+                </h2>
+                <p class="section-subtitle">�� ��������� �� PvP: ��, ��� ����� ����� ����������� ������</p>
+            </div>
+            
+            <div class="guides-nav">
+                <div class="guides-tabs">
+                    <button class="guide-tab-btn active" data-guide="beginner">
+                        <i class="fas fa-seedling"></i>
+                        <span>������ ����</span>
+                    </button>
+                    <button class="guide-tab-btn" data-guide="resources">
+                        <i class="fas fa-gem"></i>
+                        <span>�������</span>
+                    </button>
+                    <button class="guide-tab-btn" data-guide="base">
+                        <i class="fas fa-home"></i>
+                        <span>�������������</span>
+                    </button>
+                    <button class="guide-tab-btn" data-guide="pvp-guide">
+                        <i class="fas fa-crosshairs"></i>
+                        <span>PvP � ������������</span>
+                    </button>
+                    <button class="guide-tab-btn" data-guide="advanced">
+                        <i class="fas fa-rocket"></i>
+                        <span>����������� �������</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="guides-container">
+                <!-- ���� ��� ���������� -->
+                <div class="guide-category active" id="beginner">
+                    <div class="guide-main-card">
+                        <div class="guide-card-header">
+                            <h3 class="guide-title">
+                                <i class="fas fa-seedling"></i>
+                                ������ ���� � Rust
+                            </h3>
+                            <div class="guide-difficulty beginner-difficulty">
+                                <span>��� ��������</span>
+                            </div>
+                        </div>
+                        
+                        <div class="guide-content">
+                            <h4 class="guide-subtitle">������ 30 ����� ����</h4>
+                            
+                            <div class="guide-steps">
+                                <div class="guide-step">
+                                    <div class="step-number">1</div>
+                                    <div class="step-content">
+                                        <h5>��������� �������</h5>
+                                        <p>������ � ������ ������, ����� �������� �������� �����</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="guide-step">
+                                    <div class="step-number">2</div>
+                                    <div class="step-content">
+                                        <h5>�������� �����������</h5>
+                                        <p>�������� ����� � �������� ����� - ��� �������</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="guide-step">
+                                    <div class="step-number">3</div>
+                                    <div class="step-content">
+                                        <h5>������� ���</h5>
+                                        <p>��������� �����, �����, ��������� �� ��������</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="guide-step">
+                                    <div class="step-number">4</div>
+                                    <div class="step-content">
+                                        <h5>��������� �������</h5>
+                                        <p>���� ��������� ������ �� ������ ����� �� ������ �����</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="guide-step">
+                                    <div class="step-number">5</div>
+                                    <div class="step-content">
+                                        <h5>�������� �������� �����</h5>
+                                        <p>��� ���� ����� �����������</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="guide-tip">
+                                <div class="tip-icon">
+                                    <i class="fas fa-lightbulb"></i>
+                                </div>
+                                <div class="tip-content">
+                                    <p class="tip-title">�����</p>
+                                    <p class="tip-text">������ ����� ������� ���������� ����� � ���� ��� � ����, �������� �� ����������</p>
+                                </div>
+                            </div>
+                            
+                            <div class="guide-checklist">
+                                <h5 class="checklist-title">������� ���������:</h5>
+                                <div class="checklist-items">
+                                    <div class="checklist-item checked">
+                                        <div class="check-icon">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                        <span class="check-text">����� � �����</span>
+                                    </div>
+                                    <div class="checklist-item checked">
+                                        <div class="check-icon">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                        <span class="check-text">100+ ������ � �����</span>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <div class="check-icon">
+                                            <i class="far fa-circle"></i>
+                                        </div>
+                                        <span class="check-text">�������� �����</span>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <div class="check-icon">
+                                            <i class="far fa-circle"></i>
+                                        </div>
+                                        <span class="check-text">���������� ������</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="guide-side-cards">
+                        <div class="guide-side-card">
+                            <h4 class="side-card-title">
+                                <i class="fas fa-map-marked-alt"></i>
+                                ���������� �� ���������
+                            </h4>
+                            <p class="side-card-text">����������� ����� (G) ��� ���������. ��������� ���������:</p>
+                            <ul class="side-card-list">
+                                <li>������� ��������� �������� �� �����</li>
+                                <li>������ ����� � ������ ������</li>
+                                <li>���� ��������� �� �����������</li>
+                            </ul>
+                            <div class="mini-tip">
+                                <i class="fas fa-compass"></i>
+                                <span>��� ��������� �������� ���� ���� �� ����� � ������� G, ����� ������ ������� ���� ��������� ����� � ����� ������ ����.</span>
+                            </div>
+                        </div>
+                        
+                        <div class="guide-side-card">
+                            <h4 class="side-card-title">
+                                <i class="fas fa-shield-alt"></i>
+                                ��������� ����������
+                            </h4>
+                            <p class="side-card-text">��� ������� �������� ���� �����:</p>
+                            <ul class="side-card-list">
+                                <li>����� � ����� - ������� �� ������������</li>
+                                <li>����� �������� - ����� � �������</li>
+                                <li>������ ������ - ��������� ��������� � ������</li>
+                                <li>�������� � �� �������� � ���� ���������� ��� ����������������� �������</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ���� �� �������� -->
+                <div class="guide-category" id="resources">
+                    <div class="guide-main-card">
+                        <div class="guide-card-header">
+                            <h3 class="guide-title">
+                                <i class="fas fa-gem"></i>
+                                ������ ��������
+                            </h3>
+                            <div class="guide-difficulty medium-difficulty">
+                                <span>������� ���������</span>
+                            </div>
+                        </div>
+                        
+                        <div class="guide-content">
+                            <div class="resource-table">
+                                <div class="table-header">
+                                    <div class="table-cell">������</div>
+                                    <div class="table-cell">��� �����</div>
+                                    <div class="table-cell">����������</div>
+                                    <div class="table-cell">����������</div>
+                                </div>
+                                
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <i class="fas fa-tree"></i>
+                                        <span>������</span>
+                                    </div>
+                                    <div class="table-cell">�������, ���</div>
+                                    <div class="table-cell">�����</div>
+                                    <div class="table-cell">�������������, �������</div>
+                                </div>
+                                
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <i class="fas fa-mountain"></i>
+                                        <span>������</span>
+                                    </div>
+                                    <div class="table-cell">�����, ������</div>
+                                    <div class="table-cell">�����, ���</div>
+                                    <div class="table-cell">�����������, �����, �������������</div>
+                                </div>
+                                
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <i class="fas fa-coins"></i>
+                                        <span>������</span>
+                                    </div>
+                                    <div class="table-cell">������������� ����</div>
+                                    <div class="table-cell">�����, ���</div>
+                                    <div class="table-cell">������, �����, ����������, �������������</div>
+                                </div>
+                                
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <i class="fas fa-oil-can"></i>
+                                        <span>����</span>
+                                    </div>
+                                    <div class="table-cell">Ƹ���� �����</div>
+                                    <div class="table-cell">�����, ���</div>
+                                    <div class="table-cell">����������, ����������</div>
+                                </div>
+                                
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <i class="fas fa-shirt"></i>
+                                        <span>�����</span>
+                                    </div>
+                                    <div class="table-cell">����������� ����</div>
+                                    <div class="table-cell">���� �������, ������ ��������</div>
+                                    <div class="table-cell">������, ��������</div>
+                                </div>
+                            </div>
+                            
+                            <div class="guide-tips">
+                                <h4 class="tips-title">����������� ������</h4>
+                                <div class="tip-list">
+                                    <div class="tip-item">
+                                        <div class="tip-bullet"></div>
+                                        <p><strong>���� �� ������ ������:</strong> ����� ��������� ����� �� ��������</p>
+                                    </div>
+                                    <div class="tip-item">
+                                        <div class="tip-bullet"></div>
+                                        <p><strong>���������� �����������:</strong> ������������� ����������� � 2 ���� �����������</p>
+                                    </div>
+                                    <div class="tip-item">
+                                        <div class="tip-bullet"></div>
+                                        <p><strong>����������:</strong> ����� � ������ � ��������, ����������� � ���������</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ���� �� ������������� ���� -->
+                <div class="guide-category" id="base">
+                    <div class="guide-main-card">
+                        <div class="guide-card-header">
+                            <h3 class="guide-title">
+                                <i class="fas fa-home"></i>
+                                ������������� ����
+                            </h3>
+                            <div class="guide-difficulty medium-difficulty">
+                                <span>������� ���������</span>
+                            </div>
+                        </div>
+                        
+                        <div class="guide-content">
+                            <h4 class="guide-subtitle">���� ��������� ���� ��� �������</h4>
+                            
+                            <div class="base-steps">
+                                <div class="base-step">
+                                    <div class="step-circle">
+                                        <span>1</span>
+                                    </div>
+                                    <div class="base-step-content">
+                                        <h5>����� �������</h5>
+                                        <p>����� �� ����������, �� ������ � ��������. �������� - � ���� � ����</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="base-step">
+                                    <div class="step-circle">
+                                        <span>2</span>
+                                    </div>
+                                    <div class="base-step-content">
+                                        <h5>��������� � �����</h5>
+                                        <p>2x2 �� �������� ������. ������� ������, ����� ����� ������</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="base-step">
+                                    <div class="step-circle">
+                                        <span>3</span>
+                                    </div>
+                                    <div class="base-step-content">
+                                        <h5>������ � �������</h5>
+                                        <p>����� � �������� �������, ������� �������, ����� ��� �����������, ������ � ������� � ����������</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="base-step">
+                                    <div class="step-circle">
+                                        <span>4</span>
+                                    </div>
+                                    <div class="base-step-content">
+                                        <h5>��������� � �������</h5>
+                                        <p>����� ��� ��������, ����, �������� �����, ����������������� ����, ��������� ����</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="guide-warning">
+                            <div class="warning-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="warning-content">
+                                <p class="warning-title">����������� ������ ��������:</p>
+                                <p class="warning-text"><i class="fas fa-times-circle"></i> <strong>��� ������ ��������:</strong> ������ ���� ������� 2 ������ ����� �� ���������� ������</p>
+                                <p class="warning-text"><i class="fas fa-times-circle"></i> <strong>���������� �����:</strong> ��������� �� ������ ��� ����� � ������ 5 �����, ����� - ��������������� ����</p>
+                                <p class="warning-text"><i class="fas fa-times-circle"></i> <strong>��� ����� TC:</strong> �� ��������� ��������� ���-���� � ������������ ������ ����</p>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    
+                    <div class="guide-side-card full-card">
+                        <h4 class="side-card-title">
+                            <i class="fas fa-lock"></i>
+                            ������������ ����
+                        </h4>
+                        <ul class="security-list">
+                            <li><i class="fas fa-check-circle"></i> ����������� ������� ����� ������ ��������</li>
+                            <li><i class="fas fa-check-circle"></i> ���������� ������ ��� ������� ��������</li>
+                            <li><i class="fas fa-check-circle"></i> �������� ���� ��� ����������� � ��������� �����</li>
+                            <li><i class="fas fa-check-circle"></i> ��������� ��������� ���� ����</li>
+                        </ul>
+                        
+                        <div class="security-rating">
+                            <span class="rating-label">������� ������������:</span>
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <p class="rating-note">�������� ������ ��� ���������</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ���� �� PvP -->
+                <div class="guide-category" id="pvp-guide">
+                    <div class="guide-main-card">
+                        <div class="guide-card-header">
+                            <h3 class="guide-title">
+                                <i class="fas fa-crosshairs"></i>
+                                ������ PvP � Rust
+                            </h3>
+                            <div class="guide-difficulty hard-difficulty">
+                                <span>������� �������</span>
+                            </div>
+                        </div>
+                        
+                        <div class="guide-content">
+                            <div class="pvp-grid">
+                                <div class="pvp-card">
+                                    <div class="pvp-icon">
+                                        <i class="fas fa-running"></i>
+                                    </div>
+                                    <h5>����������������</h5>
+                                    <p>������ ����������, �� ������ �� �����. ����������� ������� � ������</p>
+                                </div>
+                                
+                                <div class="pvp-card">
+                                    <div class="pvp-icon">
+                                        <i class="fas fa-headset"></i>
+                                    </div>
+                                    <h5>����</h5>
+                                    <p>����������� ��������. ������� ���� ���������� �� �����</p>
+                                </div>
+                                
+                                <div class="pvp-card">
+                                    <div class="pvp-icon">
+                                        <i class="fas fa-medkit"></i>
+                                    </div>
+                                    <h5>�������</h5>
+                                    <p>������ ������ ����������� ������. �������� �� ��������</p>
+                                </div>
+                                
+                                <div class="pvp-card">
+                                    <div class="pvp-icon">
+                                        <i class="fas fa-arrows-alt-h"></i>
+                                    </div>
+                                    <h5>���������</h5>
+                                    <p>����������� ������ �������� ���������: ���� ������, �������� ��������</p>
+                                </div>
+                            </div>
+                            
+                            <div class="guide-tips">
+                                <h4 class="tips-title">�������� ������ �������� � PvP</h4>
+                                <div class="mistakes-list">
+                                    <div class="mistake-item">
+                                        <i class="fas fa-times"></i>
+                                        <span>��� �� �������� ���������</span>
+                                    </div>
+                                    <div class="mistake-item">
+                                        <i class="fas fa-times"></i>
+                                        <span>�������� ��� �������</span>
+                                    </div>
+                                    <div class="mistake-item">
+                                        <i class="fas fa-times"></i>
+                                        <span>������������� ������������� ������</span>
+                                    </div>
+                                    <div class="mistake-item">
+                                        <i class="fas fa-times"></i>
+                                        <span>�������� ��� �������</span>
+                                    </div>
+                                    <div class="mistake-item">
+                                        <i class="fas fa-times"></i>
+                                        <span>�� ��������� ����</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ����������� ������� -->
+                <div class="guide-category" id="advanced">
+                    <div class="guide-cards-grid">
+                        <div class="guide-card">
+                            <h3 class="guide-card-title">
+                                <i class="fas fa-chess"></i>
+                                ����������� �������
+                            </h3>
+                            <ul class="advanced-list">
+                                <li>
+                                    <strong>�����:</strong>
+                                    <span>���������� ������ ����������, ������� ����</span>
+                                </li>
+                                <li>
+                                    <strong>���� ����������:</strong>
+                                    <span>��������, ���������� ����, ���-��������</span>
+                                </li>
+                                <li>
+                                    <strong>��������:</strong>
+                                    <span>������ � ����������, ���������� ������</span>
+                                </li>
+                                <li>
+                                    <strong>�������� �����:</strong>
+                                    <span>�����������, ������������� �����</span>
+                                </li>
+                            </ul>
+                            
+                            <div class="expert-tip">
+                                <i class="fas fa-crown"></i>
+                                <p>��� ������� ������� 2500+ ����� � ���� � ������� ����������������</p>
+                            </div>
+                        </div>
+                        
+                        <div class="guide-card">
+                            <h3 class="guide-card-title">
+                                <i class="fas fa-rocket"></i>
+                                ������� ��������
+                            </h3>
+                            
+                            <ol class="progress-steps">
+                                <li>������� ��������� � ���� ��� Discord</li>
+                                <li>�������������� �� ����� ��������� ��� ����</li>
+                                <li>������� ������� � ����������������� �����</li>
+                                <li>�������� �������, ����� �������� ������</li>
+                                <li>���������� ���� �������� ������� � �� ���������� ���� ��� ����������� ����������.</li>
+                            </ol>
+                            
+                            <div class="progress-track">
+                                <div class="progress-info">
+                                    <span class="progress-label">�������� �� ������������ ������:</span>
+                                    <span class="progress-value">65%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 65%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="guides-footer">
+                <div class="footer-content">
+                    <h3 class="footer-title">
+                        <i class="fas fa-question-circle"></i>
+                        ����� ������?
+                    </h3>
+                    <p class="footer-text">��������������� � ������ Discord �������, ��� ������� ������ ������� �� ���� ������� � ������� � ����!</p>
+                    <a href="https://discord.gg/Q8ZfawakxS" class="btn discord-help-btn" target="_blank">
+                        <i class="fab fa-discord"></i>
+                        <span>�������� ������ � Discord</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3><i class="fas fa-gamepad"></i> Cobalt BAB</h3>
+                    <p>�����, ������� �������� ����� � �����. ������� �����!</p>
+                </div>
+                <div class="footer-links">
+                    <h4>������� ������</h4>
+                    <a href="index.html">�������</a>
+                    <a href="binds.html">�����</a>
+                    <a href="guides.html">�����</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="bases.html">����</a>
+                    <a href="team.html">�������</a>
+                    <a href="https://discord.gg/Q8ZfawakxS" target="_blank" rel="noopener noreferrer">Discord</a>
+                </div>
+                <div class="footer-contact">
+                    <h4>��������</h4>
+                    <p>Discord ������: <a href="https://discord.gg/Q8ZfawakxS" target="_blank" rel="noopener noreferrer">Cobalt BAB</a></p>
+                    <p>���������: <span>BIBAS</span></p>
+                    <p>������������: <span>ezhikhich</span> � <span>������ | LIRU</span></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear">2023</span> Cobalt BAB. ����� ��� ���������� Rust. ��� ����� ��������.</p>
+                <p class="disclaimer">Rust �������� ������������������ �������� ������ Facepunch Studios. ������ ���� �� ����������� � Facepunch Studios.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button id="scrollTopBtn" title="������"><i class="fas fa-chevron-up"></i></button>
+    <div id="copyNotification">����� ���������� � ����� ������!</div>
+
+    <script src="script.min.js?v=8A7AB4A8" defer></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
