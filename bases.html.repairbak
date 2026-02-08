@@ -1,4 +1,94 @@
-﻿<section id="bases" class="section">
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Р‘Р°Р·С‹ вЂ” Cobalt BAB</title>
+    <meta name="description" content="Р“РѕС‚РѕРІС‹Рµ Р±Р°Р·С‹ РґР»СЏ Rust: РїР»Р°РЅС‹, РєР°С‚РµРіРѕСЂРёРё Рё СѓРґРѕР±РЅС‹Рµ С„РёР»СЊС‚СЂС‹.">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="bases.html">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Р‘Р°Р·С‹ вЂ” Cobalt BAB">
+    <meta property="og:description" content="Р“РѕС‚РѕРІС‹Рµ Р±Р°Р·С‹ РґР»СЏ Rust: РїР»Р°РЅС‹, РєР°С‚РµРіРѕСЂРёРё Рё СѓРґРѕР±РЅС‹Рµ С„РёР»СЊС‚СЂС‹.">
+    <meta property="og:image" content="assets/img/site-icon.png">
+    <meta property="og:url" content="bases.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Р‘Р°Р·С‹ вЂ” Cobalt BAB">
+    <meta name="twitter:description" content="Р“РѕС‚РѕРІС‹Рµ Р±Р°Р·С‹ РґР»СЏ Rust: РїР»Р°РЅС‹, РєР°С‚РµРіРѕСЂРёРё Рё СѓРґРѕР±РЅС‹Рµ С„РёР»СЊС‚СЂС‹.">
+    <meta name="twitter:image" content="assets/img/site-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="style.min.css?v=D4E7A2B9" as="style">
+    <link rel="preload" href="script.min.js?v=F2C1D8A7" as="script">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" as="style">
+    <link rel="stylesheet" href="style.min.css?v=D4E7A2B9">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/site-icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/site-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/site-icon.png">
+</head>
+<body data-page="bases">
+    <div class="bg-blob-2" aria-hidden="true"></div>
+    <div class="bg-blob-3" aria-hidden="true"></div>
+    <div class="bg-blob-4" aria-hidden="true"></div>
+
+    <div class="discord-badge" aria-hidden="false">
+        <button class="discord-puck" aria-label="Discord Cobalt BAB"><i class="fab fa-discord"></i></button>
+        <span class="discord-label">Discord</span>
+        <div class="discord-hover-card" role="tooltip">
+            <div class="hover-header"><span class="label">Discord</span><span class="title">Cobalt BAB</span></div>
+            <div class="status-row">
+                <span class="status-dot" aria-hidden="true"></span>
+                <div class="status-text">
+                    <span class="status-title">РћРЅР»Р°Р№РЅ</span>
+                    <span class="status-sub"><span class="discord-online">вЂ”</span> РёРіСЂРѕРєРѕРІ СЃРµР№С‡Р°СЃ</span>
+                </div>
+            </div>
+            <div class="hover-stats">
+                <div><span class="stat-label">РћРЅР»Р°Р№РЅ</span><span class="stat-value discord-online">вЂ”</span></div>
+                <div><span class="stat-label">РЈС‡Р°СЃС‚РЅРёРєРѕРІ</span><span class="stat-value discord-members">вЂ”</span></div>
+            </div>
+            <a class="btn primary-btn hover-join" href="https://discord.gg/Q8ZfawakxS" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i> Р’РѕР№С‚Рё РІ Discord</a>
+        </div>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1><i class="fas fa-leaf"></i> Cobalt BAB</h1>
+                <p>Р›СѓС‡С€РёРµ Р±РёРЅРґС‹, РіР°Р№РґС‹ Рё Р±Р°Р·С‹ РґР»СЏ Rust РѕС‚ РєРѕРјР°РЅРґС‹ СЃРµСЂРІРµСЂР°</p>
+            </div>
+            <nav>
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Р“Р»Р°РІРЅР°СЏ</a>
+                <a href="binds.html" class="nav-link"><i class="fas fa-keyboard"></i> Р‘РёРЅРґС‹</a>
+                <a href="guides.html" class="nav-link"><i class="fas fa-book"></i> Р“Р°Р№РґС‹</a>
+                <a href="faq.html" class="nav-link"><i class="fas fa-question-circle"></i> FAQ</a>
+                <a href="bases.html" class="nav-link active"><i class="fas fa-envelope"></i> Р‘Р°Р·С‹</a>
+                <a href="team.html" class="nav-link"><i class="fas fa-users"></i> РљРѕРјР°РЅРґР°</a>
+                <a href="https://discord.gg/Q8ZfawakxS" class="nav-link discord-btn" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i> Discord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero hero-page">
+            <div class="hero-content">
+                <div class="hero-title-wrap">
+                    <span class="badge badge-blue"><i class="fas fa-chess-rook"></i> Р‘Р°Р·С‹</span>
+                    <h2 class="hero-title-page">Р“РѕС‚РѕРІС‹Рµ Р±Р°Р·С‹ РґР»СЏ Rust</h2>
+                    <p class="hero-description">РџРѕРґР±РѕСЂРєР° РїР»Р°РЅРѕРІ Р±Р°Р· РґР»СЏ СЃРѕР»Рѕ, РґСѓРѕ Рё РєР»Р°РЅРѕРІ СЃ С„РёР»СЊС‚СЂР°РјРё Рё СЃРѕСЂС‚РёСЂРѕРІРєРѕР№.</p>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat"><span class="stat-number">2x2+</span><span class="stat-label">СЂР°Р·РјРµСЂС‹</span></div>
+                    <div class="stat"><span class="stat-number">5+</span><span class="stat-label">РґРёР·Р°Р№РЅРѕРІ</span></div>
+                    <div class="stat"><span class="stat-number">9/10</span><span class="stat-label">РјР°РєСЃ Р·Р°С‰РёС‚Р°</span></div>
+                </div>
+            </div>
+        </section>
+<section id="bases" class="section">
             <div class="bases-header">
                 <h2 class="section-title">
                     <i class="fas fa-chess-rook"></i>
@@ -293,6 +383,73 @@
                 </div>
             </div>
         </section>
+
+
+
+
+
+
+
+
+
+
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3><i class="fas fa-gamepad"></i> Cobalt BAB</h3>
+                    <p>Р›СѓС‡С€РёРµ Р±РёРЅРґС‹, РіР°Р№РґС‹ Рё Р±Р°Р·С‹ РґР»СЏ Rust. РЈСЃРєРѕСЂСЊС‚Рµ СЃРІРѕСЋ РёРіСЂСѓ СѓР¶Рµ СЃРµРіРѕРґРЅСЏ!</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Р‘С‹СЃС‚СЂС‹Рµ СЃСЃС‹Р»РєРё</h4>
+                    <a href="index.html">Р“Р»Р°РІРЅР°СЏ</a>
+                    <a href="binds.html">Р‘РёРЅРґС‹</a>
+                    <a href="guides.html">Р“Р°Р№РґС‹</a>
+                    <a href="faq.html">FAQ</a>
+                </div>
+                <div class="footer-contact">
+                    <h4>РљРѕРЅС‚Р°РєС‚С‹</h4>
+                    <p>Discord СЃРµСЂРІРµСЂ: <a href="https://discord.gg/Q8ZfawakxS" target="_blank" rel="noopener noreferrer">Cobalt BAB</a></p>
+                    <p>РЎРѕР·РґР°С‚РµР»СЊ: <span>BIBAS</span></p>
+                    <p>Р Р°Р·СЂР°Р±РѕС‚С‡РёРєРё: <span>ezhikhich</span> Рё <span>РҐР°СЂРґРёРє | LIRU</span></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear">2026</span> Cobalt BAB. Р’СЃРµ РјР°С‚РµСЂРёР°Р»С‹ СЃРѕР±СЂР°РЅС‹ РґР»СЏ СЃРѕРѕР±С‰РµСЃС‚РІР° Rust. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.</p>
+                <p class="disclaimer">Rust СЏРІР»СЏРµС‚СЃСЏ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅРѕР№ С‚РѕСЂРіРѕРІРѕР№ РјР°СЂРєРѕР№ Facepunch Studios. Р”Р°РЅРЅС‹Р№ СЃР°Р№С‚ РЅРµ Р°С„С„РёР»РёСЂРѕРІР°РЅ СЃ Facepunch Studios.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button id="scrollTopBtn" title="РќР°РІРµСЂС…"><i class="fas fa-chevron-up"></i></button>
+    <div id="copyNotification">РЎРєРѕРїРёСЂРѕРІР°РЅРѕ РІ Р±СѓС„РµСЂ РѕР±РјРµРЅР°!</div>
+
+    <script src="script.min.js?v=F2C1D8A7" defer></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

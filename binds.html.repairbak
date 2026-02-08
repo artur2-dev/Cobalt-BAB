@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Бинды — Cobalt BAB</title>
-    <meta name="description" content="Лучшие бинды для Rust: PvP, автоматизация, строительство и мод-серверы.">
+    <title>Р‘РёРЅРґС‹ вЂ” Cobalt BAB</title>
+    <meta name="description" content="Р›СѓС‡С€РёРµ Р±РёРЅРґС‹ РґР»СЏ Rust: PvP, Р°РІС‚РѕРјР°С‚РёР·Р°С†РёСЏ, СЃС‚СЂРѕРёС‚РµР»СЊСЃС‚РІРѕ Рё РјРѕРґ-СЃРµСЂРІРµСЂС‹.">
     <meta name="robots" content="index,follow,max-image-preview:large">
     <link rel="canonical" href="binds.html">
     <meta property="og:locale" content="ru_RU">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Бинды — Cobalt BAB">
-    <meta property="og:description" content="Лучшие бинды для Rust: PvP, автоматизация, строительство и мод-серверы.">
+    <meta property="og:title" content="Р‘РёРЅРґС‹ вЂ” Cobalt BAB">
+    <meta property="og:description" content="Р›СѓС‡С€РёРµ Р±РёРЅРґС‹ РґР»СЏ Rust: PvP, Р°РІС‚РѕРјР°С‚РёР·Р°С†РёСЏ, СЃС‚СЂРѕРёС‚РµР»СЊСЃС‚РІРѕ Рё РјРѕРґ-СЃРµСЂРІРµСЂС‹.">
     <meta property="og:image" content="assets/img/site-icon.png">
     <meta property="og:url" content="binds.html">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Бинды — Cobalt BAB">
-    <meta name="twitter:description" content="Лучшие бинды для Rust: PvP, автоматизация, строительство и мод-серверы.">
+    <meta name="twitter:title" content="Р‘РёРЅРґС‹ вЂ” Cobalt BAB">
+    <meta name="twitter:description" content="Р›СѓС‡С€РёРµ Р±РёРЅРґС‹ РґР»СЏ Rust: PvP, Р°РІС‚РѕРјР°С‚РёР·Р°С†РёСЏ, СЃС‚СЂРѕРёС‚РµР»СЊСЃС‚РІРѕ Рё РјРѕРґ-СЃРµСЂРІРµСЂС‹.">
     <meta name="twitter:image" content="assets/img/site-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,15 +43,15 @@
             <div class="status-row">
                 <span class="status-dot" aria-hidden="true"></span>
                 <div class="status-text">
-                    <span class="status-title">Онлайн</span>
-                    <span class="status-sub"><span class="discord-online">—</span> игроков сейчас</span>
+                    <span class="status-title">РћРЅР»Р°Р№РЅ</span>
+                    <span class="status-sub"><span class="discord-online">вЂ”</span> РёРіСЂРѕРєРѕРІ СЃРµР№С‡Р°СЃ</span>
                 </div>
             </div>
             <div class="hover-stats">
-                <div><span class="stat-label">Онлайн</span><span class="stat-value discord-online">—</span></div>
-                <div><span class="stat-label">Участников</span><span class="stat-value discord-members">—</span></div>
+                <div><span class="stat-label">РћРЅР»Р°Р№РЅ</span><span class="stat-value discord-online">вЂ”</span></div>
+                <div><span class="stat-label">РЈС‡Р°СЃС‚РЅРёРєРѕРІ</span><span class="stat-value discord-members">вЂ”</span></div>
             </div>
-            <a class="btn primary-btn hover-join" href="https://discord.gg/Q8ZfawakxS" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i> Войти в Discord</a>
+            <a class="btn primary-btn hover-join" href="https://discord.gg/Q8ZfawakxS" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i> Р’РѕР№С‚Рё РІ Discord</a>
         </div>
     </div>
 
@@ -59,15 +59,15 @@
         <div class="container">
             <div class="logo">
                 <h1><i class="fas fa-leaf"></i> Cobalt BAB</h1>
-                <p>Лучшие бинды, гайды и базы для Rust от команды сервера</p>
+                <p>Р›СѓС‡С€РёРµ Р±РёРЅРґС‹, РіР°Р№РґС‹ Рё Р±Р°Р·С‹ РґР»СЏ Rust РѕС‚ РєРѕРјР°РЅРґС‹ СЃРµСЂРІРµСЂР°</p>
             </div>
             <nav>
-                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Главная</a>
-                <a href="binds.html" class="nav-link active"><i class="fas fa-keyboard"></i> Бинды</a>
-                <a href="guides.html" class="nav-link"><i class="fas fa-book"></i> Гайды</a>
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Р“Р»Р°РІРЅР°СЏ</a>
+                <a href="binds.html" class="nav-link active"><i class="fas fa-keyboard"></i> Р‘РёРЅРґС‹</a>
+                <a href="guides.html" class="nav-link"><i class="fas fa-book"></i> Р“Р°Р№РґС‹</a>
                 <a href="faq.html" class="nav-link"><i class="fas fa-question-circle"></i> FAQ</a>
-                <a href="bases.html" class="nav-link"><i class="fas fa-envelope"></i> Базы</a>
-                <a href="team.html" class="nav-link"><i class="fas fa-users"></i> Команда</a>
+                <a href="bases.html" class="nav-link"><i class="fas fa-envelope"></i> Р‘Р°Р·С‹</a>
+                <a href="team.html" class="nav-link"><i class="fas fa-users"></i> РљРѕРјР°РЅРґР°</a>
                 <a href="https://discord.gg/Q8ZfawakxS" class="nav-link discord-btn" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i> Discord</a>
             </nav>
         </div>
@@ -77,18 +77,18 @@
         <section class="hero hero-page">
             <div class="hero-content">
                 <div class="hero-title-wrap">
-                    <span class="badge badge-blue"><i class="fas fa-keyboard"></i> Бинды</span>
-                    <h2 class="hero-title-page">Все бинды в одном месте</h2>
-                    <p class="hero-description">Рабочие конфиги для Rust: PvP, автоматизация, строительство и мод-серверы.</p>
+                    <span class="badge badge-blue"><i class="fas fa-keyboard"></i> Р‘РёРЅРґС‹</span>
+                    <h2 class="hero-title-page">Р’СЃРµ Р±РёРЅРґС‹ РІ РѕРґРЅРѕРј РјРµСЃС‚Рµ</h2>
+                    <p class="hero-description">Р Р°Р±РѕС‡РёРµ РєРѕРЅС„РёРіРё РґР»СЏ Rust: PvP, Р°РІС‚РѕРјР°С‚РёР·Р°С†РёСЏ, СЃС‚СЂРѕРёС‚РµР»СЊСЃС‚РІРѕ Рё РјРѕРґ-СЃРµСЂРІРµСЂС‹.</p>
                 </div>
                 <div class="hero-stats">
-                    <div class="stat"><span class="stat-number">25+</span><span class="stat-label">PvP биндов</span></div>
-                    <div class="stat"><span class="stat-number">20+</span><span class="stat-label">авто и крафт</span></div>
-                    <div class="stat"><span class="stat-number">10+</span><span class="stat-label">мод-серверы</span></div>
+                    <div class="stat"><span class="stat-number">25+</span><span class="stat-label">PvP Р±РёРЅРґРѕРІ</span></div>
+                    <div class="stat"><span class="stat-number">20+</span><span class="stat-label">Р°РІС‚Рѕ Рё РєСЂР°С„С‚</span></div>
+                    <div class="stat"><span class="stat-number">10+</span><span class="stat-label">РјРѕРґ-СЃРµСЂРІРµСЂС‹</span></div>
                 </div>
                 <div class="cta-buttons">
-                    <a href="#binds" class="btn primary-btn hero-btn"><i class="fas fa-bolt"></i><span>Перейти к биндам</span><div class="btn-glow"></div></a>
-                    <a href="https://discord.gg/Q8ZfawakxS" class="btn secondary-btn hero-btn" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i><span>В Discord за помощью</span><div class="btn-glow"></div></a>
+                    <a href="#binds" class="btn primary-btn hero-btn"><i class="fas fa-bolt"></i><span>РџРµСЂРµР№С‚Рё Рє Р±РёРЅРґР°Рј</span><div class="btn-glow"></div></a>
+                    <a href="https://discord.gg/Q8ZfawakxS" class="btn secondary-btn hero-btn" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i><span>Р’ Discord Р·Р° РїРѕРјРѕС‰СЊСЋ</span><div class="btn-glow"></div></a>
                 </div>
             </div>
         </section>
@@ -393,31 +393,31 @@
             <div class="footer-content">
                 <div class="footer-logo">
                     <h3><i class="fas fa-gamepad"></i> Cobalt BAB</h3>
-                    <p>Лучшие бинды, гайды и базы для Rust. Ускорьте свою игру уже сегодня!</p>
+                    <p>Р›СѓС‡С€РёРµ Р±РёРЅРґС‹, РіР°Р№РґС‹ Рё Р±Р°Р·С‹ РґР»СЏ Rust. РЈСЃРєРѕСЂСЊС‚Рµ СЃРІРѕСЋ РёРіСЂСѓ СѓР¶Рµ СЃРµРіРѕРґРЅСЏ!</p>
                 </div>
                 <div class="footer-links">
-                    <h4>Быстрые ссылки</h4>
-                    <a href="index.html">Главная</a>
-                    <a href="binds.html">Бинды</a>
-                    <a href="guides.html">Гайды</a>
+                    <h4>Р‘С‹СЃС‚СЂС‹Рµ СЃСЃС‹Р»РєРё</h4>
+                    <a href="index.html">Р“Р»Р°РІРЅР°СЏ</a>
+                    <a href="binds.html">Р‘РёРЅРґС‹</a>
+                    <a href="guides.html">Р“Р°Р№РґС‹</a>
                     <a href="faq.html">FAQ</a>
                 </div>
                 <div class="footer-contact">
-                    <h4>Контакты</h4>
-                    <p>Discord сервер: <a href="https://discord.gg/Q8ZfawakxS" target="_blank" rel="noopener noreferrer">Cobalt BAB</a></p>
-                    <p>Создатель: <span>BIBAS</span></p>
-                    <p>Разработчики: <span>ezhikhich</span> и <span>Хардик | LIRU</span></p>
+                    <h4>РљРѕРЅС‚Р°РєС‚С‹</h4>
+                    <p>Discord СЃРµСЂРІРµСЂ: <a href="https://discord.gg/Q8ZfawakxS" target="_blank" rel="noopener noreferrer">Cobalt BAB</a></p>
+                    <p>РЎРѕР·РґР°С‚РµР»СЊ: <span>BIBAS</span></p>
+                    <p>Р Р°Р·СЂР°Р±РѕС‚С‡РёРєРё: <span>ezhikhich</span> Рё <span>РҐР°СЂРґРёРє | LIRU</span></p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; <span id="currentYear">2026</span> Cobalt BAB. Все материалы собраны для сообщества Rust. Все права защищены.</p>
-                <p class="disclaimer">Rust является зарегистрированной торговой маркой Facepunch Studios. Данный сайт не аффилирован с Facepunch Studios.</p>
+                <p>&copy; <span id="currentYear">2026</span> Cobalt BAB. Р’СЃРµ РјР°С‚РµСЂРёР°Р»С‹ СЃРѕР±СЂР°РЅС‹ РґР»СЏ СЃРѕРѕР±С‰РµСЃС‚РІР° Rust. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.</p>
+                <p class="disclaimer">Rust СЏРІР»СЏРµС‚СЃСЏ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅРѕР№ С‚РѕСЂРіРѕРІРѕР№ РјР°СЂРєРѕР№ Facepunch Studios. Р”Р°РЅРЅС‹Р№ СЃР°Р№С‚ РЅРµ Р°С„С„РёР»РёСЂРѕРІР°РЅ СЃ Facepunch Studios.</p>
             </div>
         </div>
     </footer>
 
-    <button id="scrollTopBtn" title="Наверх"><i class="fas fa-chevron-up"></i></button>
-    <div id="copyNotification">Скопировано в буфер обмена!</div>
+    <button id="scrollTopBtn" title="РќР°РІРµСЂС…"><i class="fas fa-chevron-up"></i></button>
+    <div id="copyNotification">РЎРєРѕРїРёСЂРѕРІР°РЅРѕ РІ Р±СѓС„РµСЂ РѕР±РјРµРЅР°!</div>
 
     <script src="script.min.js?v=F2C1D8A7" defer></script>
 </body>

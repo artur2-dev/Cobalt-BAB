@@ -1,7 +1,220 @@
 ﻿// Cobalt BAB main script (rebuilt)
 (function() {
-  let particlesLoaderPromise = null;
-  let checklistDelegatedHandlersBound = false;
+  let cobaltReadyPayload = null;
+  const PAGE_BUNDLE_VERSION = 'F2C7B1AA';
+  const PAGE_BUNDLE_MAP = Object.freeze({
+    home: ['page-home.min.js', 'page-binds.min.js', 'page-guides.min.js', 'page-bases.min.js', 'page-faq.min.js'],
+    binds: ['page-binds.min.js'],
+    guides: ['page-guides.min.js'],
+    bases: ['page-bases.min.js'],
+    faq: ['page-faq.min.js']
+  });
+  const loadedPageBundles = new Set();
+
+  window.CobaltOnReady = (callback) => {
+    if (typeof callback !== 'function') return;
+    if (cobaltReadyPayload) {
+      callback(cobaltReadyPayload);
+      return;
+    }
+
+    document.addEventListener('cobalt:ready', (event) => {
+      callback(event.detail || {});
+    }, { once: true });
+  };
+
+  function buildPageBundleUrl(fileName) {
+    return `assets/js/${fileName}?v=${PAGE_BUNDLE_VERSION}`;
+  }
+
+  function dynamicImport(url) {
+    try {
+      return new Function('bundleUrl', 'return import(bundleUrl);')(url);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  async function loadPageFeatureBundles(pageId) {
+    const bundles = PAGE_BUNDLE_MAP[pageId];
+    if (!Array.isArray(bundles) || !bundles.length) return;
+
+    await Promise.all(bundles.map((fileName) => loadPageBundle(fileName)));
+  }
+
+  async function loadPageBundle(fileName) {
+    const bundleUrl = buildPageBundleUrl(fileName);
+    if (loadedPageBundles.has(bundleUrl)) return;
+    loadedPageBundles.add(bundleUrl);
+
+    const alreadyIncluded = Array.from(document.querySelectorAll('script[src]')).some((script) => {
+      const src = script.getAttribute('src') || '';
+      return src.indexOf(`assets/js/${fileName}`) !== -1;
+    });
+    if (alreadyIncluded) return;
+
+    try {
+      await dynamicImport(bundleUrl);
+    } catch (error) {
+      await injectPageBundleScript(bundleUrl, fileName);
+    }
+  }
+
+  function injectPageBundleScript(url, fileName) {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = url;
+      script.defer = true;
+      script.setAttribute('data-page-bundle', fileName);
+      script.addEventListener('load', () => resolve(), { once: true });
+      script.addEventListener('error', () => reject(new Error(`Failed to load ${fileName}`)), { once: true });
+      document.head.appendChild(script);
+    });
+  }
+
+  function showCinematicIntroIfNeeded(pageId) {
+    const body = document.body;
+    if (!body) return Promise.resolve();
+    if (body.getAttribute('data-intro-disabled') === 'true') return Promise.resolve();
+
+    const storageKey = 'cobalt_cinematic_intro_seen_v1';
+    const introDuration = 3000;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const forceIntro = /(?:\?|&)intro=1(?:&|$)/.test(window.location.search);
+
+    if (forceIntro && typeof window.history.replaceState === 'function') {
+      try {
+        const cleanUrl = new URL(window.location.href);
+        cleanUrl.searchParams.delete('intro');
+        const cleanSearch = cleanUrl.searchParams.toString();
+        const nextUrl = `${cleanUrl.pathname}${cleanSearch ? `?${cleanSearch}` : ''}${cleanUrl.hash}`;
+        window.history.replaceState({}, '', nextUrl);
+      } catch (error) {
+        // no-op
+      }
+    }
+
+    if (pageId !== 'home') {
+      return Promise.resolve();
+    }
+
+    let introSeen = false;
+    try {
+      introSeen = localStorage.getItem(storageKey) === '1';
+    } catch (error) {
+      introSeen = false;
+    }
+
+    const markSeen = () => {
+      try {
+        localStorage.setItem(storageKey, '1');
+      } catch (error) {
+        // no-op
+      }
+    };
+
+    if (introSeen && !forceIntro) {
+      return Promise.resolve();
+    }
+
+    if (reduceMotion) {
+      markSeen();
+      return Promise.resolve();
+    }
+
+    return new Promise((resolve) => {
+      const intro = document.createElement('div');
+      intro.className = 'site-intro';
+      intro.style.setProperty('--intro-duration', `${introDuration}ms`);
+      intro.innerHTML = `
+        <div class="site-intro-backdrop" data-intro-close="true"></div>
+        <div class="site-intro-gradient" aria-hidden="true"></div>
+        <div class="site-intro-grid" aria-hidden="true"></div>
+        <div class="site-intro-rings" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="site-intro-embers" aria-hidden="true"></div>
+        <div class="site-intro-noise" aria-hidden="true"></div>
+        <div class="site-intro-scanline" aria-hidden="true"></div>
+        <section class="site-intro-center" role="dialog" aria-modal="true" aria-label="Приветствие Cobalt BAB">
+          <div class="site-intro-brand">
+            <span class="site-intro-logo"><i class="fas fa-meteor"></i></span>
+            <span class="site-intro-kicker">Cobalt BAB</span>
+          </div>
+          <h2 class="site-intro-title">
+            <span class="site-intro-title-main">RUST</span>
+            <span class="site-intro-title-sub">Command Hub</span>
+          </h2>
+          <p class="site-intro-sub">Бинды, гайды и база знаний для уверенной игры</p>
+          <div class="site-intro-progress" aria-hidden="true"><span></span></div>
+          <div class="site-intro-actions">
+            <button type="button" class="site-intro-skip" data-intro-skip>Пропустить</button>
+            <span class="site-intro-hint">ESC</span>
+          </div>
+        </section>
+      `;
+
+      const skipBtn = intro.querySelector('[data-intro-skip]');
+      const backdrop = intro.querySelector('[data-intro-close="true"]');
+      const embers = intro.querySelector('.site-intro-embers');
+      let closeTimer = 0;
+      let removeTimer = 0;
+      let closed = false;
+
+      if (embers) {
+        for (let i = 0; i < 18; i += 1) {
+          const spark = document.createElement('span');
+          spark.style.left = `${4 + Math.random() * 92}%`;
+          spark.style.animationDelay = `${Math.random() * 1.8}s`;
+          spark.style.animationDuration = `${2.2 + Math.random() * 1.8}s`;
+          spark.style.opacity = `${0.22 + Math.random() * 0.45}`;
+          embers.appendChild(spark);
+        }
+      }
+
+      const cleanup = () => {
+        window.clearTimeout(closeTimer);
+        window.clearTimeout(removeTimer);
+        document.removeEventListener('keydown', onKeydown);
+        if (backdrop) backdrop.removeEventListener('click', onSkip);
+        if (skipBtn) skipBtn.removeEventListener('click', onSkip);
+      };
+
+      const closeIntro = () => {
+        if (closed) return;
+        closed = true;
+        cleanup();
+        markSeen();
+        body.classList.remove('intro-open');
+        intro.classList.remove('is-open');
+        removeTimer = window.setTimeout(() => {
+          intro.remove();
+          resolve();
+        }, 360);
+      };
+
+      const onSkip = () => closeIntro();
+      const onKeydown = (event) => {
+        if (event.key === 'Escape' || event.key === 'Enter') {
+          event.preventDefault();
+          closeIntro();
+        }
+      };
+
+      if (skipBtn) skipBtn.addEventListener('click', onSkip);
+      if (backdrop) backdrop.addEventListener('click', onSkip);
+      document.addEventListener('keydown', onKeydown);
+
+      body.appendChild(intro);
+      body.classList.add('intro-open');
+      requestAnimationFrame(() => {
+        intro.classList.add('is-open');
+      });
+
+      closeTimer = window.setTimeout(closeIntro, introDuration);
+    });
+  }
+
 
   // ===== Preloader =====
   document.addEventListener('DOMContentLoaded', () => {
@@ -80,19 +293,20 @@
       if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
     });
 
+    const pageId = (document.body && document.body.getAttribute('data-page')) || '';
     const header = document.querySelector('header');
     const navLinks = Array.from(document.querySelectorAll('.nav-link'));
     const sections = Array.from(document.querySelectorAll('.section'));
     const hasHashNav = navLinks.some(link => (link.getAttribute('href') || '').startsWith('#'));
 
+    initPageCinematicTransitions();
     initA11yEnhancements();
     syncActiveNavAria();
-    initHeroParticles();
-    initHeroCinematicBackground();
-    initHomeNewsFeed();
-    initHomeChangelog();
-    initFirstVisitTour();
     initScrollReveal();
+    initSectionEnergyFrames();
+    loadPageFeatureBundles(pageId).catch((error) => {
+      console.warn('[Cobalt] Не удалось загрузить page-бандлы:', error);
+    });
 
     // Для многостраничной версии: если на странице одна .section, показываем её сразу.
     if (sections.length === 1 && !sections[0].classList.contains('active')) {
@@ -168,17 +382,6 @@
       if (hash && document.getElementById(hash)) setActiveNav(hash);
     });
 
-    // Tabs: binds
-    setupTabs('.category-tabs .tab-btn', '.bind-category', 'data-category');
-    // Tabs: guides
-    setupTabs('.guides-tabs .guide-tab-btn', '.guide-category', 'data-guide');
-    // Interactive checklist: guides
-    initGuideChecklist();
-    // Filters + sort: bases
-    setupBasesGrid();
-    // Visual key chips for binds page
-    decorateBindKeyChips();
-
     function initA11yEnhancements() {
       const main = document.querySelector('main');
       if (main && !main.id) main.id = 'main-content';
@@ -207,776 +410,232 @@
       });
     }
 
-    function setupTabs(btnSelector, panelSelector, attr) {
-      const buttons = Array.from(document.querySelectorAll(btnSelector));
-      const panels = Array.from(document.querySelectorAll(panelSelector));
-      if (!buttons.length || !panels.length) return;
+    function initPageCinematicTransitions() {
+      const body = document.body;
+      if (!body) return;
 
-      const tablist = buttons[0].parentElement;
-      if (tablist && !tablist.hasAttribute('role')) tablist.setAttribute('role', 'tablist');
+      const ENTER_DURATION = 700;
+      const EXIT_DURATION = 560;
+      const EXIT_NAV_FALLBACK = EXIT_DURATION + 260;
+      const TRANSITION_LINK_SELECTOR = '.nav-link, .hero-btn, [data-page-transition="true"]';
+      const PATH_LABEL_MAP = Object.freeze({
+        '/': 'Главная',
+        '/index.html': 'Главная',
+        '/binds.html': 'Бинды',
+        '/guides.html': 'Гайды',
+        '/faq.html': 'FAQ',
+        '/bases.html': 'Базы',
+        '/team.html': 'Команда'
+      });
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const transitionLayer = ensureTransitionLayer();
+      const transitionTitle = transitionLayer ? transitionLayer.querySelector('[data-transition-title]') : null;
+      const transitionSub = transitionLayer ? transitionLayer.querySelector('[data-transition-sub]') : null;
+      let isNavigatingAway = false;
+      let enterCleanupTimer = 0;
+      let fallbackNavTimer = 0;
+      let transitionEndHandler = null;
 
-      const activate = (id, { focusButton = false } = {}) => {
-        buttons.forEach((b) => {
-          const selected = b.getAttribute(attr) === id;
-          b.classList.toggle('active', selected);
-          b.setAttribute('aria-selected', selected ? 'true' : 'false');
-          b.setAttribute('tabindex', selected ? '0' : '-1');
-          if (selected && focusButton) b.focus();
-        });
+      if (transitionLayer) {
+        transitionLayer.style.setProperty('--page-transition-enter', `${ENTER_DURATION}ms`);
+        transitionLayer.style.setProperty('--page-transition-exit', `${EXIT_DURATION}ms`);
+      }
 
-        panels.forEach((p) => {
-          const isActive = p.id === id;
-          p.classList.toggle('active', isActive);
-          p.setAttribute('aria-hidden', isActive ? 'false' : 'true');
-          p.toggleAttribute('hidden', !isActive);
-        });
+      const setTransitionText = (title, sub) => {
+        if (transitionTitle) transitionTitle.textContent = title || 'Cobalt BAB';
+        if (transitionSub) transitionSub.textContent = sub || 'Переход между разделами';
       };
 
-      buttons.forEach((btn, index) => {
-        const id = btn.getAttribute(attr);
-        if (!id) return;
+      const setLayerVisibility = (visible) => {
+        if (!transitionLayer) return;
+        transitionLayer.style.visibility = visible ? 'visible' : 'hidden';
+      };
 
-        const panel = panels.find((p) => p.id === id);
-        const tabId = `${id}-tab`;
-
-        btn.id = tabId;
-        btn.setAttribute('role', 'tab');
-        btn.setAttribute('aria-controls', id);
-
-        if (panel) {
-          panel.setAttribute('role', 'tabpanel');
-          panel.setAttribute('aria-labelledby', tabId);
+      const cancelPendingTransitionHandlers = () => {
+        window.clearTimeout(enterCleanupTimer);
+        window.clearTimeout(fallbackNavTimer);
+        enterCleanupTimer = 0;
+        fallbackNavTimer = 0;
+        if (transitionLayer && transitionEndHandler) {
+          transitionLayer.removeEventListener('animationend', transitionEndHandler);
         }
+        transitionEndHandler = null;
+      };
 
-        btn.addEventListener('click', () => activate(id));
-        btn.addEventListener('keydown', (event) => {
-          if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
-            event.preventDefault();
-            const dir = event.key === 'ArrowRight' ? 1 : -1;
-            const nextIndex = (index + dir + buttons.length) % buttons.length;
-            const nextId = buttons[nextIndex].getAttribute(attr);
-            if (nextId) activate(nextId, { focusButton: true });
-            return;
-          }
-          if (event.key === 'Home') {
-            event.preventDefault();
-            const firstId = buttons[0].getAttribute(attr);
-            if (firstId) activate(firstId, { focusButton: true });
-            return;
-          }
-          if (event.key === 'End') {
-            event.preventDefault();
-            const lastId = buttons[buttons.length - 1].getAttribute(attr);
-            if (lastId) activate(lastId, { focusButton: true });
-          }
-        });
+      const clearState = () => {
+        cancelPendingTransitionHandlers();
+        body.classList.remove('page-transition-in', 'page-transition-out', 'page-transition-lock');
+        setLayerVisibility(false);
+        isNavigatingAway = false;
+      };
+
+      // Safari/Firefox bfcache restore can keep previous classes.
+      window.addEventListener('pageshow', () => {
+        clearState();
       });
 
-      const initial = buttons.find((b) => b.classList.contains('active')) || buttons[0];
-      const initialId = initial.getAttribute(attr);
-      if (initialId) activate(initialId);
-    }
-
-    function initGuideChecklist() {
-      const checklistItems = Array.from(document.querySelectorAll('.checklist-item'));
-      if (!checklistItems.length) return;
-
-      const syncItemState = (item, checked) => {
-        item.classList.toggle('checked', checked);
-        item.setAttribute('aria-checked', checked ? 'true' : 'false');
-
-        const icon = item.querySelector('.check-icon i');
-        if (!icon) return;
-
-        icon.classList.remove('fas', 'far', 'fa-check-circle', 'fa-circle');
-        if (checked) {
-          icon.classList.add('fas', 'fa-check-circle');
-        } else {
-          icon.classList.add('far', 'fa-circle');
-        }
-      };
-
-      checklistItems.forEach((item) => {
-        if (item.dataset.checklistReady === 'true') return;
-        item.dataset.checklistReady = 'true';
-
-        const initialChecked = item.classList.contains('checked');
-        item.setAttribute('role', 'checkbox');
-        item.setAttribute('tabindex', '0');
-        syncItemState(item, initialChecked);
-      });
-
-      if (checklistDelegatedHandlersBound) return;
-      checklistDelegatedHandlersBound = true;
-
-      const toggleItem = (item) => {
-        const next = !item.classList.contains('checked');
-        syncItemState(item, next);
-      };
+      if (!prefersReducedMotion) {
+        setTransitionText(getPageLabelByUrl(new URL(window.location.href)) || 'Cobalt BAB', 'Раздел загружен');
+        setLayerVisibility(true);
+        body.classList.add('page-transition-in');
+        enterCleanupTimer = window.setTimeout(() => {
+          if (isNavigatingAway) return;
+          body.classList.remove('page-transition-in');
+          setLayerVisibility(false);
+          enterCleanupTimer = 0;
+        }, ENTER_DURATION);
+      }
 
       document.addEventListener('click', (event) => {
-        const item = event.target instanceof Element ? event.target.closest('.checklist-item') : null;
-        if (!item) return;
-        toggleItem(item);
-      });
+        const target = event.target instanceof Element ? event.target.closest('a[href]') : null;
+        if (!target) return;
 
-      document.addEventListener('keydown', (event) => {
-        if (event.key !== 'Enter' && event.key !== ' ') return;
-        const active = document.activeElement;
-        if (!(active instanceof Element) || !active.classList.contains('checklist-item')) return;
+        if (isNavigatingAway) {
+          event.preventDefault();
+          return;
+        }
+
+        if (isSameDocumentLink(target)) {
+          event.preventDefault();
+          return;
+        }
+
+        const nextUrl = getInternalNavigationTarget(target, event);
+        if (!nextUrl) return;
+
+        if (prefersReducedMotion) {
+          window.location.assign(nextUrl.href);
+          return;
+        }
+
         event.preventDefault();
-        toggleItem(active);
-      });
-    }
+        cancelPendingTransitionHandlers();
+        isNavigatingAway = true;
+        const targetLabel = getTransitionLabel(target, nextUrl);
+        setTransitionText(targetLabel, 'Открываем раздел...');
+        setLayerVisibility(true);
+        body.classList.remove('page-transition-in');
+        body.classList.add('page-transition-out', 'page-transition-lock');
 
-    function initHomeNewsFeed() {
-      const newsRoot = document.querySelector('[data-news-feed]');
-      if (!newsRoot) return;
+        const href = nextUrl.href;
 
-      const list = newsRoot.querySelector('[data-news-list]');
-      const status = newsRoot.querySelector('[data-news-status]');
-      const sourceUrl = newsRoot.getAttribute('data-news-src') || 'assets/data/news.json';
-      if (!list) return;
-      const fallbackItems = [
-        {
-          date: '2026-02-07T21:00:00+03:00',
-          type: 'Ивент',
-          title: 'Ночной PvP-турнир 2x2',
-          text: 'Сбор в голосовом канале в 20:45 МСК. Победителей ждут роли и призы.',
-          url: 'https://discord.gg/Q8ZfawakxS'
-        },
-        {
-          date: '2026-02-06T19:30:00+03:00',
-          type: 'Анонс',
-          title: 'Обновили раздел гайдов',
-          text: 'Добавили новые советы для новичков по фарму, стартовой базе и безопасным зонам.',
-          url: 'guides.html'
-        },
-        {
-          date: '2026-02-05T22:00:00+03:00',
-          type: 'Вайп',
-          title: 'Плановый вайп в воскресенье',
-          text: 'Следующий вайп сервера запланирован на 8 февраля в 13:00 МСК.',
-          url: 'https://discord.gg/Q8ZfawakxS'
-        }
-      ];
+        const navigate = () => {
+          if (!isNavigatingAway) return;
+          isNavigatingAway = false;
+          cancelPendingTransitionHandlers();
+          window.location.assign(href);
+        };
 
-      const typeMeta = {
-        'анонс': { label: 'Анонс', className: 'news-type-announcement' },
-        'ивент': { label: 'Ивент', className: 'news-type-event' },
-        'вайп': { label: 'Вайп', className: 'news-type-wipe' },
-        'обновление': { label: 'Обновление', className: 'news-type-update' }
-      };
+        transitionEndHandler = (animationEvent) => {
+          if (animationEvent.target !== transitionLayer) return;
+          if (animationEvent.animationName !== 'page-cinematic-out') return;
+          navigate();
+        };
 
-      const showStatus = (text, isError) => {
-        if (!status) return;
-        status.textContent = text;
-        status.hidden = false;
-        status.classList.toggle('is-error', !!isError);
-      };
-
-      const hideStatus = () => {
-        if (!status) return;
-        status.hidden = true;
-      };
-
-      const parseDate = (value) => {
-        const date = new Date(value);
-        return Number.isNaN(date.getTime()) ? null : date;
-      };
-
-      const formatDate = (dateValue) => {
-        const date = parseDate(dateValue);
-        if (!date) return 'Без даты';
-        return date.toLocaleString('ru-RU', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit'
-        }).replace(',', '');
-      };
-
-      const getType = (rawType) => {
-        if (!rawType) return { label: 'Новость', className: 'news-type-default' };
-        const key = String(rawType).trim().toLowerCase();
-        return typeMeta[key] || { label: rawType, className: 'news-type-default' };
-      };
-
-      const createCard = (item) => {
-        const article = document.createElement('article');
-        article.className = 'news-card';
-
-        const head = document.createElement('div');
-        head.className = 'news-card-head';
-
-        const type = getType(item.type);
-        const badge = document.createElement('span');
-        badge.className = `news-type ${type.className}`;
-        badge.textContent = type.label;
-
-        const date = document.createElement('time');
-        date.className = 'news-date';
-        date.dateTime = item.date || '';
-        date.textContent = formatDate(item.date);
-
-        head.appendChild(badge);
-        head.appendChild(date);
-
-        const title = document.createElement('h4');
-        title.className = 'news-title';
-        title.textContent = item.title || 'Без названия';
-
-        article.appendChild(head);
-        article.appendChild(title);
-
-        if (item.text) {
-          const text = document.createElement('p');
-          text.className = 'news-text';
-          text.textContent = item.text;
-          article.appendChild(text);
+        if (transitionLayer) {
+          transitionLayer.addEventListener('animationend', transitionEndHandler);
         }
 
-        if (item.url) {
-          const link = document.createElement('a');
-          link.className = 'news-link';
-          link.href = item.url;
-          link.textContent = 'Подробнее';
-          if (/^https?:\/\//i.test(item.url)) {
-            link.target = '_blank';
-            link.rel = 'noopener noreferrer';
-          }
-          article.appendChild(link);
-        }
+        // Safety fallback: если animationend не сработал
+        fallbackNavTimer = window.setTimeout(navigate, EXIT_NAV_FALLBACK);
+      }, true);
 
-        return article;
-      };
+      function ensureTransitionLayer() {
+        let layer = document.querySelector('.page-cinematic-transition');
+        if (layer) return layer;
 
-      const renderFeed = (items) => {
-        list.innerHTML = '';
-        const fragment = document.createDocumentFragment();
-        items.forEach((item) => {
-          fragment.appendChild(createCard(item));
-        });
-        list.appendChild(fragment);
-      };
-
-      fetch(sourceUrl, { cache: 'no-store' })
-        .then((response) => {
-          if (!response.ok) throw new Error(`HTTP ${response.status}`);
-          return response.json();
-        })
-        .then((data) => {
-          if (!Array.isArray(data)) throw new Error('Bad data');
-          const items = data
-            .filter((item) => item && item.title && item.date)
-            .sort((a, b) => {
-              const aDate = parseDate(a.date);
-              const bDate = parseDate(b.date);
-              if (!aDate && !bDate) return 0;
-              if (!aDate) return 1;
-              if (!bDate) return -1;
-              return bDate - aDate;
-            })
-            .slice(0, 5);
-
-          if (!items.length) {
-            list.hidden = true;
-            showStatus('Пока новостей нет. Скоро добавим обновления.', false);
-            return;
-          }
-
-          renderFeed(items);
-          list.hidden = false;
-          hideStatus();
-        })
-        .catch(() => {
-          if (fallbackItems.length) {
-            renderFeed(fallbackItems);
-            list.hidden = false;
-            showStatus('Показываем встроенные новости (offline режим).', false);
-            return;
-          }
-          list.hidden = true;
-          showStatus('Не удалось загрузить новости. Проверьте файл assets/data/news.json', true);
-        });
-    }
-
-    function initHomeChangelog() {
-      const changelogRoot = document.querySelector('[data-changelog-feed]');
-      if (!changelogRoot) return;
-
-      const list = changelogRoot.querySelector('[data-changelog-list]');
-      const status = changelogRoot.querySelector('[data-changelog-status]');
-      const moreBtn = changelogRoot.querySelector('[data-changelog-more]');
-      const sourceUrl = changelogRoot.getAttribute('data-changelog-src') || 'assets/data/changelog.json';
-      if (!list) return;
-
-      const fallbackItems = [
-        {
-          date: '2026-02-07T23:35:00+03:00',
-          type: 'Фича',
-          status: 'done',
-          title: 'Добавили хронологию обновлений на главную',
-          text: 'Новый блок показывает последние апдейты сайта в формате таймлайна.',
-          url: 'index.html'
-        },
-        {
-          date: '2026-02-07T22:50:00+03:00',
-          type: 'Улучшение',
-          status: 'done',
-          title: 'Прокачали ленту новостей сервера',
-          text: 'Лента стала более живой, а главное объявление читается заметно лучше.',
-          url: 'index.html#homeNewsTitle'
-        },
-        {
-          date: '2026-02-07T20:20:00+03:00',
-          type: 'Фикс',
-          status: 'done',
-          title: 'Исправили чеклист в гайдах',
-          text: 'Чеклист снова корректно переключается кликом и клавиатурой.',
-          url: 'guides.html'
-        }
-      ];
-
-      const typeMeta = {
-        'фича': { label: 'Фича', className: 'changelog-type-feature' },
-        'улучшение': { label: 'Улучшение', className: 'changelog-type-improve' },
-        'фикс': { label: 'Фикс', className: 'changelog-type-fix' },
-        'план': { label: 'План', className: 'changelog-type-plan' }
-      };
-
-      const statusMeta = {
-        'done': { label: 'Готово', className: 'changelog-status-done' },
-        'in_progress': { label: 'В работе', className: 'changelog-status-progress' },
-        'planned': { label: 'Запланировано', className: 'changelog-status-planned' }
-      };
-
-      let allItems = [];
-      let expanded = false;
-      const collapsedLimit = 5;
-
-      const showStatus = (text, isError) => {
-        if (!status) return;
-        status.textContent = text;
-        status.hidden = false;
-        status.classList.toggle('is-error', !!isError);
-      };
-
-      const hideStatus = () => {
-        if (!status) return;
-        status.hidden = true;
-      };
-
-      const parseDate = (value) => {
-        const date = new Date(value);
-        return Number.isNaN(date.getTime()) ? null : date;
-      };
-
-      const formatDate = (dateValue) => {
-        const date = parseDate(dateValue);
-        if (!date) return 'Без даты';
-        return date.toLocaleString('ru-RU', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit'
-        }).replace(',', '');
-      };
-
-      const isThisWeek = (dateValue) => {
-        const date = parseDate(dateValue);
-        if (!date) return false;
-        const weekAgo = new Date();
-        weekAgo.setDate(weekAgo.getDate() - 7);
-        return date >= weekAgo;
-      };
-
-      const getType = (rawType) => {
-        const key = String(rawType || '').trim().toLowerCase();
-        return typeMeta[key] || { label: rawType || 'Обновление', className: 'changelog-type-default' };
-      };
-
-      const getStatus = (rawStatus) => {
-        const key = String(rawStatus || '').trim().toLowerCase();
-        return statusMeta[key] || { label: 'Готово', className: 'changelog-status-done' };
-      };
-
-      const createItem = (item) => {
-        const article = document.createElement('article');
-        article.className = 'changelog-item';
-        if (isThisWeek(item.date)) {
-          article.classList.add('is-week');
-        }
-
-        const head = document.createElement('div');
-        head.className = 'changelog-item-head';
-
-        const meta = document.createElement('div');
-        meta.className = 'changelog-meta';
-
-        const type = getType(item.type);
-        const typeBadge = document.createElement('span');
-        typeBadge.className = `changelog-pill ${type.className}`;
-        typeBadge.textContent = type.label;
-
-        const stage = getStatus(item.status);
-        const stageBadge = document.createElement('span');
-        stageBadge.className = `changelog-pill ${stage.className}`;
-        stageBadge.textContent = stage.label;
-
-        meta.appendChild(typeBadge);
-        meta.appendChild(stageBadge);
-
-        if (isThisWeek(item.date)) {
-          const weekBadge = document.createElement('span');
-          weekBadge.className = 'changelog-week-badge';
-          weekBadge.textContent = 'Эта неделя';
-          meta.appendChild(weekBadge);
-        }
-
-        const date = document.createElement('time');
-        date.className = 'changelog-date';
-        date.dateTime = item.date || '';
-        date.textContent = formatDate(item.date);
-
-        head.appendChild(meta);
-        head.appendChild(date);
-
-        const title = document.createElement('h4');
-        title.className = 'changelog-title';
-        title.textContent = item.title || 'Обновление';
-
-        const text = document.createElement('p');
-        text.className = 'changelog-text';
-        text.textContent = item.text || '';
-
-        article.appendChild(head);
-        article.appendChild(title);
-        article.appendChild(text);
-
-        if (item.url) {
-          const link = document.createElement('a');
-          link.className = 'changelog-link';
-          link.href = item.url;
-          link.textContent = 'Открыть';
-          if (/^https?:\/\//i.test(item.url)) {
-            link.target = '_blank';
-            link.rel = 'noopener noreferrer';
-          }
-          article.appendChild(link);
-        }
-
-        return article;
-      };
-
-      const syncMoreButton = () => {
-        if (!moreBtn) return;
-        const canExpand = allItems.length > collapsedLimit;
-        moreBtn.hidden = !canExpand;
-        if (!canExpand) return;
-
-        const icon = moreBtn.querySelector('i');
-        const text = moreBtn.querySelector('span');
-        if (icon) {
-          icon.classList.toggle('fa-plus', !expanded);
-          icon.classList.toggle('fa-minus', expanded);
-        }
-        if (text) {
-          text.textContent = expanded ? 'Свернуть' : 'Показать ещё';
-        }
-      };
-
-      const render = () => {
-        const visible = expanded ? allItems : allItems.slice(0, collapsedLimit);
-        list.innerHTML = '';
-
-        if (!visible.length) {
-          list.hidden = true;
-          showStatus('Пока обновлений нет.', false);
-          syncMoreButton();
-          return;
-        }
-
-        const fragment = document.createDocumentFragment();
-        visible.forEach((item) => fragment.appendChild(createItem(item)));
-        list.appendChild(fragment);
-        list.hidden = false;
-        hideStatus();
-        syncMoreButton();
-      };
-
-      if (moreBtn) {
-        moreBtn.addEventListener('click', () => {
-          expanded = !expanded;
-          render();
-        });
-      }
-
-      fetch(sourceUrl, { cache: 'no-store' })
-        .then((response) => {
-          if (!response.ok) throw new Error(`HTTP ${response.status}`);
-          return response.json();
-        })
-        .then((data) => {
-          if (!Array.isArray(data)) throw new Error('Bad data');
-          allItems = data
-            .filter((item) => item && item.title && item.text && item.date)
-            .sort((a, b) => {
-              const aDate = parseDate(a.date);
-              const bDate = parseDate(b.date);
-              if (!aDate && !bDate) return 0;
-              if (!aDate) return 1;
-              if (!bDate) return -1;
-              return bDate - aDate;
-            })
-            .slice(0, 12);
-          render();
-        })
-        .catch(() => {
-          allItems = fallbackItems;
-          render();
-          showStatus('Показываем встроенную хронологию (offline режим).', false);
-        });
-    }
-
-    function initFirstVisitTour() {
-      const isDesktop = window.matchMedia('(min-width: 1100px)').matches;
-      if (!isDesktop) return;
-      if (!document.body || document.body.getAttribute('data-page') !== 'home') return;
-
-      const forceTour = /(?:\?|&)tour=1(?:&|$)/.test(window.location.search);
-      const storageKey = 'cobalt_site_tour_seen_v1';
-      let alreadySeen = false;
-      try {
-        alreadySeen = localStorage.getItem(storageKey) === '1';
-      } catch (e) {
-        alreadySeen = false;
-      }
-      if (alreadySeen && !forceTour) return;
-
-      const steps = [
-        {
-          selector: '.nav-link[href="binds.html"]',
-          title: 'Бинды',
-          text: 'Здесь собраны самые полезные команды для Rust. Можно быстро скопировать и вставить в игру.'
-        },
-        {
-          selector: '.nav-link[href="guides.html"]',
-          title: 'Гайды',
-          text: 'Пошаговые разборы для старта, фарма, PvP и развития. Отличная точка входа для новичков.'
-        },
-        {
-          selector: '.nav-link[href="faq.html"]',
-          title: 'FAQ',
-          text: 'Ответы на частые вопросы по серверу и игровым моментам. Удобно, когда нужен быстрый ответ.'
-        },
-        {
-          selector: '.home-news, [data-news-feed]',
-          title: 'Лента новостей',
-          text: 'Тут публикуются актуальные анонсы и события сервера, чтобы ты всегда был в курсе.'
-        }
-      ];
-
-      const preparedSteps = steps
-        .map((step) => {
-          const target = document.querySelector(step.selector);
-          if (!target) return null;
-          return { ...step, target };
-        })
-        .filter(Boolean);
-
-      if (preparedSteps.length < 3) return;
-
-      const root = document.createElement('div');
-      root.className = 'site-tour';
-      root.innerHTML = `
-        <div class="site-tour-backdrop" data-tour-close="true"></div>
-        <div class="site-tour-spotlight" aria-hidden="true"></div>
-        <section class="site-tour-panel" role="dialog" aria-modal="true" aria-label="Мини-тур по сайту">
-          <div class="site-tour-head">
-            <span class="site-tour-kicker"><i class="fas fa-compass"></i> Мини-тур</span>
-            <button type="button" class="site-tour-skip" data-tour-skip>Пропустить</button>
+        layer = document.createElement('div');
+        layer.className = 'page-cinematic-transition';
+        layer.setAttribute('aria-hidden', 'true');
+        layer.innerHTML = `
+          <span class="page-cinematic-sweep"></span>
+          <span class="page-cinematic-noise"></span>
+          <div class="page-cinematic-center">
+            <span class="page-cinematic-kicker">Cobalt BAB</span>
+            <strong class="page-cinematic-title" data-transition-title>Переход</strong>
+            <span class="page-cinematic-sub" data-transition-sub>Переход между разделами</span>
+            <span class="page-cinematic-bar" aria-hidden="true"></span>
           </div>
-          <h4 class="site-tour-title"></h4>
-          <p class="site-tour-text"></p>
-          <div class="site-tour-progress" aria-hidden="true"></div>
-          <div class="site-tour-controls">
-            <button type="button" class="site-tour-btn is-ghost" data-tour-prev>Назад</button>
-            <button type="button" class="site-tour-btn is-primary" data-tour-next>Далее</button>
-          </div>
-        </section>
-      `;
-
-      document.body.appendChild(root);
-      document.body.classList.add('tour-open');
-
-      const panel = root.querySelector('.site-tour-panel');
-      const backdrop = root.querySelector('.site-tour-backdrop');
-      const titleEl = root.querySelector('.site-tour-title');
-      const textEl = root.querySelector('.site-tour-text');
-      const progressEl = root.querySelector('.site-tour-progress');
-      const prevBtn = root.querySelector('[data-tour-prev]');
-      const nextBtn = root.querySelector('[data-tour-next]');
-      const skipBtn = root.querySelector('[data-tour-skip]');
-
-      if (!panel || !titleEl || !textEl || !progressEl || !prevBtn || !nextBtn || !skipBtn) {
-        root.remove();
-        document.body.classList.remove('tour-open');
-        return;
+        `;
+        body.appendChild(layer);
+        return layer;
       }
 
-      let currentStep = 0;
-      let currentTarget = null;
-      let rafId = 0;
+      function getTransitionLabel(link, url) {
+        const mapped = getPageLabelByUrl(url);
+        if (mapped) return mapped;
 
-      const progressDots = preparedSteps.map((_, index) => {
-        const dot = document.createElement('span');
-        dot.className = 'site-tour-dot';
-        dot.setAttribute('data-index', String(index));
-        progressEl.appendChild(dot);
-        return dot;
-      });
-      progressEl.style.gridTemplateColumns = `repeat(${preparedSteps.length}, minmax(0, 1fr))`;
+        const dataLabel = (link.getAttribute('data-transition-label') || '').trim();
+        if (dataLabel) return dataLabel;
 
-      const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+        const textLabel = (link.textContent || '').replace(/\s+/g, ' ').trim();
+        return textLabel || 'Раздел';
+      }
 
-      const markSeen = () => {
+      function getPageLabelByUrl(url) {
+        const path = normalizePath(url.pathname || '/');
+        return PATH_LABEL_MAP[path] || '';
+      }
+
+      function normalizePath(pathname) {
+        const normalized = (pathname || '/').replace(/\/+$/, '');
+        return normalized || '/';
+      }
+
+      function isSameDocumentLink(link) {
+        const rawHref = (link.getAttribute('href') || '').trim();
+        if (!rawHref || rawHref.startsWith('#')) return false;
+        if (/^(mailto:|tel:|javascript:)/i.test(rawHref)) return false;
+
+        let url;
         try {
-          localStorage.setItem(storageKey, '1');
+          url = new URL(link.href, window.location.href);
+        } catch (error) {
+          return false;
+        }
+
+        if (!/^https?:$/i.test(url.protocol)) return false;
+        if (url.origin !== window.location.origin) return false;
+
+        const current = new URL(window.location.href);
+        const samePath = normalizePath(url.pathname) === normalizePath(current.pathname);
+        const sameSearch = url.search === current.search;
+        const sameHash = url.hash === current.hash;
+        return samePath && sameSearch && sameHash;
+      }
+
+      function getInternalNavigationTarget(link, event) {
+        if (event.defaultPrevented) return null;
+        if (event.button !== 0) return null;
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return null;
+        if (!link.matches(TRANSITION_LINK_SELECTOR)) return null;
+        if (link.hasAttribute('download')) return null;
+        if (link.dataset.noTransition === 'true') return null;
+
+        const targetAttr = (link.getAttribute('target') || '').toLowerCase();
+        if (targetAttr && targetAttr !== '_self') return null;
+
+        const rawHref = (link.getAttribute('href') || '').trim();
+        if (!rawHref || rawHref.startsWith('#')) return null;
+        if (/^(mailto:|tel:|javascript:)/i.test(rawHref)) return null;
+
+        let url;
+        try {
+          url = new URL(link.href, window.location.href);
         } catch (e) {
-          // no-op
+          return null;
         }
-      };
 
-      const smoothBehavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+        if (!/^https?:$/i.test(url.protocol)) return null;
+        if (url.origin !== window.location.origin) return null;
 
-      const ensureTargetInView = (target) => {
-        const rect = target.getBoundingClientRect();
-        const outOfView = rect.top < 86 || rect.bottom > (window.innerHeight - 86);
-        if (outOfView) {
-          target.scrollIntoView({ behavior: smoothBehavior, block: 'center', inline: 'nearest' });
-        }
-      };
+        const samePath = url.pathname === window.location.pathname;
+        const sameSearch = url.search === window.location.search;
+        if (samePath && sameSearch && url.hash) return null;
+        if (url.href === window.location.href) return null;
 
-      const updateSpotlight = () => {
-        const step = preparedSteps[currentStep];
-        if (!step || !step.target) return;
-        const rect = step.target.getBoundingClientRect();
-        const pad = 10;
-        const left = clamp(rect.left - pad, 8, window.innerWidth - 20);
-        const top = clamp(rect.top - pad, 8, window.innerHeight - 20);
-        const width = clamp(rect.width + pad * 2, 22, window.innerWidth - left - 8);
-        const height = clamp(rect.height + pad * 2, 22, window.innerHeight - top - 8);
-
-        root.style.setProperty('--tour-x', `${left}px`);
-        root.style.setProperty('--tour-y', `${top}px`);
-        root.style.setProperty('--tour-w', `${width}px`);
-        root.style.setProperty('--tour-h', `${height}px`);
-
-        const panelRect = panel.getBoundingClientRect();
-        const edge = 16;
-        let panelTop = rect.bottom + 18;
-        if (panelTop + panelRect.height > window.innerHeight - edge) {
-          panelTop = rect.top - panelRect.height - 18;
-          root.classList.add('panel-above');
-        } else {
-          root.classList.remove('panel-above');
-        }
-        panelTop = clamp(panelTop, edge, window.innerHeight - panelRect.height - edge);
-        let panelLeft = rect.left + rect.width / 2 - panelRect.width / 2;
-        panelLeft = clamp(panelLeft, edge, window.innerWidth - panelRect.width - edge);
-
-        panel.style.left = `${panelLeft}px`;
-        panel.style.top = `${panelTop}px`;
-      };
-
-      const requestSpotlightUpdate = () => {
-        cancelAnimationFrame(rafId);
-        rafId = requestAnimationFrame(updateSpotlight);
-      };
-
-      const renderStep = () => {
-        const step = preparedSteps[currentStep];
-        if (!step) return;
-
-        if (currentTarget) currentTarget.classList.remove('site-tour-target');
-        currentTarget = step.target;
-        currentTarget.classList.add('site-tour-target');
-
-        titleEl.textContent = step.title;
-        textEl.textContent = step.text;
-
-        progressDots.forEach((dot, index) => {
-          dot.classList.toggle('active', index === currentStep);
-          dot.classList.toggle('is-done', index < currentStep);
-        });
-
-        prevBtn.disabled = currentStep === 0;
-        nextBtn.textContent = currentStep === preparedSteps.length - 1 ? 'Готово' : 'Далее';
-
-        ensureTargetInView(step.target);
-        setTimeout(() => requestSpotlightUpdate(), 60);
-      };
-
-      const closeTour = (saveSeen) => {
-        if (saveSeen) markSeen();
-        cancelAnimationFrame(rafId);
-        if (currentTarget) currentTarget.classList.remove('site-tour-target');
-        window.removeEventListener('resize', requestSpotlightUpdate);
-        window.removeEventListener('scroll', requestSpotlightUpdate, true);
-        document.removeEventListener('keydown', onKeydown);
-        root.classList.remove('is-open');
-        document.body.classList.remove('tour-open');
-        setTimeout(() => root.remove(), 180);
-      };
-
-      const goNext = () => {
-        if (currentStep >= preparedSteps.length - 1) {
-          closeTour(true);
-          return;
-        }
-        currentStep += 1;
-        renderStep();
-      };
-
-      const goPrev = () => {
-        if (currentStep <= 0) return;
-        currentStep -= 1;
-        renderStep();
-      };
-
-      const onKeydown = (event) => {
-        if (event.key === 'Escape') {
-          event.preventDefault();
-          closeTour(true);
-          return;
-        }
-        if (event.key === 'ArrowRight') {
-          event.preventDefault();
-          goNext();
-          return;
-        }
-        if (event.key === 'ArrowLeft') {
-          event.preventDefault();
-          goPrev();
-        }
-      };
-
-      nextBtn.addEventListener('click', goNext);
-      prevBtn.addEventListener('click', goPrev);
-      skipBtn.addEventListener('click', () => closeTour(true));
-      if (backdrop) backdrop.addEventListener('click', () => closeTour(true));
-
-      window.addEventListener('resize', requestSpotlightUpdate);
-      window.addEventListener('scroll', requestSpotlightUpdate, true);
-      document.addEventListener('keydown', onKeydown);
-
-      setTimeout(() => {
-        root.classList.add('is-open');
-        renderStep();
-      }, 550);
+        return url;
+      }
     }
 
     function initScrollReveal() {
@@ -987,6 +646,7 @@
         '.features .feature-card',
         '.home-news .news-card',
         '.home-changelog .changelog-item',
+        '.home-quote',
         '#binds .bind-card',
         '#guides .guide-main-card',
         '#guides .guide-side-card',
@@ -1038,57 +698,114 @@
       }
     }
 
-    function decorateBindKeyChips() {
-      if (!document.body || document.body.getAttribute('data-page') !== 'binds') return;
-      const bindKeyRows = document.querySelectorAll('#binds .bind-key');
-      if (!bindKeyRows.length) return;
+    function initSectionEnergyFrames() {
+      const targets = document.querySelectorAll([
+        'main > section.section',
+        'body[data-page="home"] .home-news',
+        'body[data-page="home"] .home-changelog',
+        'body[data-page="home"] .home-quote'
+      ].join(', '));
 
-      const keyTokenRegex = /\b(F\d{1,2}|MOUSE\d|ПКМ|ЛКМ|КОЛ[ЕЁ]СИКО|[A-ZА-ЯЁ]|\d)\b/gi;
-      const normalizeChip = (token) => {
-        const upper = token.toUpperCase().replace('Ё', 'Е');
-        if (upper === 'ПКМ') return 'RMB';
-        if (upper === 'ЛКМ') return 'LMB';
-        if (upper === 'КОЛЕСИКО') return 'MOUSE3';
-        return upper;
-      };
+      if (!targets.length) return;
 
-      bindKeyRows.forEach((row) => {
-        if (row.dataset.keysDecorated === 'true') return;
-        row.dataset.keysDecorated = 'true';
+      targets.forEach((section) => {
+        if (!section || section.classList.contains('energy-frame')) return;
+        section.classList.add('energy-frame');
+      });
 
-        const icon = row.querySelector('i');
-        const iconHTML = icon ? icon.outerHTML : '<i class="fas fa-keyboard"></i>';
-        const originalText = (row.textContent || '').replace(/\s+/g, ' ').trim();
-        const keyText = originalText.replace(/^Клавиша:\s*/i, '').trim();
-        if (!keyText) return;
-
-        let chipCount = 0;
-        const decorated = keyText.replace(keyTokenRegex, (match) => {
-          chipCount += 1;
-          return `<span class="key-chip">${normalizeChip(match)}</span>`;
-        });
-
-        const fallbackChip = chipCount === 0 && /консоль/i.test(keyText)
-          ? ' <span class="key-chip">F1</span>'
-          : '';
-
-        row.innerHTML = `${iconHTML}<span class="key-line">${decorated}${fallbackChip}</span>`;
+      // Блок "Почему игроки выбирают нас?" оставляем без энергетической рамки.
+      document.querySelectorAll('body[data-page="home"] .features').forEach((section) => {
+        section.classList.remove('energy-frame');
       });
     }
 
     // Copy buttons
     const copyBtns = document.querySelectorAll('.copy-btn');
     const copyNotification = document.getElementById('copyNotification');
-    let notifyTimer;
+    let toastHost = null;
+
+    const ensureToastHost = () => {
+      if (!document.body) return null;
+      if (toastHost && document.body.contains(toastHost)) return toastHost;
+
+      const existing = document.querySelector('.premium-toast-host');
+      if (existing) {
+        toastHost = existing;
+        return toastHost;
+      }
+
+      toastHost = document.createElement('div');
+      toastHost.className = 'premium-toast-host';
+      toastHost.setAttribute('aria-live', 'polite');
+      toastHost.setAttribute('aria-atomic', 'false');
+      document.body.appendChild(toastHost);
+      return toastHost;
+    };
+
     const showToast = (text, error) => {
-      if (!copyNotification) return;
-      copyNotification.textContent = text;
-      copyNotification.style.background = error ? 'linear-gradient(135deg,#e74c3c,#c0392b)' : 'var(--gradient-primary)';
-      copyNotification.classList.remove('show');
-      void copyNotification.offsetWidth;
-      copyNotification.classList.add('show');
-      clearTimeout(notifyTimer);
-      notifyTimer = setTimeout(()=>copyNotification.classList.remove('show'), 2000);
+      const host = ensureToastHost();
+      if (!host) {
+        if (!copyNotification) return;
+        copyNotification.textContent = text;
+        copyNotification.style.background = error ? 'linear-gradient(135deg,#e74c3c,#c0392b)' : 'var(--gradient-primary)';
+        copyNotification.classList.remove('show');
+        void copyNotification.offsetWidth;
+        copyNotification.classList.add('show');
+        window.setTimeout(() => copyNotification.classList.remove('show'), 2000);
+        return;
+      }
+
+      const tone = error ? 'error' : 'success';
+      const icon = error ? 'fa-triangle-exclamation' : 'fa-check';
+      const title = error ? 'Ошибка' : 'Скопировано';
+      const description = text || (error ? 'Не удалось выполнить действие.' : 'Готово');
+
+      const toast = document.createElement('div');
+      toast.className = `premium-toast premium-toast-${tone}`;
+      toast.innerHTML = `
+        <div class="premium-toast-icon"><i class="fas ${icon}"></i></div>
+        <div class="premium-toast-content">
+          <p class="premium-toast-title">${title}</p>
+          <p class="premium-toast-text">${description}</p>
+        </div>
+        <button class="premium-toast-close" type="button" aria-label="Закрыть уведомление">
+          <i class="fas fa-xmark"></i>
+        </button>
+        <span class="premium-toast-progress" aria-hidden="true"></span>
+      `;
+
+      host.appendChild(toast);
+      requestAnimationFrame(() => toast.classList.add('is-visible'));
+
+      const closeToast = () => {
+        if (toast.classList.contains('is-leaving')) return;
+        toast.classList.add('is-leaving');
+        window.setTimeout(() => toast.remove(), 260);
+      };
+
+      const closeBtn = toast.querySelector('.premium-toast-close');
+      if (closeBtn) closeBtn.addEventListener('click', closeToast);
+
+      let remaining = 3000;
+      let startedAt = Date.now();
+      let autoTimer = window.setTimeout(closeToast, remaining);
+
+      toast.addEventListener('mouseenter', () => {
+        clearTimeout(autoTimer);
+        remaining -= Date.now() - startedAt;
+      });
+
+      toast.addEventListener('mouseleave', () => {
+        startedAt = Date.now();
+        autoTimer = window.setTimeout(closeToast, Math.max(220, remaining));
+      });
+
+      const activeToasts = host.querySelectorAll('.premium-toast');
+      if (activeToasts.length > 4) {
+        const oldest = activeToasts[0];
+        oldest.classList.add('is-leaving');
+        window.setTimeout(() => oldest.remove(), 220);
+      }
     };
     copyBtns.forEach(btn => {
       btn.addEventListener('click', async e => {
@@ -1099,304 +816,14 @@
         try {
           await navigator.clipboard.writeText(txt);
           btn.innerHTML = "<i class='fas fa-check'></i> Скопировано";
-          showToast('Скопировано в буфер!');
+          showToast('Команда добавлена в буфер.');
         } catch(err) {
           btn.innerHTML = "<i class='fas fa-times'></i> Ошибка";
-          showToast('Не удалось скопировать', true);
+          showToast('Не удалось скопировать команду.', true);
         }
         setTimeout(()=>{ btn.classList.remove('copied'); btn.innerHTML = prev; }, 900);
       });
     });
-
-    // FAQ accordion + filters
-    const faqItems = document.querySelectorAll('.faq-item');
-    const faqSearch = document.getElementById('faqSearch');
-    const faqNoResults = document.querySelector('.faq-no-results');
-    const faqFilterBtns = document.querySelectorAll('.faq-filter-btn');
-
-    faqItems.forEach((item, index) => {
-      const header = item.querySelector('.faq-header');
-      const content = item.querySelector('.faq-content');
-      if (!header || !content) return;
-
-      const panelId = content.id || `faq-panel-${index + 1}`;
-      const triggerId = header.id || `faq-trigger-${index + 1}`;
-
-      content.id = panelId;
-      content.hidden = true;
-      content.setAttribute('role', 'region');
-      content.setAttribute('aria-labelledby', triggerId);
-
-      header.id = triggerId;
-      header.setAttribute('role', 'button');
-      header.setAttribute('tabindex', '0');
-      header.setAttribute('aria-controls', panelId);
-      header.setAttribute('aria-expanded', 'false');
-
-      const activate = () => toggleFAQ(item, content);
-      header.addEventListener('click', activate);
-      header.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          activate();
-        }
-      });
-    });
-    function toggleFAQ(item, content){
-      const isOpen = item.classList.contains('active');
-      faqItems.forEach(i=>{
-        i.classList.remove('active');
-        const h = i.querySelector('.faq-header');
-        const c = i.querySelector('.faq-content');
-        if (h) h.setAttribute('aria-expanded', 'false');
-        if (c) {
-          c.style.maxHeight = '0px';
-          c.hidden = true;
-        }
-      });
-      if (!isOpen){
-        item.classList.add('active');
-        const header = item.querySelector('.faq-header');
-        if (header) header.setAttribute('aria-expanded', 'true');
-        content.hidden = false;
-        content.style.maxHeight = content.scrollHeight + 'px';
-      }
-    }
-
-    function initHeroParticles() {
-      const container = document.getElementById('particles-js');
-      if (!container) return;
-
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        container.style.display = 'none';
-        return;
-      }
-
-      const isMobile = window.matchMedia('(max-width: 768px)').matches;
-      const config = {
-        particles: {
-          number: {
-            value: isMobile ? 28 : 54,
-            density: { enable: true, value_area: 900 }
-          },
-          color: { value: ['#00d4ff', '#3498db', '#8be9ff'] },
-          shape: { type: 'circle' },
-          opacity: { value: 0.42, random: true },
-          size: { value: 3, random: true },
-          line_linked: {
-            enable: true,
-            distance: 140,
-            color: '#00d4ff',
-            opacity: 0.2,
-            width: 1
-          },
-          move: {
-            enable: true,
-            speed: isMobile ? 1.3 : 2,
-            direction: 'none',
-            random: true,
-            straight: false,
-            out_mode: 'out',
-            bounce: false
-          }
-        },
-        interactivity: {
-          detect_on: 'canvas',
-          events: {
-            onhover: { enable: true, mode: 'grab' },
-            onclick: { enable: true, mode: 'push' },
-            resize: true
-          },
-          modes: {
-            grab: { distance: 140, line_linked: { opacity: 0.35 } },
-            push: { particles_nb: 3 }
-          }
-        },
-        retina_detect: true
-      };
-
-      const startParticles = () => {
-        if (typeof window.particlesJS !== 'function') return;
-        container.innerHTML = '';
-        window.particlesJS('particles-js', config);
-      };
-
-      if (typeof window.particlesJS === 'function') {
-        startParticles();
-        return;
-      }
-
-      loadParticlesLibrary().then((loaded) => {
-        if (!loaded) return;
-        startParticles();
-      });
-    }
-
-    function initHeroCinematicBackground() {
-      const cinematic = document.querySelector('.hero-cinematic-bg');
-      if (!cinematic) return;
-
-      const video = cinematic.querySelector('.hero-bg-video');
-      if (!video) return;
-
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        cinematic.classList.add('video-disabled');
-        try {
-          video.pause();
-        } catch (e) {
-          // no-op
-        }
-        return;
-      }
-
-      const markReady = () => cinematic.classList.add('video-ready');
-      const markFallback = () => cinematic.classList.remove('video-ready');
-
-      video.muted = true;
-      video.defaultMuted = true;
-      video.playsInline = true;
-
-      video.addEventListener('playing', markReady, { once: true });
-      video.addEventListener('canplay', markReady, { once: true });
-      video.addEventListener('error', markFallback, { once: true });
-      video.addEventListener('stalled', markFallback);
-
-      if (video.readyState >= 2) markReady();
-
-      const playAttempt = video.play();
-      if (playAttempt && typeof playAttempt.catch === 'function') {
-        playAttempt.catch(() => {
-          markFallback();
-        });
-      }
-    }
-
-    function loadParticlesLibrary() {
-      if (typeof window.particlesJS === 'function') return Promise.resolve(true);
-      if (particlesLoaderPromise) return particlesLoaderPromise;
-
-      particlesLoaderPromise = new Promise((resolve) => {
-        const existing = document.querySelector('script[data-particles-js="true"]');
-        if (existing) {
-          existing.addEventListener('load', () => resolve(true), { once: true });
-          existing.addEventListener('error', () => resolve(false), { once: true });
-          return;
-        }
-
-        const script = document.createElement('script');
-        script.src = 'assets/js/particles.min.js';
-        script.async = true;
-        script.defer = true;
-        script.setAttribute('data-particles-js', 'true');
-        script.addEventListener('load', () => resolve(true), { once: true });
-        script.addEventListener('error', () => resolve(false), { once: true });
-        document.head.appendChild(script);
-      });
-
-      return particlesLoaderPromise;
-    }
-
-    function setupBasesGrid() {
-      const filterBtns = Array.from(document.querySelectorAll('.bases-filters .filter-btn'));
-      const sortSelect = document.querySelector('.bases-sort .sort-select');
-      const grid = document.querySelector('.bases-grid');
-      const cards = Array.from(document.querySelectorAll('.bases-grid .base-card'));
-
-      if (!grid || !cards.length) return;
-
-      const originalIndex = new Map(cards.map((card, idx) => [card, idx]));
-      const costRank = { low: 1, medium: 2, high: 3 };
-      let currentFilter = 'all';
-
-      const getCardRating = (card) => {
-        const ratingStat = Array.from(card.querySelectorAll('.base-stats .stat'))
-          .find((el) => el.textContent.includes('/10'));
-        if (!ratingStat) return 0;
-        const text = ratingStat.textContent.trim();
-        const value = parseFloat(text.split('/')[0].replace(',', '.'));
-        return Number.isFinite(value) ? value : 0;
-      };
-
-      const getCardArea = (card) => {
-        const size = (card.getAttribute('data-size') || '').toLowerCase();
-        const parts = size.split('x').map((n) => parseInt(n, 10));
-        if (parts.length !== 2 || Number.isNaN(parts[0]) || Number.isNaN(parts[1])) return 0;
-        return parts[0] * parts[1];
-      };
-
-      const applyFilter = () => {
-        cards.forEach((card) => {
-          const category = card.getAttribute('data-category') || '';
-          const visible = currentFilter === 'all' || category === currentFilter;
-          card.style.display = visible ? '' : 'none';
-        });
-      };
-
-      const applySort = () => {
-        const sortMode = sortSelect ? sortSelect.value : 'newest';
-        const sorted = [...cards].sort((a, b) => {
-          if (sortMode === 'popular') {
-            return getCardRating(b) - getCardRating(a);
-          }
-          if (sortMode === 'size') {
-            return getCardArea(b) - getCardArea(a);
-          }
-          if (sortMode === 'cost') {
-            const aCost = costRank[a.getAttribute('data-cost')] || 999;
-            const bCost = costRank[b.getAttribute('data-cost')] || 999;
-            return aCost - bCost;
-          }
-          // newest: keep original order from HTML
-          return (originalIndex.get(a) || 0) - (originalIndex.get(b) || 0);
-        });
-
-        sorted.forEach((card) => grid.appendChild(card));
-      };
-
-      const render = () => {
-        applySort();
-        applyFilter();
-      };
-
-      filterBtns.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          currentFilter = btn.getAttribute('data-filter') || 'all';
-          filterBtns.forEach((b) => b.classList.remove('active'));
-          btn.classList.add('active');
-          render();
-        });
-      });
-
-      if (sortSelect) {
-        sortSelect.addEventListener('change', render);
-      }
-
-      render();
-    }
-    faqFilterBtns.forEach(btn => btn.addEventListener('click', ()=>{
-      const cat = btn.getAttribute('data-category');
-      faqFilterBtns.forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      const searchTerm = faqSearch ? faqSearch.value : '';
-      filterFAQ(cat, searchTerm);
-    }));
-    if (faqSearch) faqSearch.addEventListener('input', ()=>{
-      const activeBtn = document.querySelector('.faq-filter-btn.active');
-      const cat = (activeBtn && activeBtn.getAttribute('data-category')) || 'all';
-      filterFAQ(cat, faqSearch.value);
-    });
-    function filterFAQ(cat, term){
-      term = term.toLowerCase();
-      let visible=0;
-      faqItems.forEach(item=>{
-        const matchesCat = cat==='all' || item.getAttribute('data-category')===cat;
-        const text = item.textContent.toLowerCase();
-        const match = matchesCat && text.includes(term);
-        item.classList.toggle('hidden', !match);
-        if(match) visible++;
-      });
-      if (faqNoResults) faqNoResults.style.display = visible? 'none':'block';
-    }
 
     // Discord counts
     const onlineEls = document.querySelectorAll('.discord-online, #discordOnline');
@@ -1422,30 +849,65 @@
     }
 
     // Parallax glow
-    const canHoverParallax = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const canHoverParallax =
+      window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (canHoverParallax) {
-      const parallaxCards = document.querySelectorAll('.bind-card, .guide-card, .faq-item, .feature-card, .base-card');
-      parallaxCards.forEach(card => {
+      const parallaxSelector = [
+        '.bind-card',
+        '.guide-main-card',
+        '.guide-side-card',
+        '.guide-card',
+        '.faq-item',
+        '.feature-card',
+        '.base-card',
+        '.news-card',
+        '.changelog-item'
+      ].join(', ');
+
+      const bindParallax = (card) => {
+        if (!card || card.dataset.parallaxReady === 'true') return;
+        card.dataset.parallaxReady = 'true';
         card.classList.add('parallax-card');
-        card.addEventListener('mousemove', e => {
+
+        card.addEventListener('mousemove', (e) => {
           const r = card.getBoundingClientRect();
           const x = e.clientX - r.left;
           const y = e.clientY - r.top;
-          const tiltX = ((y/r.height)-0.5)*-6;
-          const tiltY = ((x/r.width)-0.5)*8;
+          const tiltX = ((y / r.height) - 0.5) * -4;
+          const tiltY = ((x / r.width) - 0.5) * 5;
           card.style.setProperty('--tiltX', `${tiltX}deg`);
           card.style.setProperty('--tiltY', `${tiltY}deg`);
           card.style.setProperty('--glowX', `${x}px`);
           card.style.setProperty('--glowY', `${y}px`);
         });
-        card.addEventListener('mouseleave', ()=>{
+
+        card.addEventListener('mouseleave', () => {
           card.style.removeProperty('--tiltX');
           card.style.removeProperty('--tiltY');
           card.style.removeProperty('--glowX');
           card.style.removeProperty('--glowY');
           card.style.transform = '';
         });
-      });
+      };
+
+      const bindParallaxCards = (root) => {
+        const scope = root && typeof root.querySelectorAll === 'function' ? root : document;
+        const cards = scope.querySelectorAll(parallaxSelector);
+        cards.forEach((card) => bindParallax(card));
+      };
+
+      bindParallaxCards(document);
+
+      const dynamicRoots = [
+        document.querySelector('[data-news-list]'),
+        document.querySelector('[data-changelog-list]')
+      ].filter(Boolean);
+
+      if (dynamicRoots.length && 'MutationObserver' in window) {
+        const observer = new MutationObserver(() => bindParallaxCards(document));
+        dynamicRoots.forEach((root) => observer.observe(root, { childList: true, subtree: true }));
+      }
     }
 
     // Scroll to top button
@@ -1459,6 +921,15 @@
       });
     }
 
-    console.log('✓ Cobalt BAB инициализирован.');
+    const finalizeReady = () => {
+      const readyPayload = {
+        page: pageId
+      };
+      cobaltReadyPayload = readyPayload;
+      document.dispatchEvent(new CustomEvent('cobalt:ready', { detail: readyPayload }));
+      console.log('✓ Cobalt BAB инициализирован.');
+    };
+
+    showCinematicIntroIfNeeded(pageId).then(finalizeReady).catch(finalizeReady);
   }
 })();
